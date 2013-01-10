@@ -10,8 +10,11 @@
  *	Kevin Brown kbrown3@uccs.edu
  *	Nate Bohlmann nate@elfwerks.com
  *  David Kopf dak664@embarqmail.com
- *  Ivan Delamer delamer@ieee.com
- *
+ *  Ivan Delamer delamer@ieee.com 
+ 
+ *  Additional fixes for  at86rf212 ,mx2xxcc and iduino support contributed by smeshlink Technology Ltd.
+ *  fredqian support@smeshlink.com 
+ 
  *   All rights reserved.
  *
  *   Redistribution and use in source and binary forms, with or without
@@ -110,7 +113,7 @@
 #   define SLPTRPIN   (0x04)
 
 
-#elif PLATFORM_TYPE == RAVEN_D
+#elif PLATFORM_TYPE == RAVEN_D || PLATFORM_TYPE == MX2XXCC
 /* 1284 raven */
 #   define SSPORT     B
 #   define SSPIN      (0x04)
@@ -125,7 +128,7 @@
 #   define SLPTRPORT  B
 #   define SLPTRPIN   (0x03)
 
-#elif PLATFORM_TYPE == RAVENUSB_C
+#elif PLATFORM_TYPE == RAVENUSB_C || PLATFORM_TYPE == MXUSB
 /* 1287USB raven */
 #   define SSPORT     B
 #   define SSPIN      (0x00)
@@ -140,10 +143,26 @@
 #   define SLPTRPORT  B
 #   define SLPTRPIN   (0x04)
 
-#elif PLATFORM_TYPE == ATMEGA128RFA1
+#elif RF230BB && PLATFORM_TYPE == ATMEGA128RFA1
 /* ATmega1281 with internal AT86RF231 radio */
 #   define SLPTRPORT  TRXPR
 #   define SLPTRPIN   1
+
+#elif RF212BB && PLATFORM_TYPE == ATMEGA128RFA1
+/* ATmega128RFA1 with  AT86RF212 radio */
+#   define SSPORT     B
+#   define SSPIN      (0x00)
+#   define SPIPORT    B
+#   define MOSIPIN    (0x02)
+#   define MISOPIN    (0x03)
+#   define SCKPIN     (0x01)
+#   define RSTPORT    G
+#   define RSTPIN     (0x01)
+#   define IRQPORT    D
+#   define IRQPIN     (0x04)
+#   define SLPTRPORT  G
+#   define SLPTRPIN   (0x00)
+
 
 #elif CONTIKI_TARGET_MULLE
 /* mulle 5.2 (TODO: move to platform specific) */
@@ -162,7 +181,7 @@
 #   define SLPTRPORT  0
 #   define SLPTRPIN   7
 
-#elif PLATFORM_TYPE == IRIS
+#elif PLATFORM_TYPE == IRIS || PLATFORM_TYPE == MX2XXCB
 /* 1281 IRIS */
 #   define SSPORT     B
 #   define SSPIN      (0x00)
@@ -233,7 +252,7 @@
  *       that the source code can directly use.
  * \{
  */
-#if defined(__AVR_ATmega128RFA1__)
+#if RF230BB && defined(__AVR_ATmega128RFA1__)
 
 #define hal_set_rst_low( )    ( TRXPR &= ~( 1 << TRXRST ) ) /**< This macro pulls the RST pin low. */
 #define hal_set_rst_high( )   ( TRXPR |= ( 1 << TRXRST ) ) /**< This macro pulls the RST pin high. */
@@ -283,6 +302,40 @@
 #define HAL_SS_LOW( )  (HAL_PORT_SS &= ~( 1 << HAL_SS_PIN )) /**< MACRO for pulling SS low. */
 
 #if defined(__AVR__)
+/**** Belows is important for atmega1284p *******/
+#if ( F_CPU == 16000000UL )
+    #define HAL_TCCR1B_CONFIG ( ( 1 << ICES1 ) | ( 1 << CS12 ) )
+    #define HAL_US_PER_SYMBOL ( 1 )
+    #define HAL_SYMBOL_MASK   ( 0xFFFFffff )
+
+    /*#define HAL_TCCR1B_CONFIG ( ( 1 << ICES1 ) | ( 1 << CS11 ) | ( 1 << CS10 ) )
+    #define HAL_US_PER_SYMBOL ( 2 )
+    #define HAL_SYMBOL_MASK   ( 0x7FFFffff )
+    */
+#elif ( F_CPU == 0x800000UL )
+    #define HAL_TCCR1B_CONFIG ( ( 1 << ICES1 ) | ( 1 << CS11 ) | ( 1 << CS10 ) )
+    #define HAL_US_PER_SYMBOL ( 2 )
+    #define HAL_SYMBOL_MASK   ( 0x7FFFffff )
+#elif ( F_CPU == 8000000UL )
+    #define HAL_TCCR1B_CONFIG ( ( 1 << ICES1 ) | ( 1 << CS11 ) | ( 1 << CS10 ) )
+    #define HAL_US_PER_SYMBOL ( 2 )
+    #define HAL_SYMBOL_MASK   ( 0x7FFFffff )
+//#elif ( F_CPU == 7953408UL )
+#elif ( F_CPU == 7954432UL )
+    #define HAL_TCCR1B_CONFIG ( ( 1 << ICES1 ) | ( 1 << CS11 ) | ( 1 << CS10 ) )
+    #define HAL_US_PER_SYMBOL ( 2 )
+    #define HAL_SYMBOL_MASK   ( 0x7FFFffff )
+#elif ( F_CPU == 4000000UL )
+    #define HAL_TCCR1B_CONFIG ( ( 1 << ICES1 ) | ( 1 << CS11 ) | ( 1 << CS10 ) )
+    #define HAL_US_PER_SYMBOL ( 1 )
+    #define HAL_SYMBOL_MASK   ( 0xFFFFffff )
+#elif ( F_CPU == 1000000UL )
+    #define HAL_TCCR1B_CONFIG ( ( 1 << ICES1 ) | ( 1 << CS11 ) )
+    #define HAL_US_PER_SYMBOL ( 2 )
+    #define HAL_SYMBOL_MASK   ( 0x7FFFffff )
+#else
+    #error "Clock speed not supported."
+#endif
 
 #if PLATFORM_TYPE == ZIGBIT
 // IRQ E5 for Zigbit example
@@ -341,6 +394,8 @@
  */
 #define HAL_BAT_LOW_MASK       ( 0x80 ) /**< Mask for the BAT_LOW interrupt. */
 #define HAL_TRX_UR_MASK        ( 0x40 ) /**< Mask for the TRX_UR interrupt. */
+#define HAL_AMI_MASK		   ( 0x20 ) /**< Mask for the AMI interrupt, rf212 need it.*/
+#define HAL_CCA_ED_DONE		   ( 0x10 ) /**< Mask for the CCA_ED_DONE interrupt, rf212 need it. */
 #define HAL_TRX_END_MASK       ( 0x08 ) /**< Mask for the TRX_END interrupt. */
 #define HAL_RX_START_MASK      ( 0x04 ) /**< Mask for the RX_START interrupt. */
 #define HAL_PLL_UNLOCK_MASK    ( 0x02 ) /**< Mask for the PLL_UNLOCK interrupt. */
@@ -367,7 +422,7 @@ typedef struct{
 void hal_init( void );
 
 /* Hack for atmega128rfa1 with integrated radio. Access registers directly, not through SPI */
-#if defined(__AVR_ATmega128RFA1__)
+#if RF230BB && defined(__AVR_ATmega128RFA1__)
 //#define hal_register_read(address) _SFR_MEM8((uint16_t)address)
 #define hal_register_read(address) address
 uint8_t hal_subregister_read( uint16_t address, uint8_t mask, uint8_t position );

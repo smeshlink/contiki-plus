@@ -6,7 +6,11 @@
  *
  *  David Kopf dak664@embarqmail.com
  *  Ivan Delamer delamer@ieee.com
- *
+ 
+ *  Additional fixes for  at86rf212 ,mx2xxcc and iduino support contributed by smeshlink Technology Ltd.
+ *  fredqian support@smeshlink.com 
+ 
+
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -214,7 +218,7 @@ static unsigned long total_time_for_transmission, total_transmission_len;
 static int num_transmissions;
 #endif
 
-#if defined(__AVR_ATmega128RFA1__)
+#if RF230BB && defined(__AVR_ATmega128RFA1__) 
 volatile uint8_t rf230_wakewait, rf230_txendwait, rf230_ccawait;
 #endif
 
@@ -544,7 +548,7 @@ radio_on(void)
 #if RF230BB_CONF_LEDONPORTE1
     PORTE|=(1<<PE1); //ledon
 #endif
-#if defined(__AVR_ATmega128RFA1__)
+#if RF230BB &&defined(__AVR_ATmega128RFA1__) 
     /* Use the poweron interrupt for delay */
     rf230_wakewait=1;
     {
@@ -624,9 +628,11 @@ radio_off(void)
 static void
 set_txpower(uint8_t power)
 {
-  if (power > TX_PWR_17_2DBM){
+	/* rf212 can
+  if (pow't handle iter > TX_PWR_17_2DBM){
     power=TX_PWR_17_2DBM;
   }
+	 */
   if (hal_get_slptr()) {
     DEBUGFLOW('f');
     PRINTF("rf230_set_txpower:Sleeping");  //happens with cxmac
@@ -791,14 +797,34 @@ rf230_init(void)
   //ATMEGA128RFA1 - version 4, ID 31
   uint8_t tvers = hal_register_read(RG_VERSION_NUM);
   uint8_t tmanu = hal_register_read(RG_MAN_ID_0);
-
-  if ((tvers != RF230_REVA) && (tvers != RF230_REVB))
+#if RF230BB
+  if ((tvers != RF230_REVA) && (tvers != RF230_REVB) && (tvers != RFA1))
     PRINTF("rf230: Unsupported version %u\n",tvers);
   if (tmanu != SUPPORTED_MANUFACTURER_ID) 
     PRINTF("rf230: Unsupported manufacturer ID %u\n",tmanu);
 
   PRINTF("rf230: Version %u, ID %u\n",tvers,tmanu);
-  
+  //hal_subregister_write(SR_CHANNEL, CC_CHANNEL);
+  hal_subregister_write(SR_TX_PWR, TX_PWR_MAX);
+
+#else
+ if ((tvers != RF212_REVA) && (tvers != RF212_REVB))
+    PRINTF("rf212: Unsupported version %u\n",tvers);
+  if (tmanu != SUPPORTED_MANUFACTURER_ID) 
+    PRINTF("rf212: Unsupported manufacturer ID %u\n",tmanu);
+
+ PRINTF("rf212: Version %u, ID %u\n",tvers,tmanu);
+	// set OQSPK modulation with 250KB/s (802.15.4C CHINA)
+	hal_register_write(RG_TRX_CTRL_2, TRX_CTRL2_OQPSK_250KB);
+	/*set frequency to band 4 and use channel 0
+  	 (802.15.4C regulation China, 780 MHz) */
+	hal_subregister_write(RG_CC_BAND, CC_BAND);
+	//hal_register_write(RG_CC_CTRL_1, CC_BAND&0x08);
+	hal_register_write(RG_CC_NUMBER, CC_NUMBER);
+	//hal_subregister_write(SR_CHANNEL, CC_CHANNEL);
+	 hal_register_write(RG_PHY_TX_PWR, TX_PWR_MAX);
+#endif
+
   rf230_warm_reset();
  
  /* Start the packet receive process */
@@ -896,7 +922,7 @@ rf230_transmit(unsigned short payload_len)
   /* If radio is sleeping we have to turn it on first */
   /* This automatically does the PLL calibrations */
   if (hal_get_slptr()) {
-#if defined(__AVR_ATmega128RFA1__)
+#if RF230BB && defined(__AVR_ATmega128RFA1__) 
 	ENERGEST_ON(ENERGEST_TYPE_LED_RED);
 #if RF230BB_CONF_LEDONPORTE1
     PORTE|=(1<<PE1); //ledon
@@ -1204,19 +1230,34 @@ rf230_on(void)
 uint8_t
 rf230_get_channel(void)
 {
-//jackdaw reads zero channel, raven reads correct channel?
-//return hal_subregister_read(SR_CHANNEL);
-  return channel;
+	//return 1;
+	//jackdaw reads zero channel, raven reads correct channel?
+	#if RF212BB
+	uint8_t val= hal_register_read(RG_CC_CTRL_0);
+	return (val-11)/2;
+
+	//return channel;
+	#else
+	return hal_subregister_read(SR_CHANNEL);
+	#endif
 }
 /*---------------------------------------------------------------------------*/
 void
 rf230_set_channel(uint8_t c)
 {
  /* Wait for any transmission to end. */
+ #if RF230BB
   PRINTF("rf230: Set Channel %u\n",c);
   rf230_waitidle();
   channel=c;
   hal_subregister_write(SR_CHANNEL, c);
+  #else
+  	PRINTF("rf212: Set Channel %u\n",c);
+	rf230_waitidle();
+	channel=c;
+	//hal_subregister_write(SR_CHANNEL, c);
+	hal_register_write(RG_CC_NUMBER, c*2+11);
+  #endif
 }
 /*---------------------------------------------------------------------------*/
 void
@@ -1642,7 +1683,7 @@ rf230_cca(void)
 
   /* Start the CCA, wait till done, return result */
   /* Note reading the TRX_STATUS register clears both CCA_STATUS and CCA_DONE bits */
-#if defined(__AVR_ATmega128RFA1__)
+#if RF230BB && defined(__AVR_ATmega128RFA1__) 
 #if 1  //interrupt method
     /* Disable rx transitions to busy (RX_PDT_BIT) */
     /* Note: for speed this resets rx threshold to the compiled default */

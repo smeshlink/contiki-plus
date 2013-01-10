@@ -11,7 +11,11 @@
  *	Nate Bohlmann nate@elfwerks.com
  *  David Kopf dak664@embarqmail.com
  *  Ivan Delamer delamer@ieee.com
- *
+  
+ *  Additional fixes for  at86rf212 ,mx2xxcc and iduino support contributed by smeshlink Technology Ltd.
+ *  fredqian support@smeshlink.com 
+ 
+
  *   All rights reserved.
  *
  *   Redistribution and use in source and binary forms, with or without
@@ -55,41 +59,76 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "hal.h"
-#if defined(__AVR_ATmega128RFA1__)
+#if RF230BB && defined(__AVR_ATmega128RFA1__)
 #include "atmega128rfa1_registermap.h"
-#else
+#elif RF230BB
 #include "at86rf230_registermap.h"
+#else
+#include "at86rf212_registermap.h"
 #endif
 
 
 /*============================ MACROS ========================================*/
+#if RF230BB
 #define SUPPORTED_PART_NUMBER                   ( 2 )
 #define RF230_REVA                              ( 1 )
 #define RF230_REVB                              ( 2 )
+#define RFA1		                            ( 4 )
 #define SUPPORTED_MANUFACTURER_ID               ( 31 )
+#elif RF212BB
+#define SUPPORTED_PART_NUMBER                   ( 7 )
+#define RF212_REVA                              ( 1 )
+#define RF212_REVB                              ( 2 )
+#define SUPPORTED_MANUFACTURER_ID               ( 31 )
+#endif
 
-#if defined(__AVR_ATmega128RFA1__)
+#if RF230BB 
 #define RF230_SUPPORTED_INTERRUPT_MASK          ( 0xFF )
+#define RF230_MIN_CHANNEL                       ( 11 )
+#define RF230_MAX_CHANNEL                       ( 26 )
+#define TX_PWR_3DBM                             ( 0 )
+#define TX_PWR_17_2DBM                          ( 15 )
+#define TX_PWR_MAX                             TX_PWR_3DBM
+#define TX_PWR_MIN                             TX_PWR_17_2DBM
+#define TX_PWR_UNDEFINED                       (TX_PWR_MIN+1)
+#define CC_CHANNEL								11 //2.4G channel 11
 #else
 /* RF230 does not support RX_START interrupts in extended mode, but it seems harmless to always enable it. */
 /* In non-extended mode this allows RX_START to sample the RF rssi at the end of the preamble */
 //#define RF230_SUPPORTED_INTERRUPT_MASK        ( 0x08 )  //enable trx end only
 //#define RF230_SUPPORTED_INTERRUPT_MASK          ( 0x0F ) //disable bat low, trx underrun
-#define RF230_SUPPORTED_INTERRUPT_MASK          ( 0x0C )  //disable bat low, trx underrun, pll lock/unlock
+#define RF230_SUPPORTED_INTERRUPT_MASK          ( HAL_TRX_END_MASK | HAL_RX_START_MASK | HAL_BAT_LOW_MASK | HAL_AMI_MASK ) //( 0x0C )  //disable bat low, trx underrun, pll lock/unlock
+#define RF230_MIN_CHANNEL                       ( 0 )
+#define RF230_MAX_CHANNEL                       ( 3 )
+#define RF212_TX_PWR_5DBM_BOOST_MODE            ( 0xe8 )
+#define RF212_ENABLE_PA_BOOST					(1 << 7)
+#define TRX_CTRL2_BPSK_20KB						( 0x00 )
+#define TRX_CTRL2_OQPSK_100KB					( 0x08 )
+#define TRX_CTRL2_OQPSK_250KB					( 0x1C )
+#define CC_BAND 								4
+#define CC_NUMBER 								11
+#define CC_CHANNEL								11
+//according to 802.15.4 one of these options is mandatory
+#define CCA_ED_OR_CS							(0x00)
+#define CCA_ED_AND_CS							(0x03)
+#define CCA_ED_DEFAULT_THRESHOLD				(0x07)
+#define CCA_ED_MAX_THRESHOLD_BPSK_20			(0x08)
+#define CCA_LBT_ENABLED							(0x01)
+#define TX_PWR_8DBM                             ( 0xE4 )
+#define TX_PWR_N11DBM                          	( 0x0A )
+#define TX_PWR_MAX                             TX_PWR_8DBM
+#define TX_PWR_MIN                             TX_PWR_N11DBM
+#define TX_PWR_UNDEFINED                       (TX_PWR_MIN+1)
 #endif
 
-#define RF230_MIN_CHANNEL                       ( 11 )
-#define RF230_MAX_CHANNEL                       ( 26 )
+
 #define RF230_MIN_ED_THRESHOLD                  ( 0 )
 #define RF230_MAX_ED_THRESHOLD                  ( 15 )
 #define RF230_MAX_TX_FRAME_LENGTH               ( 127 ) /**< 127 Byte PSDU. */
 
-#define TX_PWR_3DBM                             ( 0 )
-#define TX_PWR_17_2DBM                          ( 15 )
 
-#define TX_PWR_MAX                             TX_PWR_3DBM
-#define TX_PWR_MIN                             TX_PWR_17_2DBM
-#define TX_PWR_UNDEFINED                       (TX_PWR_MIN+1)
+
+
 
 
 #define BATTERY_MONITOR_HIGHEST_VOLTAGE         ( 15 )
@@ -105,7 +144,7 @@
 #define RC_OSC_REFERENCE_COUNT_MIN  (0.995*F_CPU*31250UL/8000000UL)
 
 #ifndef RF_CHANNEL
-#define RF_CHANNEL              26
+#define RF_CHANNEL              RF230_MIN_CHANNEL
 #endif
 /*============================ TYPEDEFS ======================================*/
 
