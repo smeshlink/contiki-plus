@@ -1,0 +1,5 @@
+%!: /header.html
+<p>文件系统</p><br><table width="100%"><tr align="left"><th>文件名</th><th>权限配置</th></tr>
+%! file-stats *
+</table>
+%!: /footer.html

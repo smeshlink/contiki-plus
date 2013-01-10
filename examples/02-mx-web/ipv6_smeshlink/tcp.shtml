@@ -1,0 +1,5 @@
+%!: /header.html
+<p>当前连接状态</p><br><table width="100%"><tr><th width="100">本地端口</th><th width="180">远程连接</th><th width="160">状态</th><th width="50">重传</th><th width="60">时间戳</th><th width="50">标记</th></tr>
+%! tcp-connections
+</table>
+%! file-stats .

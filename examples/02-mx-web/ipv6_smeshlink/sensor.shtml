@@ -1,0 +1,4 @@
+%!: /header.html
+<p>传感器实时数据</p><br>
+%! sensors
+%! file-stats .
