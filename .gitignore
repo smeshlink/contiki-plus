@@ -54,3 +54,8 @@ contiki-cc2530dk.lib
 *.banks
 *.sensinode
 *.cc2530dk
+
+# other
+.cproject
+.project
+.svn/
