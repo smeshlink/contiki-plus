@@ -1,0 +1,2 @@
+buzzer-id_src = buzzerid.c
+CFLAGS += -DBUZZER
