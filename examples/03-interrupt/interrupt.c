@@ -27,7 +27,7 @@ PROCESS_THREAD(interrupt_sample_process, ev, data)
 
   interrupt_init(1, 1, 1, 1);
   interrupt_enable(INT0);
-  //interrupt_enable(INT1);
+  interrupt_enable(INT1);
 
   /* Register current process with INT0 & INT1*/
   interrupt_register(INT0);
