@@ -42,6 +42,17 @@
 
 #include "sys/rtimer.h"
 
+#if RDC_CONF_MCU_SLEEP
+/*
+ * Simple mechanism to allow user to suspend/resume
+ * sleep mode by calling push/pop function.
+ * */
+uint8_t get_mcu_need_alive_state();
+void set_mcu_need_alive_state(uint8_t value);
+void push_mcu_need_alive_state(); //add 1
+void pop_mcu_need_alive_state(); //dec 1
+#endif
+
 typedef struct {
   /*  unsigned long cumulative[2];*/
   unsigned long current;

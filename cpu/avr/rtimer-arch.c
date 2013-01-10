@@ -285,7 +285,9 @@ uint32_t longhowlong;
     SMCR |= (1 <<  SE);
 	sei();
 	ENERGEST_OFF(ENERGEST_TYPE_CPU);
-	if (OCR2A) sleep_mode();
+	/* Ensure no activity is suspending the low power mode
+	   before going to sleep. (edited by smeshlink) */
+	if (OCR2A && (get_mcu_need_alive_state()==0)) sleep_mode();
 	  //...zzZZZzz...Ding!//
 
 /* Disable sleep mode after wakeup, so random code cant trigger sleep */

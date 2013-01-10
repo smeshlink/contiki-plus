@@ -40,6 +40,40 @@
 #include "sys/energest.h"
 #include "contiki-conf.h"
 
+#if RDC_CONF_MCU_SLEEP
+static uint8_t mcuneedalive = 0;
+
+uint8_t
+get_mcu_need_alive_state()
+{
+  return mcuneedalive;
+}
+
+void
+set_mcu_need_alive_state(uint8_t value)
+{
+  cli();
+  mcuneedalive=value;
+  sei();
+}
+
+void
+push_mcu_need_alive_state()
+{
+  cli();
+  mcuneedalive++;
+  sei();
+}
+
+void
+pop_mcu_need_alive_state()
+{
+  cli();
+  mcuneedalive--;
+  sei();
+}
+#endif
+
 #if ENERGEST_CONF_ON
 
 int energest_total_count;
