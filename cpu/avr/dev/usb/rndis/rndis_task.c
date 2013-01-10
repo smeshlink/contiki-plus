@@ -52,7 +52,7 @@
 #include "usb_specific_request.h"
 #include "rndis/rndis_task.h"
 #include "rndis/rndis_protocol.h"
-#if RF230BB
+#if ( RF230BB || RF212BB )
 #include "rf230bb.h"
 #endif
 #include "uip.h"
