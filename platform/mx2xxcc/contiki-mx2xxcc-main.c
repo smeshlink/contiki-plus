@@ -98,9 +98,7 @@
 #endif
 
 #if ARDUINO
-unsigned char arduino_node_id[8];
-uint8_t arduino_channel_id;
-uint8_t arduino_power_id;
+#include "contiki-arduino.h"
 #endif
 
 #ifdef CAMERA_INTERFACE
@@ -125,42 +123,43 @@ buzz_id()
 static void
 set_rime_addr(void)
 {
-	rimeaddr_t addr;
+  rimeaddr_t addr;
 #if ARDUINO
-	memcpy(addr.u8, arduino_node_id, sizeof(addr.u8));
+  config();
+  memcpy(addr.u8, arduino_node_id, sizeof(addr.u8));
 #elif UIP_CONF_EUI64
-   memset(&addr, 0, sizeof(rimeaddr_t));
-   if (params_get_eui64(addr.u8)) {
-     PRINTA("Random EUI64 address generated\n");
-   }
+  memset(&addr, 0, sizeof(rimeaddr_t));
+  if (params_get_eui64(addr.u8)) {
+    PRINTA("Random EUI64 address generated\n");
+  }
 #else
-   memcpy(addr.u8, ds2401_id, sizeof(addr.u8));
+  memcpy(addr.u8, ds2401_id, sizeof(addr.u8));
 #endif
 #if UIP_CONF_IPV6
-	memcpy(&uip_lladdr.addr, &addr.u8, sizeof(rimeaddr_t));
-	rimeaddr_set_node_addr(&addr);
-	rf230_set_pan_addr(params_get_panid(), params_get_panaddr(), (uint8_t *)&addr.u8);
+  memcpy(&uip_lladdr.addr, &addr.u8, sizeof(rimeaddr_t));
+  rimeaddr_set_node_addr(&addr);
+  rf230_set_pan_addr(params_get_panid(), params_get_panaddr(), (uint8_t *)&addr.u8);
 #elif WITH_NODE_ID
-	node_id = get_panaddr_from_eeprom();
-	addr.u8[1] = node_id&0xff;
-	addr.u8[0] = (node_id&0xff00) >> 8;
-	PRINTA("Node ID from eeprom: %X\n", node_id);
-	uint16_t inv_node_id=((node_id & 0xff00) >> 8) + ((node_id & 0xff) << 8); // change order of bytes for rf23x
-	rimeaddr_set_node_addr(&addr);
-	rf230_set_pan_addr(params_get_panid(), inv_node_id, NULL);
+  node_id = get_panaddr_from_eeprom();
+  addr.u8[1] = node_id&0xff;
+  addr.u8[0] = (node_id&0xff00) >> 8;
+  PRINTA("Node ID from eeprom: %X\n", node_id);
+  uint16_t inv_node_id=((node_id & 0xff00) >> 8) + ((node_id & 0xff) << 8); // change order of bytes for rf23x
+  rimeaddr_set_node_addr(&addr);
+  rf230_set_pan_addr(params_get_panid(), inv_node_id, NULL);
 #else
-	rimeaddr_set_node_addr(&addr);
-	rf230_set_pan_addr(params_get_panid(), params_get_panaddr(), (uint8_t *)&addr.u8);
+  rimeaddr_set_node_addr(&addr);
+  rf230_set_pan_addr(params_get_panid(), params_get_panaddr(), (uint8_t *)&addr.u8);
 #endif
 #if ARDUINO
-	rf230_set_channel(arduino_channel_id);
-	rf230_set_txpower(arduino_power_id);
+  rf230_set_channel(arduino_channel);
+  rf230_set_txpower(arduino_power);
 #else
-	rf230_set_channel(params_get_channel());
-	rf230_set_txpower(params_get_txpower());
+  rf230_set_channel(params_get_channel());
+  rf230_set_txpower(params_get_txpower());
 #endif
-	//rf230_set_channel(0);
-	//rf230_set_txpower(0xe4);
+  //rf230_set_channel(0);
+  //rf230_set_txpower(0xe4);
 }
 
 void
@@ -478,21 +477,11 @@ ipaddr_add(const uip_ipaddr_t *addr)
 /*------------------------- Main Scheduler loop----------------------------*/
 /*-------------------------------------------------------------------------*/
 int
-#if ARDUINO
-start_contiki(void (*setup) (void), void (*run) (void))
-#else
 main(void)
-#endif
 {
-#if ARDUINO
-  setup();
-#endif
-
   initialize();
 
-#if ARDUINO
-  run();
-#endif
+  leds_on(LEDS_RED);
 
   while(1) {
     process_run();
