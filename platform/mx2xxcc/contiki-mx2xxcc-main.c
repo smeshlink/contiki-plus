@@ -131,7 +131,6 @@ set_rime_addr(void)
 {
   rimeaddr_t addr;
 #if ARDUINO
-  config();
   memcpy(addr.u8, arduino_node_id, sizeof(addr.u8));
 #elif UIP_CONF_EUI64
   memset(&addr, 0, sizeof(rimeaddr_t));
