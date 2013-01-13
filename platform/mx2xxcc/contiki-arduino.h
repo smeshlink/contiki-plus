@@ -28,8 +28,8 @@ extern unsigned char arduino_power;
 #define arduino_set_channel(channel) arduino_channel = channel
 #define arduino_set_power(power) arduino_power = power
 
-void config();
 void setup();
+void initialize();
 
 #ifdef __cplusplus
 } // extern "C"

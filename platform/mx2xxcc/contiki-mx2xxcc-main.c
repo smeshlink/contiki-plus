@@ -104,15 +104,7 @@ unsigned char arduino_node_id[8] = { 0x02, 0x11, 0x22, 0xff, 0xfe, 0x33, 0x44, 0
 unsigned char arduino_channel = MXCHANNEL;
 unsigned char arduino_power = RF230_MAX_TX_POWER;
 
-PROCESS(contiki_arduino, "contiki arduino");
-AUTOSTART_PROCESSES(&contiki_arduino);
-
-PROCESS_THREAD(contiki_arduino, ev, data)
-{
-  PROCESS_BEGIN();
-  setup();
-  PROCESS_END();
-}
+AUTOSTART_PROCESSES(NULL);
 #endif
 
 #ifdef CAMERA_INTERFACE
@@ -332,9 +324,15 @@ rng_get_uint8(void) {
 
 /*-------------------------Low level initialization------------------------*/
 /*------Done in a subroutine to keep main routine stack usage small--------*/
+static char initialized = 0;
+
 void
 initialize(void)
 {
+  if (initialized)
+    return;
+  initialized = 1;
+
 #ifdef BUZZER
   buzz_id();
 #endif
@@ -498,6 +496,9 @@ ipaddr_add(const uip_ipaddr_t *addr)
 int
 main(void)
 {
+#if ARDUINO
+  setup();
+#endif
   initialize();
 
   leds_on(LEDS_RED);
