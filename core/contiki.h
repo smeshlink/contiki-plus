@@ -34,11 +34,6 @@
 #ifndef __CONTIKI_H__
 #define __CONTIKI_H__
 
-#ifdef ARDUINO
-#define REST coap_rest_implementation
-#define CONTIKI 1
-#define AUTOSTART_ENABLE 1
-#endif
 #include "contiki-version.h"
 #include "contiki-conf.h"
 
