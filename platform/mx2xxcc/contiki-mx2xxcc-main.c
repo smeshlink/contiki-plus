@@ -176,6 +176,7 @@ set_rime_addr(void)
   //rf230_set_txpower(0xe4);
 }
 
+#ifndef ARDUINO
 void
 init_usart(void)
 {
@@ -192,6 +193,7 @@ init_usart(void)
   rs232_redirect_stdout(RS232_PORT_0);
 #endif /* WITH_UIP */
 }
+#endif
 
 void
 init_net(void)
@@ -339,10 +341,13 @@ initialize(void)
 
   watchdog_init();
   watchdog_start();
+
+#ifndef ARDUINO
 #ifdef CAMERA_INTERFACE
   camera_init();
 #else
   init_usart();
+#endif
 #endif
 
   clock_init();
