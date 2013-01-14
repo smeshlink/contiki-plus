@@ -421,8 +421,10 @@ uint8_t i;
   process_start(&tcpip_process, NULL);
 #endif /* RF230BB || RF212BB */
 
+#if AUTOSTART_ENABLE
   /* Autostart other processes */
   autostart_start(autostart_processes);
+#endif
 
 
 /*--------------------------Announce the configuration---------------------*/
