@@ -103,8 +103,6 @@
 unsigned char arduino_node_id[8] = { 0x02, 0x11, 0x22, 0xff, 0xfe, 0x33, 0x44, 0x33 };
 unsigned char arduino_channel = MXCHANNEL;
 unsigned char arduino_power = RF230_MAX_TX_POWER;
-
-AUTOSTART_PROCESSES(NULL);
 #endif
 
 #ifdef CAMERA_INTERFACE
@@ -421,7 +419,7 @@ uint8_t i;
   process_start(&tcpip_process, NULL);
 #endif /* RF230BB || RF212BB */
 
-#if AUTOSTART_ENABLE
+#ifndef ARDUINO
   /* Autostart other processes */
   autostart_start(autostart_processes);
 #endif
