@@ -12,6 +12,8 @@ UIP_CONF_EUI64 = 1
 
 WITH_COAP = 7
 
+CONF_LOWPOWER = 1
+
 # REST framework, requires WITH_COAP
 ifeq ($(WITH_COAP), 7)
 ${info INFO: compiling with CoAP-07}

@@ -72,7 +72,7 @@ typedef unsigned long off_t;
 
 /* RADIOSTATS is used in rf230bb, clock.c and the webserver cgi to report radio usage */
 /* It has less overhead than ENERGEST */
-#define RADIOSTATS                1
+#define RADIOSTATS                0
 
 /* More extensive stats, via main loop printfs or webserver status pages */
 #define ENERGEST_CONF_ON          0
@@ -113,7 +113,6 @@ typedef unsigned short uip_stats_t;
 /* Allow MCU sleeping between channel checks contikimac set 1*/
 #define RDC_CONF_MCU_SLEEP         LOWPOWER
 #define AVR_CONF_USE32KCRYSTAL 		LOWPOWER
-
 #ifndef ARDUINO
 #define PROCESS_CONF_NO_PROCESS_NAMES LOWPOWER
 #endif
@@ -218,7 +217,7 @@ typedef unsigned short uip_stats_t;
 //#define NETSTACK_CONF_MAC         nullmac_driver
 /* csma needed for burst mode at present. Webserver won't work without it */
 #define NETSTACK_CONF_MAC         csma_driver
-#define NETSTACK_CONF_RDC         contikimac_driver
+#define NETSTACK_CONF_RDC         contikimac_driver//drowsie_driver
 /* Default is two CCA separated by 500 usec */
 #define NETSTACK_CONF_RDC_CHANNEL_CHECK_RATE   8
 /* Wireshark won't decode with the header, but padded packets will fail ipv6 checksum */

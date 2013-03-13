@@ -135,7 +135,7 @@ void
 packet_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
 {
   const char *temp;
-  char buf[1024];
+  char buf[128];
   int no = 0, len = 0, tries = 0;
 
   /* Get the index of the specified packet. */
@@ -170,7 +170,7 @@ void
 camera_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
 {
   const char *temp;
-  uint8_t buff[1024];
+  uint8_t buff[128];
   camera_size_t camera_size = CAMERA_SIZE_1;
   uint16_t count;
   uint32_t size;

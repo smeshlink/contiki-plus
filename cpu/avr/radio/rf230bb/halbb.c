@@ -199,7 +199,8 @@ hal_init(void)
     SPCR         = (1 << SPE) | (1 << MSTR); /* Enable SPI module and master operation. */
     SPSR         = (1 << SPI2X); /* Enable doubled SPI speed in master mode. */
 #if ( F_CPU == 16000000UL )  //smeshlink modified for rfa1 good relibility
-    SPCR |= _BV(SPR1) | _BV(SPR0) ;
+    //SPCR |= _BV(SPR1) | _BV(SPR0) ;
+    SPCR |= _BV(SPR1);// | _BV(SPR0) ; fosc/32
 #endif
     /*TIMER1 Specific Initialization. atmega1284p need it.*/
     TCCR1B = HAL_TCCR1B_CONFIG;       /* Set clock prescaler */

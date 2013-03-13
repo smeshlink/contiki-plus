@@ -62,6 +62,7 @@
 #define UIP_EXT_HDR_OPT_PADN_BUF  ((struct uip_ext_hdr_opt_padn *)&uip_buf[uip_l2_l3_hdr_len + uip_ext_opt_offset])
 #define UIP_EXT_HDR_OPT_RPL_BUF   ((struct uip_ext_hdr_opt_rpl *)&uip_buf[uip_l2_l3_hdr_len + uip_ext_opt_offset])
 /*---------------------------------------------------------------------------*/
+#if UIP_CONF_IPV6
 int
 rpl_verify_header(int uip_ext_opt_offset)
 {
@@ -112,6 +113,7 @@ rpl_verify_header(int uip_ext_opt_offset)
     if(UIP_EXT_HDR_OPT_RPL_BUF->flags & RPL_HDR_OPT_RANK_ERR) {
       PRINTF("RPL: Rank error signalled in RPL option!\n");
       /* We should try to repair it, not implemented for the moment */
+      /*      rpl_local_repair(instance); */
       return 3;
     }
     PRINTF("RPL: Single error tolerated\n");
@@ -313,3 +315,4 @@ rpl_invert_header(void)
   }
 }
 /*---------------------------------------------------------------------------*/
+#endif /* UIP_CONF_IPV6 */

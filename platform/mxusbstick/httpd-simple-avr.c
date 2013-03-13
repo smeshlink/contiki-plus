@@ -296,7 +296,7 @@ PT_THREAD(generate_routes(struct httpd_state *s))
   }*/
 
   {
-    uip_ds6_route_t *r = NULL;
+	 static uip_ds6_route_t *r = NULL;
     for(r = uip_ds6_route_list_head();
             r != NULL;
             r = list_item_next(r)) {

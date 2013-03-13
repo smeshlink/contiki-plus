@@ -5,7 +5,7 @@ CONTIKI_TARGET_MAIN = ${CONTIKI_CORE}.o
 CONTIKI_TARGET_SOURCEFILES += contiki-mx2xxcc-main.c params.c ds2401.c \
 							leds-arch.c  interrupt-arch.c \
 							slip_uart0.c slip.c \
-							sht11.c sht11-sensor.c adc.c adc-sensors.c
+							sht11.c sht11-sensor.c adc.c adc-sensors.c drowsie.c
 
 CONTIKIAVR=$(CONTIKI)/cpu/avr
 CONTIKIBOARD=.

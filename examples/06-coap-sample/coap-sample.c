@@ -342,7 +342,7 @@ PROCESS_THREAD(coap_sample, ev, data)
 	/* Initialize the REST engine. */
 	rest_init_engine();
 
-	/* Activate the application-specific resources. */
+	/* Activate the application-specific resources.
 	rest_activate_resource(&resource_camera);
 	rest_activate_resource(&resource_take);
 	rest_activate_resource(&resource_size);
@@ -351,6 +351,7 @@ PROCESS_THREAD(coap_sample, ev, data)
 #if UIP_CONF_IPV6_RPL && 0
 	rest_activate_resource(&resource_route);
 #endif
+ */
 	rest_activate_periodic_resource(&periodic_resource_temperature);
 	rest_activate_periodic_resource(&periodic_resource_light);
 	rest_activate_periodic_resource(&periodic_resource_voltage);

@@ -177,7 +177,8 @@ init_usart(void)
       USART_PARITY_NONE | USART_STOP_BITS_1 | USART_DATA_BITS_8);
 */
 #if WITH_UIP || WITH_UIP6
-  slip_arch_init(USART_BAUD_38400);
+  //slip_arch_init(USART_BAUD_38400);
+  rs232_redirect_stdout(RS232_PORT_0);
 #else
   rs232_redirect_stdout(RS232_PORT_0);
 #endif /* WITH_UIP */
@@ -258,7 +259,7 @@ uint8_t debugflowsize,debugflow[DEBUGFLOWSIZE];
 /* Get periodic prints from idle loop, from clock seconds or rtimer interrupts */
 /* Use of rtimer will conflict with other rtimer interrupts such as contikimac radio cycling */
 /* STAMPS will print ENERGEST outputs if that is enabled. */
-#define PERIODICPRINTS 1
+#define PERIODICPRINTS 0
 #if PERIODICPRINTS
 //#define PINGS 64
 #define ROUTES 600
@@ -321,14 +322,14 @@ rng_get_uint8(void) {
 
 /*-------------------------Low level initialization------------------------*/
 /*------Done in a subroutine to keep main routine stack usage small--------*/
-static char initialized = 0;
+static char mcuinitialized = 0;
 
 void
 initialize(void)
 {
-  if (initialized)
+  if (mcuinitialized)
     return;
-  initialized = 1;
+  mcuinitialized = 1;
 
 #ifdef BUZZER
   buzz_id();
@@ -343,6 +344,7 @@ initialize(void)
 #else
   init_usart();
 #endif
+  init_usart();
 #endif
 
   clock_init();
@@ -501,7 +503,6 @@ main(void)
   initialize();
 
   leds_on(LEDS_RED);
-
   while(1) {
     process_run();
     watchdog_periodic();

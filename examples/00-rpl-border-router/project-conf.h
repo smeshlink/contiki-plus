@@ -51,4 +51,8 @@
 #define WEBSERVER_CONF_CFS_CONNS 2
 #endif
 
+#undef UIP_CONF_DS6_NBR_NBU
+#define UIP_CONF_DS6_NBR_NBU      20
+#undef UIP_CONF_DS6_ROUTE_NBU
+#define UIP_CONF_DS6_ROUTE_NBU    20
 #endif /* __PROJECT_ROUTER_CONF_H__ */

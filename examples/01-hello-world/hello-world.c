@@ -20,7 +20,7 @@
 /*---------------------------------------------------------------------------*/
 PROCESS(hello_world_process, "Hello world process");
 PROCESS(leds_blink_process, "LEDs blink process");
-AUTOSTART_PROCESSES(&hello_world_process, &leds_blink_process);
+AUTOSTART_PROCESSES(&hello_world_process,&leds_blink_process);
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(hello_world_process, ev, data)
 {
@@ -68,8 +68,10 @@ PROCESS_THREAD(leds_blink_process, ev, data)
 
     /* Change the state of leds. */
     leds_off(LEDS_ALL);
+#ifndef CONF_LOWPOWER
     leds_on(leds_state);
     leds_state += 1;
+#endif
   }
 
   /* Any process must end with this, even if it is never reached. */

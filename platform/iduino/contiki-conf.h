@@ -117,6 +117,10 @@ typedef unsigned short uip_stats_t;
 #define PROCESS_CONF_NO_PROCESS_NAMES LOWPOWER
 #endif
 
+#ifndef UIP_CONF_IPV6
+#define UIP_CONF_IPV6 1
+#endif
+
 #if UIP_CONF_IPV6
 #define RIMEADDR_CONF_SIZE        8
 #define UIP_CONF_ICMP6            1
@@ -317,6 +321,15 @@ typedef unsigned short uip_stats_t;
 #define UIP_CONF_LOGGING         0
 
 #endif /* RPL */
+
+#ifdef WITH_COAP
+#ifndef REST
+#define REST coap_rest_implementation
+#endif
+#ifndef UIP_CONF_TCP
+#define UIP_CONF_TCP 0
+#endif
+#endif
 
 #define CCIF
 #define CLIF

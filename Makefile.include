@@ -1,7 +1,7 @@
 # -*- makefile -*-
 
 ifndef CONTIKI
-  ${error CONTIKI not defined! You must specify where CONTIKI resides}
+  ${error CONTIKI not defined! You must specify where Contiki resides}
 endif
 
 ifeq ($(TARGET),)
@@ -51,7 +51,7 @@ OBJECTDIR = obj_$(TARGET)
 
 LOWERCASE = -abcdefghijklmnopqrstuvwxyz
 UPPERCASE = _ABCDEFGHIJKLMNOPQRSTUVWXYZ
-TARGET_UPPERCASE := ${strip ${shell echo $(TARGET) | sed y!$(LOWERCASE)!$(UPPERCASE)!}}
+TARGET_UPPERCASE := ${strip ${shell echo $(TARGET) | sed 'y!$(LOWERCASE)!$(UPPERCASE)!'}}
 CFLAGS += -DCONTIKI=1 -DCONTIKI_TARGET_$(TARGET_UPPERCASE)=1
 
 include $(CONTIKI)/core/net/rime/Makefile.rime
@@ -64,7 +64,7 @@ LIBS    = memb.c mmem.c timer.c list.c etimer.c ctimer.c energest.c rtimer.c sti
 DEV     = nullradio.c
 NET     = netstack.c uip-debug.c packetbuf.c queuebuf.c packetqueue.c
 
-ifdef UIP_CONF_IPV6
+ifeq ($(UIP_CONF_IPV6),1)
   CFLAGS += -DUIP_CONF_IPV6=1
   UIP   = uip6.c tcpip.c psock.c uip-udp-packet.c uip-split.c \
           resolv.c tcpdump.c uiplib.c simple-udp.c
@@ -105,8 +105,8 @@ PROJECT_OBJECTFILES = ${addprefix $(OBJECTDIR)/,${call oname, $(PROJECT_SOURCEFI
 
 ifdef APPS
   APPDIRS += ${wildcard ${addprefix $(CONTIKI)/apps/, $(APPS)} \
-	     ${addprefix $(CONTIKI)/platform/$(TARGET)/apps/, $(APPS)} \
-	     $(APPS)}
+             ${addprefix $(CONTIKI)/platform/$(TARGET)/apps/, $(APPS)} \
+             $(APPS)}
   APPINCLUDES = ${foreach APP, $(APPS), ${wildcard ${foreach DIR, $(APPDIRS), $(DIR)/Makefile.$(APP)}}}
   -include $(APPINCLUDES)
   APP_SOURCES = ${foreach APP, $(APPS), $($(APP)_src)}
@@ -163,7 +163,7 @@ endif
 
 ifneq ($(MAKECMDGOALS),clean)
 -include ${addprefix $(OBJECTDIR)/,$(CONTIKI_SOURCEFILES:.c=.d) \
-				   $(PROJECT_SOURCEFILES:.c=.d)}
+                                   $(PROJECT_SOURCEFILES:.c=.d)}
 endif
 
 ### See http://make.paulandlesley.org/autodep.html#advanced
@@ -178,8 +178,8 @@ endef
  clean:
 	rm -f *~ *core core *.srec \
 	*.lst *.map \
-        *.cprg *.bin *.data contiki*.a *.firmware core-labels.S *.ihex *.ini \
-        *.ce *.co $(CLEAN)
+	*.cprg *.bin *.data contiki*.a *.firmware core-labels.S *.ihex *.ini \
+	*.ce *.co $(CLEAN)
 	-rm -rf $(OBJECTDIR)
 
 ifndef CUSTOM_RULE_C_TO_CE
