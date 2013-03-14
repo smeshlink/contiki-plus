@@ -73,7 +73,7 @@
  * clock_time_t.
  */
  /* Clock ticks per second */
-#define CLOCK_CONF_SECOND 125
+#define CLOCK_CONF_SECOND 128
 #if 1
 /* 16 bit counter overflows every ~10 minutes */
 typedef unsigned short clock_time_t;
