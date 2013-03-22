@@ -51,7 +51,7 @@ OBJECTDIR = obj_$(TARGET)
 
 LOWERCASE = -abcdefghijklmnopqrstuvwxyz
 UPPERCASE = _ABCDEFGHIJKLMNOPQRSTUVWXYZ
-TARGET_UPPERCASE := ${strip ${shell echo $(TARGET) | sed 'y!$(LOWERCASE)!$(UPPERCASE)!'}}
+TARGET_UPPERCASE := ${strip ${shell echo $(TARGET) | sed y!$(LOWERCASE)!$(UPPERCASE)!}}
 CFLAGS += -DCONTIKI=1 -DCONTIKI_TARGET_$(TARGET_UPPERCASE)=1
 
 include $(CONTIKI)/core/net/rime/Makefile.rime
@@ -62,9 +62,10 @@ THREADS = mt.c
 LIBS    = memb.c mmem.c timer.c list.c etimer.c ctimer.c energest.c rtimer.c stimer.c \
           print-stats.c ifft.c crc16.c random.c checkpoint.c ringbuf.c
 DEV     = nullradio.c
-NET     = netstack.c uip-debug.c packetbuf.c queuebuf.c packetqueue.c
 
-ifeq ($(UIP_CONF_IPV6),1)
+include $(CONTIKI)/core/net/Makefile.uip
+
+ifdef UIP_CONF_IPV6
   CFLAGS += -DUIP_CONF_IPV6=1
   UIP   = uip6.c tcpip.c psock.c uip-udp-packet.c uip-split.c \
           resolv.c tcpdump.c uiplib.c simple-udp.c
@@ -75,6 +76,7 @@ ifeq ($(UIP_CONF_IPV6),1)
     include $(CONTIKI)/core/net/rpl/Makefile.rpl
   endif # UIP_CONF_RPL
 else # UIP_CONF_IPV6
+  CFLAGS += -DUIP_CONF_IPV6_RPL=0
   UIP   = uip.c uiplib.c resolv.c tcpip.c psock.c hc.c uip-split.c uip-fw.c \
           uip-fw-drv.c uip_arp.c tcpdump.c uip-neighbor.c uip-udp-packet.c \
           uip-over-mesh.c dhcpc.c simple-udp.c

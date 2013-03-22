@@ -45,7 +45,7 @@
 
 #define HAVE_STDINT_H
 #include "avrdef.h"
-
+#include "string.h"
 #include "platform-conf.h"
 #if RF230BB
 #define MXCHANNEL 26
@@ -217,7 +217,7 @@ typedef unsigned short uip_stats_t;
 //#define NETSTACK_CONF_MAC         nullmac_driver
 /* csma needed for burst mode at present. Webserver won't work without it */
 #define NETSTACK_CONF_MAC         csma_driver
-#define NETSTACK_CONF_RDC         contikimac_driver//drowsie_driver
+#define NETSTACK_CONF_RDC         contikimac_driver
 /* Default is two CCA separated by 500 usec */
 #define NETSTACK_CONF_RDC_CHANNEL_CHECK_RATE   8
 /* Wireshark won't decode with the header, but padded packets will fail ipv6 checksum */

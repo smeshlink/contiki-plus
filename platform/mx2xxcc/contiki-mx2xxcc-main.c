@@ -29,8 +29,8 @@
  * This file is part of the Contiki operating system.
  *
  */
-
 #define PRINTF(FORMAT,args...) printf_P(PSTR(FORMAT),##args)
+
 #define ANNOUNCE_BOOT 1    //adds about 600 bytes to program size
 #if ANNOUNCE_BOOT
 #define PRINTA(FORMAT,args...) printf_P(PSTR(FORMAT),##args)
@@ -45,13 +45,21 @@
 #define PRINTD(...)
 #endif
 
+/* Track interrupt flow through mac, rdc and radio driver */
+//#define DEBUGFLOWSIZE 64
+#if DEBUGFLOWSIZE
+unsigned char debugflowsize,debugflow[DEBUGFLOWSIZE];
+#define DEBUGFLOW(c) if (debugflowsize<(DEBUGFLOWSIZE-1)) debugflow[debugflowsize++]=c
+#else
+#define DEBUGFLOW(c)
+#endif
+
 #include <avr/pgmspace.h>
 #include <avr/fuse.h>
 #include <avr/eeprom.h>
 #include <stdio.h>
 #include <string.h>
 #include <dev/watchdog.h>
-
 
 #include "loader/symbols-def.h"
 #include "loader/symtab.h"
@@ -86,6 +94,7 @@
 #include "net/routing/rimeroute.h"
 #include "net/rime/rime-udp.h"
 #endif
+
 #include "net/rime.h"
 
 #include "dev/leds.h"
@@ -161,8 +170,7 @@ set_rime_addr(void)
   rf230_set_channel(params_get_channel());
   rf230_set_txpower(params_get_txpower());
 #endif
-  //rf230_set_channel(0);
-  //rf230_set_txpower(0xe4);
+  
 }
 
 #ifndef ARDUINO

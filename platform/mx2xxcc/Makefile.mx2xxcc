@@ -1,11 +1,11 @@
-CONTIKI_TARGET_DIRS = . dev apps 
+CONTIKI_TARGET_DIRS = . dev apps net loader
 CONTIKI_CORE=contiki-mx2xxcc-main
 CONTIKI_TARGET_MAIN = ${CONTIKI_CORE}.o
 
 CONTIKI_TARGET_SOURCEFILES += contiki-mx2xxcc-main.c params.c ds2401.c \
 							leds-arch.c  interrupt-arch.c \
 							slip_uart0.c slip.c \
-							sht11.c sht11-sensor.c adc.c adc-sensors.c drowsie.c
+							sht11.c sht11-sensor.c adc.c adc-sensors.c
 
 CONTIKIAVR=$(CONTIKI)/cpu/avr
 CONTIKIBOARD=.

@@ -18,6 +18,11 @@
 *.avr-raven
 *.exp5438
 *.mb851
+*.win32
+*.apple2enh
+*.atari
+*.c128
+*.c64
 *.report
 summary
 *.summary
@@ -55,7 +60,20 @@ contiki-cc2530dk.lib
 *.sensinode
 *.cc2530dk
 
-# other
-.cproject
-.project
-.svn/
+# VC++ build artifacts
+*.exp
+*.ilk
+*.lib
+*.pdb
+*.prg
+*.dsc
+
+#cc65 build artifacts
+*.S
+*.eth
+*.dsk
+*.2mg
+*.atr
+*.d64
+*.d71
+*.d81

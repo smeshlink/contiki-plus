@@ -45,7 +45,7 @@
 
 #define HAVE_STDINT_H
 #include "avrdef.h"
-
+#include "string.h"
 #include "platform-conf.h"
 #if RF230BB
 #define MXCHANNEL 26

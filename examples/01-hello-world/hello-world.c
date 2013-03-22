@@ -14,6 +14,7 @@
 
 #include "contiki.h"
 #include "dev/leds.h"
+#include "lib/random.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -40,7 +41,9 @@ PROCESS_THREAD(hello_world_process, ev, data)
 
     /* Got the timer's event~ */
     if (ev == PROCESS_EVENT_TIMER) {
-      printf("Hello, world #%i\n", count);
+    	int i;
+    	for ( i=0;i<100;i++)
+    		printf("Hello, world #%u\n", random_rand());
       count++;
 
       /* Reset the etimer so it will generate another event after the exact same time. */

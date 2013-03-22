@@ -824,10 +824,12 @@ HAL_RF230_ISR()
  */
 void TIMER1_OVF_vect(void);
 #else  /* !DOXYGEN */
+#ifdef __AVR_ATmega1284P__
 HAL_TIME_ISR()
 {
    	//this is very important for atmega1284p,but i don't know why
 }
+#endif
 #endif
 
 /** @} */
