@@ -647,15 +647,6 @@ extern uip_ds6_netif_t uip_ds6_if;
                  PRINTF_P(PSTR("Local repair initiated\n\r")); 
                  break;
  
-            case 'Z':     //zap the routing table           
-            {   uint8_t i; 
-				for (i = 0; i < UIP_DS6_ROUTE_NB; i++) {
-					//uip_ds6_routing_table[i].isused=0;
-				  // FIXME undefined isused?
-                }
-                PRINTF_P(PSTR("Routing table cleared!\n\r")); 
-                break;
-            }
 #endif				
 			
 			case 'm':
