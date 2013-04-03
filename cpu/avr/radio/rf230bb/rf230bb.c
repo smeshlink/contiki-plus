@@ -791,7 +791,7 @@ rf230_init(void)
   /* Force transition to TRX_OFF */
   hal_subregister_write(SR_TRX_CMD, CMD_FORCE_TRX_OFF);
   delay_us(TIME_P_ON_TO_TRX_OFF);
-  
+
   /* Verify that it is a supported version */
   /* Note gcc optimizes this away if DEBUG is not set! */
   //ATMEGA128RFA1 - version 4, ID 31
@@ -814,8 +814,10 @@ rf230_init(void)
     PRINTF("rf212: Unsupported manufacturer ID %u\n",tmanu);
 
  PRINTF("rf212: Version %u, ID %u\n",tvers,tmanu);
+
 	// set OQSPK modulation with 250KB/s (802.15.4C CHINA)
 	hal_register_write(RG_TRX_CTRL_2, TRX_CTRL2_OQPSK_250KB);
+
 	/*set frequency to band 4 and use channel 0
   	 (802.15.4C regulation China, 780 MHz) */
 	hal_subregister_write(RG_CC_BAND, CC_BAND);
@@ -823,15 +825,17 @@ rf230_init(void)
 	hal_register_write(RG_CC_NUMBER, CC_NUMBER);
 	//hal_subregister_write(SR_CHANNEL, CC_CHANNEL);
 	 hal_register_write(RG_PHY_TX_PWR, TX_PWR_MAX);
+
 #endif
 
   rf230_warm_reset();
- 
+
  /* Start the packet receive process */
   process_start(&rf230_process, NULL);
- 
+
  /* Leave radio in on state (?)*/
   radio_on();
+
 
   return 1;
 }

@@ -33,7 +33,7 @@
 
 /**
  * \file
- *         Configuration for Atmel ATmega128rfa1
+ *         Configuration for SMeshLink IDUINO based on ATmega128rfa1
  * \author
  *         David Kopf <dak664@embarqmail.com>
  * \Modified By
@@ -72,7 +72,7 @@ typedef unsigned long off_t;
 
 /* RADIOSTATS is used in rf230bb, clock.c and the webserver cgi to report radio usage */
 /* It has less overhead than ENERGEST */
-#define RADIOSTATS                1
+#define RADIOSTATS                0
 
 /* More extensive stats, via main loop printfs or webserver status pages */
 #define ENERGEST_CONF_ON          0

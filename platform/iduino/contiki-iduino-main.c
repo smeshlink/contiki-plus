@@ -29,8 +29,8 @@
  * This file is part of the Contiki operating system.
  *
  */
-
 #define PRINTF(FORMAT,args...) printf_P(PSTR(FORMAT),##args)
+
 #define ANNOUNCE_BOOT 1    //adds about 600 bytes to program size
 #if ANNOUNCE_BOOT
 #define PRINTA(FORMAT,args...) printf_P(PSTR(FORMAT),##args)
@@ -45,13 +45,21 @@
 #define PRINTD(...)
 #endif
 
+/* Track interrupt flow through mac, rdc and radio driver */
+//#define DEBUGFLOWSIZE 64
+#if DEBUGFLOWSIZE
+unsigned char debugflowsize,debugflow[DEBUGFLOWSIZE];
+#define DEBUGFLOW(c) if (debugflowsize<(DEBUGFLOWSIZE-1)) debugflow[debugflowsize++]=c
+#else
+#define DEBUGFLOW(c)
+#endif
+
 #include <avr/pgmspace.h>
 #include <avr/fuse.h>
 #include <avr/eeprom.h>
 #include <stdio.h>
 #include <string.h>
 #include <dev/watchdog.h>
-
 
 #include "loader/symbols-def.h"
 #include "loader/symtab.h"
@@ -86,6 +94,7 @@
 #include "net/routing/rimeroute.h"
 #include "net/rime/rime-udp.h"
 #endif
+
 #include "net/rime.h"
 
 #include "dev/leds.h"
@@ -98,9 +107,11 @@
 #endif
 
 #if ARDUINO
-unsigned char arduino_node_id[8];
-uint8_t arduino_channel_id;
-uint8_t arduino_power_id;
+#include "contiki-arduino.h"
+
+unsigned char arduino_node_id[8] = { 0x02, 0x11, 0x22, 0xff, 0xfe, 0x33, 0x44, 0x33 };
+unsigned char arduino_channel = MXCHANNEL;
+unsigned char arduino_power = RF230_MAX_TX_POWER;
 #endif
 
 #ifdef CAMERA_INTERFACE
@@ -125,44 +136,44 @@ buzz_id()
 static void
 set_rime_addr(void)
 {
-	rimeaddr_t addr;
+  rimeaddr_t addr;
 #if ARDUINO
-	memcpy(addr.u8, arduino_node_id, sizeof(addr.u8));
+  memcpy(addr.u8, arduino_node_id, sizeof(addr.u8));
 #elif UIP_CONF_EUI64
-   memset(&addr, 0, sizeof(rimeaddr_t));
-   if (params_get_eui64(addr.u8)) {
-     PRINTA("Random EUI64 address generated\n");
-   }
+  memset(&addr, 0, sizeof(rimeaddr_t));
+  if (params_get_eui64(addr.u8)) {
+    PRINTA("Random EUI64 address generated\n");
+  }
 #else
-   memcpy(addr.u8, ds2401_id, sizeof(addr.u8));
+  memcpy(addr.u8, ds2401_id, sizeof(addr.u8));
 #endif
 #if UIP_CONF_IPV6
-	memcpy(&uip_lladdr.addr, &addr.u8, sizeof(rimeaddr_t));
-	rimeaddr_set_node_addr(&addr);
-	rf230_set_pan_addr(params_get_panid(), params_get_panaddr(), (uint8_t *)&addr.u8);
+  memcpy(&uip_lladdr.addr, &addr.u8, sizeof(rimeaddr_t));
+  rimeaddr_set_node_addr(&addr);
+  rf230_set_pan_addr(params_get_panid(), params_get_panaddr(), (uint8_t *)&addr.u8);
 #elif WITH_NODE_ID
-	node_id = get_panaddr_from_eeprom();
-	addr.u8[1] = node_id&0xff;
-	addr.u8[0] = (node_id&0xff00) >> 8;
-	PRINTA("Node ID from eeprom: %X\n", node_id);
-	uint16_t inv_node_id=((node_id & 0xff00) >> 8) + ((node_id & 0xff) << 8); // change order of bytes for rf23x
-	rimeaddr_set_node_addr(&addr);
-	rf230_set_pan_addr(params_get_panid(), inv_node_id, NULL);
+  node_id = get_panaddr_from_eeprom();
+  addr.u8[1] = node_id&0xff;
+  addr.u8[0] = (node_id&0xff00) >> 8;
+  PRINTA("Node ID from eeprom: %X\n", node_id);
+  uint16_t inv_node_id=((node_id & 0xff00) >> 8) + ((node_id & 0xff) << 8); // change order of bytes for rf23x
+  rimeaddr_set_node_addr(&addr);
+  rf230_set_pan_addr(params_get_panid(), inv_node_id, NULL);
 #else
-	rimeaddr_set_node_addr(&addr);
-	rf230_set_pan_addr(params_get_panid(), params_get_panaddr(), (uint8_t *)&addr.u8);
+  rimeaddr_set_node_addr(&addr);
+  rf230_set_pan_addr(params_get_panid(), params_get_panaddr(), (uint8_t *)&addr.u8);
 #endif
 #if ARDUINO
-	rf230_set_channel(arduino_channel_id);
-	rf230_set_txpower(arduino_power_id);
+  rf230_set_channel(arduino_channel);
+  rf230_set_txpower(arduino_power);
 #else
-	rf230_set_channel(params_get_channel());
-	rf230_set_txpower(params_get_txpower());
+  rf230_set_channel(params_get_channel());
+  rf230_set_txpower(params_get_txpower());
 #endif
-	//rf230_set_channel(0);
-	//rf230_set_txpower(0xe4);
+  
 }
 
+#ifndef ARDUINO
 void
 init_usart(void)
 {
@@ -174,16 +185,19 @@ init_usart(void)
       USART_PARITY_NONE | USART_STOP_BITS_1 | USART_DATA_BITS_8);
 */
 #if WITH_UIP || WITH_UIP6
-  slip_arch_init(USART_BAUD_38400);
+  //slip_arch_init(USART_BAUD_38400);
+  rs232_redirect_stdout(RS232_PORT_0);
 #else
   rs232_redirect_stdout(RS232_PORT_0);
 #endif /* WITH_UIP */
 }
+#endif
 
 void
 init_net(void)
 {
   /* Start radio and radio receive process */
+
   NETSTACK_RADIO.init();
 
   /* Set addresses BEFORE starting tcpip process */
@@ -195,8 +209,10 @@ init_net(void)
 
   /* Setup X-MAC for 802.15.4 */
   queuebuf_init();
+
   NETSTACK_RDC.init();
   NETSTACK_MAC.init();
+
   NETSTACK_NETWORK.init();
 
   PRINTA("%s %s, channel %u , check rate %u Hz tx power %u\n", NETSTACK_MAC.name, NETSTACK_RDC.name, rf230_get_channel(),
@@ -254,7 +270,7 @@ uint8_t debugflowsize,debugflow[DEBUGFLOWSIZE];
 /* Get periodic prints from idle loop, from clock seconds or rtimer interrupts */
 /* Use of rtimer will conflict with other rtimer interrupts such as contikimac radio cycling */
 /* STAMPS will print ENERGEST outputs if that is enabled. */
-#define PERIODICPRINTS 1
+#define PERIODICPRINTS 0
 #if PERIODICPRINTS
 //#define PINGS 64
 #define ROUTES 600
@@ -321,17 +337,28 @@ rng_get_uint8(void) {
 
 /*-------------------------Low level initialization------------------------*/
 /*------Done in a subroutine to keep main routine stack usage small--------*/
+static char mcuinitialized = 0;
+
 void
 initialize(void)
 {
+  if (mcuinitialized)
+    return;
+  mcuinitialized = 1;
 
+#ifdef BUZZER
+  buzz_id();
+#endif
 
   watchdog_init();
   watchdog_start();
+
+#ifndef ARDUINO
 #ifdef CAMERA_INTERFACE
-  	  camera_init();
+  camera_init();
 #else
-  	init_usart();
+  init_usart();
+#endif
 #endif
 
   clock_init();
@@ -378,7 +405,6 @@ uint8_t i;
 
 
 
-
 /* rtimers needed for radio cycling */
   rtimer_init();
 
@@ -408,8 +434,10 @@ uint8_t i;
   process_start(&tcpip_process, NULL);
 #endif /* RF230BB || RF212BB */
 
+#ifndef ARDUINO
   /* Autostart other processes */
   autostart_start(autostart_processes);
+#endif
 
 
 /*--------------------------Announce the configuration---------------------*/
@@ -480,22 +508,14 @@ ipaddr_add(const uip_ipaddr_t *addr)
 /*------------------------- Main Scheduler loop----------------------------*/
 /*-------------------------------------------------------------------------*/
 int
-#if ARDUINO
-start_contiki(void (*setup) (void), void (*run) (void))
-#else
 main(void)
-#endif
 {
 #if ARDUINO
   setup();
 #endif
-
   initialize();
 
-#if ARDUINO
-  run();
-#endif
-
+  leds_on(LEDS_RED);
   while(1) {
     process_run();
     watchdog_periodic();

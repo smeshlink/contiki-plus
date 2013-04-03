@@ -352,7 +352,6 @@ initialize(void)
 #else
   init_usart();
 #endif
-  init_usart();
 #endif
 
   clock_init();

@@ -62,12 +62,12 @@
 #ifdef __AVR_ATmega256RFR2__
 #define UIP_CONF_DS6_NBR_NBU 100
 #else
-#define UIP_CONF_DS6_NBR_NBU 40
+#define UIP_CONF_DS6_NBR_NBU 20
 #endif
 #undef UIP_CONF_DS6_ROUTE_NBU
 #ifdef __AVR_ATmega256RFR2__
 #define UIP_CONF_DS6_ROUTE_NBU    100
 #else
-#define UIP_CONF_DS6_ROUTE_NBU    40
+#define UIP_CONF_DS6_ROUTE_NBU    20
 #endif
 #endif /* __PROJECT_ROUTER_CONF_H__ */

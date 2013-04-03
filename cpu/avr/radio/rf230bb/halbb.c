@@ -200,15 +200,17 @@ hal_init(void)
     /* Run SPI at max speed */
     SPCR         = (1 << SPE) | (1 << MSTR); /* Enable SPI module and master operation. */
     SPSR         = (1 << SPI2X); /* Enable doubled SPI speed in master mode. */
+
 #if ( F_CPU == 16000000UL )  //smeshlink modified for rfa1 good relibility
-    //SPCR |= _BV(SPR1) | _BV(SPR0) ;
-    SPCR |= _BV(SPR1);// | _BV(SPR0) ; fosc/32
+    SPCR |= _BV(SPR1) | _BV(SPR0) ;
+    //SPCR |= _BV(SPR1);// | _BV(SPR0) ; fosc/32
 #endif
     /*TIMER1 Specific Initialization. atmega1284p need it.*/
     TCCR1B = HAL_TCCR1B_CONFIG;       /* Set clock prescaler */
     TIFR1 |= (1 << ICF1);             /* Clear Input Capture Flag. */
     HAL_ENABLE_OVERFLOW_INTERRUPT(); /* Enable Timer1 overflow interrupt. */
     hal_enable_trx_interrupt();    /* Enable interrupts from the radio transceiver. */
+
 }
 
 #else /* __AVR__ */
