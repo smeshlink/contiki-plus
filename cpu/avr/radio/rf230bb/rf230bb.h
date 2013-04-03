@@ -59,8 +59,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "hal.h"
-#if RF230BB && defined(__AVR_ATmega128RFA1__)
+#if RF230BB &&  __AVR_ATmega128RFA1__
+#include <avr/io.h>
 #include "atmega128rfa1_registermap.h"
+#elif RF230BB && __AVR_ATmega256RFR2__
+#include <avr/io.h>
+#include "atmega256rfr2_registermap.h"
 #elif RF230BB
 #include "at86rf230_registermap.h"
 #else
@@ -74,6 +78,7 @@
 #define RF230_REVA                              ( 1 )
 #define RF230_REVB                              ( 2 )
 #define RFA1		                            ( 4 )
+#define RFR2		                            ( 12 )
 #define SUPPORTED_MANUFACTURER_ID               ( 31 )
 #elif RF212BB
 #define SUPPORTED_PART_NUMBER                   ( 7 )

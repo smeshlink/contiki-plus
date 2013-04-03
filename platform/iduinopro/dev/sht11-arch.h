@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Swedish Institute of Computer Science.
+ * Copyright (c) 2007, Swedish Institute of Computer Science
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,48 +26,39 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
+ * This file is part of the Contiki operating system.
+ *
  */
 
-#ifndef __PROJECT_ROUTER_CONF_H__
-#define __PROJECT_ROUTER_CONF_H__
-/*
-#define UIP_CONF_IPV6_RPL 0
-#undef UIP_CONF_ROUTER
-#define UIP_CONF_ROUTER                 1
-#undef UIP_CONF_ND6_SEND_RA
-#define UIP_CONF_ND6_SEND_RA		    1
-*/
+/**
+ * \file
+ *	Architecture-specific definitions for the SHT11 sensor on Tmote Sky.
+ * \author
+ * 	Niclas Finne <nfi@sics.se>
+ */
 
-#ifndef UIP_FALLBACK_INTERFACE
-#define UIP_FALLBACK_INTERFACE rpl_interface
-#endif
+#ifndef SHT11_ARCH_H
+#define SHT11_ARCH_H
 
-#ifndef QUEUEBUF_CONF_NUM
-#define QUEUEBUF_CONF_NUM          15
-#endif
+#define SHT11_ARCH_SDA	PORTD3	/* PE7 */
+#define SHT11_ARCH_SCL	PORTC4	/* PC3 */
+#define SHT11_ARCH_PWR	PORTC5	/* PC0 */
 
-#ifndef UIP_CONF_BUFFER_SIZE
-#define UIP_CONF_BUFFER_SIZE    1500
-#endif
 
-#ifndef UIP_CONF_RECEIVE_WINDOW
-#define UIP_CONF_RECEIVE_WINDOW  60
-#endif
 
-#ifndef WEBSERVER_CONF_CFS_CONNS
-#define WEBSERVER_CONF_CFS_CONNS 2
-#endif
 
-#undef UIP_CONF_DS6_NBR_NBU
-#ifdef __AVR_ATmega256RFR2__
-#define UIP_CONF_DS6_NBR_NBU 100
-#else
-#define UIP_CONF_DS6_NBR_NBU 40
+#define	SHT11_PxDIRSDA	DDRD
+#define SHT11_PxINSDA	PIND
+#define SHT11_PxOUTSDA	PORTD
+
+#define	SHT11_PxDIRSCL	DDRC
+#define SHT11_PxINSCL	PINC
+#define SHT11_PxOUTSCL	PORTC
+
+#define	SHT11_PxDIRPWR	DDRC
+#define SHT11_PxINPWR	PINC
+#define SHT11_PxOUTPWR	PORTC
+
+
+
 #endif
-#undef UIP_CONF_DS6_ROUTE_NBU
-#ifdef __AVR_ATmega256RFR2__
-#define UIP_CONF_DS6_ROUTE_NBU    100
-#else
-#define UIP_CONF_DS6_ROUTE_NBU    40
-#endif
-#endif /* __PROJECT_ROUTER_CONF_H__ */

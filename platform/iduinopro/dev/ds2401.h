@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Swedish Institute of Computer Science.
+ * Copyright (c) 2009, University of Colombo School of Computing
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,48 +26,14 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
+ * This file is part of the Contiki operating system.
+ *
  */
 
-#ifndef __PROJECT_ROUTER_CONF_H__
-#define __PROJECT_ROUTER_CONF_H__
-/*
-#define UIP_CONF_IPV6_RPL 0
-#undef UIP_CONF_ROUTER
-#define UIP_CONF_ROUTER                 1
-#undef UIP_CONF_ND6_SEND_RA
-#define UIP_CONF_ND6_SEND_RA		    1
-*/
+#ifndef DS2401_H
+#define DS2401_H
 
-#ifndef UIP_FALLBACK_INTERFACE
-#define UIP_FALLBACK_INTERFACE rpl_interface
-#endif
+extern unsigned char ds2401_id[8];
+extern int ds2401_init();
 
-#ifndef QUEUEBUF_CONF_NUM
-#define QUEUEBUF_CONF_NUM          15
-#endif
-
-#ifndef UIP_CONF_BUFFER_SIZE
-#define UIP_CONF_BUFFER_SIZE    1500
-#endif
-
-#ifndef UIP_CONF_RECEIVE_WINDOW
-#define UIP_CONF_RECEIVE_WINDOW  60
-#endif
-
-#ifndef WEBSERVER_CONF_CFS_CONNS
-#define WEBSERVER_CONF_CFS_CONNS 2
-#endif
-
-#undef UIP_CONF_DS6_NBR_NBU
-#ifdef __AVR_ATmega256RFR2__
-#define UIP_CONF_DS6_NBR_NBU 100
-#else
-#define UIP_CONF_DS6_NBR_NBU 40
-#endif
-#undef UIP_CONF_DS6_ROUTE_NBU
-#ifdef __AVR_ATmega256RFR2__
-#define UIP_CONF_DS6_ROUTE_NBU    100
-#else
-#define UIP_CONF_DS6_ROUTE_NBU    40
-#endif
-#endif /* __PROJECT_ROUTER_CONF_H__ */
+#endif /* DS2401_H */
