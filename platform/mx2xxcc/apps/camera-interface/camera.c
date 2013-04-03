@@ -18,6 +18,10 @@
 #include "sys/energest.h"
 #include "camera.h"
 
+#ifndef CAMERA_PORT
+#define CAMERA_PORT RS232_PORT_0
+#endif
+
 #define CAMERA_CMD_H 0x48
 #define CAMERA_CMD_R 0x52
 #define CAMERA_CMD_E 0x45
@@ -56,13 +60,13 @@ send_frame(uint8_t cmd_char, uint8_t len, uint8_t *payload)
  // setcansleepstate(0);
 //#endif
   cmd.done = 0;
-  rs232_send(RS232_PORT_0, SOF_CHAR);
-  rs232_send(RS232_PORT_0, cmd_char);
+  rs232_send(CAMERA_PORT, SOF_CHAR);
+  rs232_send(CAMERA_PORT, cmd_char);
   for (; i < len; i++) {
-    rs232_send(RS232_PORT_0, *payload++);
+    rs232_send(CAMERA_PORT, *payload++);
   }
   cmd.ndx = 0;
-  rs232_send(RS232_PORT_0, EOF_CHAR);
+  rs232_send(CAMERA_PORT, EOF_CHAR);
 }
 
 /*
@@ -299,13 +303,7 @@ camera_serial_input(unsigned char ch)
 void
 camera_init()
 {
-
-   //setcansleepstate(0);
-
-	rs232_init(RS232_PORT_0, USART_BAUD_38400, USART_PARITY_NONE | USART_STOP_BITS_1 | USART_DATA_BITS_8);
-	rs232_set_input(RS232_PORT_0, camera_serial_input);
-  /* Second rs232 port for debugging */
-  rs232_init(RS232_PORT_1, USART_BAUD_57600, USART_PARITY_NONE | USART_STOP_BITS_1 | USART_DATA_BITS_8);
-  /* Redirect stdout to second port */
-  rs232_redirect_stdout(RS232_PORT_1);
+  //setcansleepstate(0);
+  rs232_init(CAMERA_PORT, USART_BAUD_38400, USART_PARITY_NONE | USART_STOP_BITS_1 | USART_DATA_BITS_8);
+  rs232_set_input(CAMERA_PORT, camera_serial_input);
 }
