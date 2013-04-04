@@ -59,11 +59,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "hal.h"
-#if RF230BB &&  __AVR_ATmega128RFA1__
-#include <avr/io.h>
+#if RF230BB && defined(__AVR_ATmega128RFA1__)
 #include "atmega128rfa1_registermap.h"
-#elif RF230BB && __AVR_ATmega256RFR2__
-#include <avr/io.h>
+#elif RF230BB && defined(__AVR_ATmega256RFR2__)
 #include "atmega256rfr2_registermap.h"
 #elif RF230BB
 #include "at86rf230_registermap.h"

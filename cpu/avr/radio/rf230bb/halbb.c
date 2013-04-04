@@ -76,10 +76,10 @@ extern uint8_t debugflowsize,debugflow[DEBUGFLOWSIZE];
 
 #include "hal.h"
 
-#if RF230BB &&  __AVR_ATmega128RFA1__
+#if RF230BB && defined(__AVR_ATmega128RFA1__)
 #include <avr/io.h>
 #include "atmega128rfa1_registermap.h"
-#elif RF230BB && __AVR_ATmega256RFR2__
+#elif RF230BB && defined(__AVR_ATmega256RFR2__)
 #include <avr/io.h>
 #include "atmega256rfr2_registermap.h"
 #elif RF230BB
@@ -202,8 +202,10 @@ hal_init(void)
     SPSR         = (1 << SPI2X); /* Enable doubled SPI speed in master mode. */
 
 #if ( F_CPU == 16000000UL )  //smeshlink modified for rfa1 good relibility
-    SPCR |= _BV(SPR1) | _BV(SPR0) ;
-    //SPCR |= _BV(SPR1);// | _BV(SPR0) ; fosc/32
+    //SPCR |= _BV(SPR1) | _BV(SPR0) ;
+    SPCR |= _BV(SPR0);// | _BV(SPR0) ; fosc/32
+#else
+    SPSR         = (1 << SPI2X);
 #endif
     /*TIMER1 Specific Initialization. atmega1284p need it.*/
     TCCR1B = HAL_TCCR1B_CONFIG;       /* Set clock prescaler */
@@ -414,7 +416,7 @@ hal_subregister_write(uint8_t address, uint8_t mask, uint8_t position,
 void
 hal_frame_read(hal_rx_frame_t *rx_frame)
 {
-#if RF230BB &&  (defined(__AVR_ATmega128RFA1__) || defined(__AVR_ATmega256RFR2__))
+#if RF230BB && (defined(__AVR_ATmega128RFA1__) || defined(__AVR_ATmega256RFR2__))
 
     uint8_t frame_length,*rx_data,*rx_buffer;
  
@@ -828,7 +830,7 @@ HAL_RF230_ISR()
  */
 void TIMER1_OVF_vect(void);
 #else  /* !DOXYGEN */
-#if defined(__AVR_ATmega1284P__) || defined(__AVR_AT90USB1287__)
+#if defined(__AVR_ATmega1284P__) || defined(__AVR_AT90USB1287__) || RF212BB
 HAL_TIME_ISR()
 {
    	//this is very important for atmega1284p,but i don't know why
