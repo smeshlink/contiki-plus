@@ -118,7 +118,7 @@ RNDIS_CopyFiles_NT    = 12
 [Strings]
 ServiceDisplayName    = "USB Remote NDIS Y Network Device Driver"
 NetworkAddress        = "Network Address"
-Atmel                  = "Atmel Corporation"
-AtmelDevice            = "Atmel RAVEN USB Stick"
-SourceDisk            = "Atmel USB Network Driver Install Disk"
+Atmel                  = "Smeshlink Technology"
+AtmelDevice            = "Smeshlink USB Stick"
+SourceDisk            = "Smeshlink USB Network Driver Install Disk"
 RAWMODE               = "Raw 802.15.4 Mode"

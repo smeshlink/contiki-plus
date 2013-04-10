@@ -74,6 +74,6 @@ HKR, NDI\params\rawmode\enum, "1",        0, "On"
 
 ; Modify these strings for your device as needed.
 [Strings]
-dak             = "dak"
-RndisDevice           = "Atmel RAVEN USB Stick"
+dak             = "Smeshlink Technology"
+RndisDevice           = "Smeshlink USB Stick"
 RAWMODE               = "Raw 802.15.4 Mode"
