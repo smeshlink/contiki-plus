@@ -1,6 +1,6 @@
 CONTIKI_PROJECT = camera-observe
 all: $(CONTIKI_PROJECT)
-
+CFLAGS += -DPROJECT_CONF_H=\"project-conf.h\"
 # IPv6
 UIP_CONF_IPV6 = 1
 # RPL

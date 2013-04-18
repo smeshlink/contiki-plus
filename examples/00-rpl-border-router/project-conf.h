@@ -37,6 +37,7 @@
 #undef UIP_CONF_ND6_SEND_RA
 #define UIP_CONF_ND6_SEND_RA		    1
 */
+//#define SLIP_CONF_ANSWER_MAC_REQUEST 1
 
 #ifndef UIP_FALLBACK_INTERFACE
 #define UIP_FALLBACK_INTERFACE rpl_interface
@@ -60,13 +61,13 @@
 
 #undef UIP_CONF_DS6_NBR_NBU
 #ifdef __AVR_ATmega256RFR2__
-#define UIP_CONF_DS6_NBR_NBU 100
+#define UIP_CONF_DS6_NBR_NBU 200
 #else
 #define UIP_CONF_DS6_NBR_NBU 20
 #endif
 #undef UIP_CONF_DS6_ROUTE_NBU
 #ifdef __AVR_ATmega256RFR2__
-#define UIP_CONF_DS6_ROUTE_NBU    100
+#define UIP_CONF_DS6_ROUTE_NBU    200
 #else
 #define UIP_CONF_DS6_ROUTE_NBU    20
 #endif

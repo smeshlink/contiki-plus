@@ -75,7 +75,11 @@ void
 light_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
 {
   char buf[32];
+#ifdef sensor_light_get
   int16_t light = sensor_light_get();
+#else
+  int16_t light = 0;
+#endif
   sprintf(buf, "%d", light);
   REST.set_header_content_type(response, REST.type.TEXT_PLAIN);
   REST.set_response_payload(response, (uint8_t *)buf, strlen(buf));
@@ -87,9 +91,11 @@ light_periodic_handler(resource_t *r)
   char content[32];
 
   obs_counter++;
-
+#ifdef sensor_light_get
   int16_t light = sensor_light_get();
-
+#else
+  int16_t light = 0;
+#endif
   /* Build notification. */
   coap_packet_t notification[1]; /* This way the packet can be treated as pointer as usual. */
   coap_init_message(notification, COAP_TYPE_NON, CONTENT_2_05, 0 );
@@ -374,11 +380,11 @@ PROCESS_THREAD(coap_sample, ev, data)
   rest_activate_periodic_resource(&periodic_resource_temperature);
   rest_activate_periodic_resource(&periodic_resource_light);
   rest_activate_periodic_resource(&periodic_resource_voltage);
-
+#ifdef interrupt_init
   interrupt_init(1, 1, 1, 1);
   interrupt_enable(INT0);
   interrupt_register(INT0);
-
+#endif
   while(1) {
      /* Wait for an event. */
      PROCESS_WAIT_EVENT();

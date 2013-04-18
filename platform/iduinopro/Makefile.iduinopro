@@ -5,7 +5,7 @@ CONTIKI_TARGET_MAIN = ${CONTIKI_CORE}.o
 CONTIKI_TARGET_SOURCEFILES += contiki-iduino-main.c params.c ds2401.c \
 							leds-arch.c   \
 							slip_uart0.c slip.c \
-							 # adc.c adc-sensors.c \
+							adc.c adc-sensors.c \
 							 # sht11.c sht11-sensor.c  interrupt-arch.c 
 							
 

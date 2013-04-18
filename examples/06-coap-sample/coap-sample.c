@@ -75,7 +75,11 @@ void
 light_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
 {
 	char tbuf[32];
+#ifdef sensor_light_get
 	int16_t light = sensor_light_get();
+#else
+	int16_t light = 0;
+#endif
 	sprintf(tbuf, "%d", light);
 	REST.set_header_content_type(response, REST.type.TEXT_PLAIN);
 	REST.set_response_payload(response, (uint8_t *)tbuf, strlen(tbuf));
@@ -87,8 +91,11 @@ light_periodic_handler(resource_t *r)
 	char content[32];
 
 	obs_counter++;
-
+#ifdef sensor_light_get
 	int16_t light = sensor_light_get();
+#else
+		int16_t light = 0;
+#endif
 
 	/* Build notification. */
 	coap_packet_t notification[1]; /* This way the packet can be treated as pointer as usual. */

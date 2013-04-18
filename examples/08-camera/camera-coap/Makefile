@@ -1,6 +1,6 @@
 CONTIKI_PROJECT = camera-coap
 all: $(CONTIKI_PROJECT)
-
+CFLAGS += -DPROJECT_CONF_H=\"project-conf.h\"
 RS232_CONF_NUMPORTS=2
 
 # IPv6
