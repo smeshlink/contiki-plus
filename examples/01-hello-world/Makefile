@@ -10,5 +10,7 @@ UIP_CONF_EUI64 = 1
 # Low power mode 
 CONF_LOWPOWER = 0
 
+APPS += mx-shell
+
 CONTIKI = ../..
 include $(CONTIKI)/Makefile.include

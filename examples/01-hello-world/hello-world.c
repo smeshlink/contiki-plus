@@ -17,6 +17,9 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "mx-shell.h"
+#include "dev/rs232.h"
+
 /*---------------------------------------------------------------------------*/
 PROCESS(hello_world_process, "Hello world process");
 PROCESS(leds_blink_process, "LEDs blink process");
@@ -30,6 +33,8 @@ PROCESS_THREAD(hello_world_process, ev, data)
 
 	/* Any process must start with this. */
 	PROCESS_BEGIN();
+
+	mx_shell_init(RS232_PORT_0);
 
 	/* Set the etimer to generate an event in one second. */
 	etimer_set(&timer, CLOCK_CONF_SECOND);
