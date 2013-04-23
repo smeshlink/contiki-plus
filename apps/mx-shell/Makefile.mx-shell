@@ -1,0 +1,4 @@
+mx-shell_src = serial-shell.c mx-shell.c
+
+APPS += shell
+include $(CONTIKI)/apps/shell/Makefile.shell
