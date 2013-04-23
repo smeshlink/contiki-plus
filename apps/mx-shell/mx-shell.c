@@ -29,18 +29,23 @@ static char buf[64];
 PROCESS(shell_txpower_process, "txpower");
 SHELL_COMMAND(txpower_command,
           "txpower",
-          "txpower <power>: change RF transmission power (0 - 15)",
+          "txpower <power>: show or change RF transmission power (0 - 15)",
           &shell_txpower_process);
 PROCESS(shell_rfchannel_process, "rfchannel");
 SHELL_COMMAND(rfchannel_command,
           "rfchannel",
-          "rfchannel <channel>: change RF channel (11 - 26)",
+          "rfchannel <channel>: show or change RF channel (11 - 26)",
           &shell_rfchannel_process);
 PROCESS(shell_debug_process, "debug");
 SHELL_COMMAND(debug_command,
           "debug",
           "debug <state>: toggle debug output (on / off)",
           &shell_debug_process);
+PROCESS(shell_rpl_process, "rpl");
+SHELL_COMMAND(rpl_command,
+          "rpl",
+          "rpl: show RPL neighbors and routes",
+          &shell_rpl_process);
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(shell_txpower_process, ev, data)
 {
@@ -126,6 +131,94 @@ PROCESS_THREAD(shell_debug_process, ev, data)
   PROCESS_END();
 }
 /*---------------------------------------------------------------------------*/
+#if UIP_CONF_IPV6_RPL
+#include "uip.h"
+
+static uint16_t
+ipaddr_add(char *buff, const uip_ipaddr_t *addr)
+{
+  uint16_t a, offset = 0;
+  int8_t i, f;
+  for(i = 0, f = 0; i < sizeof(uip_ipaddr_t); i += 2) {
+    a = (addr->u8[i] << 8) + addr->u8[i + 1];
+    if(a == 0 && f >= 0) {
+      if(f++ == 0)
+        offset += sprintf(buff + offset, "::");
+    } else {
+      if(f > 0) {
+        f = -1;
+      } else if(i > 0) {
+        offset += sprintf(buff + offset, ":");
+      }
+      offset += sprintf(buff + offset, "%x", a);
+    }
+  }
+  return offset;
+}
+
+#include "rpl.h"
+extern uip_ds6_nbr_t uip_ds6_nbr_cache[];
+extern uip_ds6_route_t uip_ds6_routing_table[];
+extern uip_ds6_netif_t uip_ds6_if;
+
+PROCESS_THREAD(shell_rpl_process, ev, data)
+{
+  uint8_t i,j;
+  PROCESS_BEGIN();
+
+  shell_output_str(&rpl_command, "", "");
+  sprintf(buf, "Addresses [%u max]", UIP_DS6_ADDR_NB);
+  shell_output_str(&rpl_command, buf, "");
+  for (i = 0;i < UIP_DS6_ADDR_NB; i++) {
+    if (uip_ds6_if.addr_list[i].isused) {
+      ipaddr_add(buf, &uip_ds6_if.addr_list[i].ipaddr);
+      shell_output_str(&rpl_command, buf, "");
+    }
+  }
+
+  shell_output_str(&rpl_command, "", "");
+  sprintf(buf, "Neighbors [%u max]", UIP_DS6_NBR_NB);
+  shell_output_str(&rpl_command, buf, "");
+  for(i = 0, j = 1; i < UIP_DS6_NBR_NB; i++) {
+    if(uip_ds6_nbr_cache[i].isused) {
+      ipaddr_add(buf, &uip_ds6_nbr_cache[i].ipaddr);
+      shell_output_str(&rpl_command, buf, "");
+      j = 0;
+    }
+  }
+  if (j)
+    shell_output_str(&rpl_command, "  <none>", "");
+
+  shell_output_str(&rpl_command, "", "");
+  sprintf(buf, "Routes [%u max]", UIP_DS6_ROUTE_NB);
+  shell_output_str(&rpl_command, buf, "");
+  {
+    uip_ds6_route_t *r;
+    j = 1;
+    for(r = uip_ds6_route_list_head();
+        r != NULL;
+        r = list_item_next(r)) {
+      uint16_t offset = ipaddr_add(buf, &r->ipaddr);
+      offset += sprintf(buf + offset, "/%u (via ", r->length);
+      ipaddr_add(buf + offset, &r->nexthop);
+      if(r->state.lifetime < 600) {
+        sprintf(buf + offset, ") %lus", r->state.lifetime);
+      } else {
+        sprintf(buf + offset, ")");
+      }
+      shell_output_str(&rpl_command, buf, "");
+      j = 0;
+    }
+  }
+  if (j)
+    shell_output_str(&rpl_command, "  <none>", "");
+
+  shell_output_str(&rpl_command, "", "");
+
+  PROCESS_END();
+}
+#endif
+/*---------------------------------------------------------------------------*/
 static int
 serial_input_byte(unsigned char c)
 {
@@ -169,4 +262,5 @@ mx_shell_init(uint8_t port)
   shell_register_command(&txpower_command);
   shell_register_command(&rfchannel_command);
   shell_register_command(&debug_command);
+  shell_register_command(&rpl_command);
 }
