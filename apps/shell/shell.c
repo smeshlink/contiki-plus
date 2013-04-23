@@ -174,13 +174,27 @@ PROCESS_THREAD(shell_kill_process, ev, data)
 PROCESS_THREAD(help_command_process, ev, data)
 {
   struct shell_command *c;
+  int len = (data == NULL) ? 0 : strlen(data);
   PROCESS_BEGIN();
 
-  shell_output_str(&help_command, "Available commands:", "");
-  for(c = list_head(commands);
-      c != NULL;
-      c = c->next) {
-    shell_output_str(&help_command, c->description, "");
+  if (len == 0) {
+    shell_output_str(&help_command, "Available commands:", "");
+    for(c = list_head(commands);
+        c != NULL;
+        c = c->next) {
+      shell_output_str(&help_command, c->description, "");
+    }
+  } else {
+    for(c = list_head(commands);
+        c != NULL;
+        c = c->next) {
+      if (strncasecmp(c->command, data, len) == 0) {
+        shell_output_str(&help_command, c->description, "");
+        len = -1;
+      }
+    }
+    if (len > 0)
+      shell_output_str(&help_command, "Command not found: ", data);
   }
 
   PROCESS_END();
