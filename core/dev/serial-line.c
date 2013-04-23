@@ -103,7 +103,10 @@ PROCESS_THREAD(serial_line_process, ev, data)
       PROCESS_YIELD();
     } else {
       if(c != END) {
-        if(ptr < BUFSIZE-1) {
+        if (c == 0x7f) {
+          if (ptr > 0)
+            ptr--;
+        } else if (ptr < BUFSIZE-1) {
           buf[ptr++] = (uint8_t)c;
         } else {
           /* Ignore character (wait for EOL) */
