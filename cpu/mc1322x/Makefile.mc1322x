@@ -35,6 +35,13 @@ AR       = $(CROSS)ar
 NM       = $(CROSS)nm
 OBJCOPY  = $(CROSS)objcopy
 STRIP    = $(CROSS)strip
+#CC       = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/$(CROSS)gcc
+#LD       = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/$(CROSS)gcc
+#AS       = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/$(CROSS)as
+#AR       = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/$(CROSS)ar
+#NM       = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/$(CROSS)nm
+#OBJCOPY  = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/$(CROSS)objcopy
+#STRIP    = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/$(CROSS)strip
 
 PROJECT_OBJECTFILES += ${addprefix $(OBJECTDIR)/,$(CONTIKI_TARGET_MAIN:.c=.o)}
 

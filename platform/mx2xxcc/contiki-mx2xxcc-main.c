@@ -77,8 +77,10 @@ unsigned char debugflowsize,debugflow[DEBUGFLOWSIZE];
 #include "dev/rs232.h"
 #include "dev/serial-line.h"
 #include "dev/slip.h"
-
-
+#ifdef BORDER_ROUTER
+PROCESS_NAME(border_router_process);
+PROCESS_NAME(webserver_nogui_process);
+#endif
 
 #if AVR_WEBSERVER
 #include "httpd-fs.h"
@@ -173,14 +175,14 @@ set_rime_addr(void)
   
 }
 
-#ifndef ARDUINO
+
 void
 init_usart(void)
 {
   /* First rs232 port for debugging */
   rs232_init(RS232_PORT_0, USART_BAUD_38400,
       USART_PARITY_NONE | USART_STOP_BITS_1 | USART_DATA_BITS_8);
-  /* sht11 use pd2
+  /* if you need you can use it
   rs232_init(RS232_PORT_1, USART_BAUD_38400,
       USART_PARITY_NONE | USART_STOP_BITS_1 | USART_DATA_BITS_8);
 */
@@ -191,12 +193,13 @@ init_usart(void)
   rs232_redirect_stdout(RS232_PORT_0);
 #endif /* WITH_UIP */
 }
-#endif
+
 
 void
 init_net(void)
 {
   /* Start radio and radio receive process */
+
   NETSTACK_RADIO.init();
 
   /* Set addresses BEFORE starting tcpip process */
@@ -208,8 +211,10 @@ init_net(void)
 
   /* Setup X-MAC for 802.15.4 */
   queuebuf_init();
+
   NETSTACK_RDC.init();
   NETSTACK_MAC.init();
+
   NETSTACK_NETWORK.init();
 
   PRINTA("%s %s, channel %u , check rate %u Hz tx power %u\n", NETSTACK_MAC.name, NETSTACK_RDC.name, rf230_get_channel(),
@@ -267,7 +272,7 @@ uint8_t debugflowsize,debugflow[DEBUGFLOWSIZE];
 /* Get periodic prints from idle loop, from clock seconds or rtimer interrupts */
 /* Use of rtimer will conflict with other rtimer interrupts such as contikimac radio cycling */
 /* STAMPS will print ENERGEST outputs if that is enabled. */
-#define PERIODICPRINTS 0
+#define PERIODICPRINTS 1
 #if PERIODICPRINTS
 //#define PINGS 64
 #define ROUTES 600
@@ -346,12 +351,11 @@ initialize(void)
   watchdog_init();
   watchdog_start();
 
-#ifndef ARDUINO
+
 #ifdef CAMERA_INTERFACE
   camera_init();
 #else
   init_usart();
-#endif
 #endif
 
   clock_init();
@@ -394,7 +398,6 @@ uint8_t i;
   PRINTA("\n*******Booting %s*******\n",CONTIKI_VERSION_STRING);
 
   leds_init();
-
 
 
 
@@ -510,11 +513,15 @@ main(void)
   initialize();
 
   leds_on(LEDS_RED);
+#ifdef BORDER_ROUTER
+  process_start(&border_router_process, NULL);
+  process_start(&webserver_nogui_process, NULL);
+#endif
   while(1) {
     process_run();
     watchdog_periodic();
 
-    /* Turn off LED after a while */
+
 
 
 #if PERIODICPRINTS

@@ -1,6 +1,6 @@
 all:$(PROJECT_OBJECTFILES) $(PROJECT_LIBRARIES) contiki-$(TARGET).a
 
-CFLAGS += -DRS232_CONF_NUMPORTS=0
+
 CFLAGS += -DARDUINO=1
 
 # IPv6
@@ -10,9 +10,11 @@ UIP_CONF_RPL = 1
 # Address type: set to 0 for using ds2401, 1 for EUI64_ADDRESS defined in params.c.
 UIP_CONF_EUI64 = 1
 
+# POWERMODE
+CONF_LOWPOWER = 0
+
 WITH_COAP = 7
 
-CONF_LOWPOWER = 1
 
 # REST framework, requires WITH_COAP
 ifeq ($(WITH_COAP), 7)
@@ -38,6 +40,11 @@ endif
 APPS += erbium
 #APPS += camera-interface
 #APPS += buzzer-id
+ifdef BORDER_ROUTER
+CFLAGS += -DRS232_CONF_NUMPORTS=2
+else
+CFLAGS += -DRS232_CONF_NUMPORTS=0
+endif
 
 CONTIKI = ../..
 include $(CONTIKI)/Makefile.include

@@ -77,8 +77,10 @@ unsigned char debugflowsize,debugflow[DEBUGFLOWSIZE];
 #include "dev/rs232.h"
 #include "dev/serial-line.h"
 #include "dev/slip.h"
-
-
+#ifdef BORDER_ROUTER
+PROCESS_NAME(border_router_process);
+PROCESS_NAME(webserver_nogui_process);
+#endif
 
 #if AVR_WEBSERVER
 #include "httpd-fs.h"
@@ -173,7 +175,7 @@ set_rime_addr(void)
   
 }
 
-#ifndef ARDUINO
+
 void
 init_usart(void)
 {
@@ -191,7 +193,7 @@ init_usart(void)
   rs232_redirect_stdout(RS232_PORT_0);
 #endif /* WITH_UIP */
 }
-#endif
+
 
 void
 init_net(void)
@@ -353,12 +355,11 @@ initialize(void)
   watchdog_init();
   watchdog_start();
 
-#ifndef ARDUINO
+
 #ifdef CAMERA_INTERFACE
   camera_init();
 #else
   init_usart();
-#endif
 #endif
 
   clock_init();
@@ -516,11 +517,15 @@ main(void)
   initialize();
 
   leds_on(LEDS_RED);
+#ifdef BORDER_ROUTER
+  process_start(&border_router_process, NULL);
+  process_start(&webserver_nogui_process, NULL);
+#endif
   while(1) {
     process_run();
     watchdog_periodic();
 
-    /* Turn off LED after a while */
+
 
 
 #if PERIODICPRINTS

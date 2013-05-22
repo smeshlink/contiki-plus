@@ -1,0 +1,2 @@
+CONTIKI_CPU_DIRS           += enc28
+CONTIKI_TARGET_SOURCEFILES += enc28j60.c enc28j60-drv.c

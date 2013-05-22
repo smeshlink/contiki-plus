@@ -93,6 +93,15 @@ AR       = arm-none-eabi-ar
 OBJCOPY  = arm-none-eabi-objcopy
 STRIP    = arm-none-eabi-strip
 SIZE     = arm-none-eabi-size
+#CC	 = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/arm-none-eabi-gcc
+#LD       = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/arm-none-eabi-gcc
+#AS	 = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/arm-none-eabi-gcc
+#NM	 = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/arm-none-eabi-nm
+#AR       = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/arm-none-eabi-ar
+#OBJCOPY  = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/arm-none-eabi-objcopy
+#STRIP    = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/arm-none-eabi-strip
+#SIZE     = ../../../../arduino/hardware/tools/g++_arm_none_eabi/bin/arm-none-eabi-size
+
 ifndef DEBUG
 OPTI = -Os -ffunction-sections 
 endif

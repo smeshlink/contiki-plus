@@ -8,6 +8,10 @@ CONTIKI_TARGET_SOURCEFILES += contiki-iduino-main.c params.c ds2401.c \
 							adc.c adc-sensors.c \
 							 # sht11.c sht11-sensor.c  interrupt-arch.c 
 							
+#The avr cpu makefile will also add these files if COFFEE_FILES is specified.
+
+
+
 
 CONTIKIAVR=$(CONTIKI)/cpu/avr
 CONTIKIBOARD=.

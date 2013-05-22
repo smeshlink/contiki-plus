@@ -1,0 +1,11 @@
+WITH_WEBSERVER=1
+ifeq ($(WITH_WEBSERVER),1)
+CFLAGS += -DWEBSERVER=1
+else ifneq ($(WITH_WEBSERVER), 0)
+APPS += $(WITH_WEBSERVER)
+CFLAGS += -DWEBSERVER=2
+endif
+
+rpl-border-router_src = border-router.c slip-bridge.c httpd-simple.c
+
+CFLAGS += -DBORDER_ROUTER=1

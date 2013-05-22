@@ -54,8 +54,8 @@
 #define PRINTF(...)
 #endif
 
-#define TESTCOFFEE 1
-#define DEBUG_CFS 1
+#define TESTCOFFEE 0
+#define DEBUG_CFS 0
 #if TESTCOFFEE
 #if DEBUG_CFS
 #include <stdio.h>

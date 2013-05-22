@@ -94,13 +94,22 @@ AR       = avr-ar
 ELF_SIZE = avr-size -C --mcu=$(MCU)
 OBJCOPY  = avr-objcopy
 STRIP    = avr-strip
+#CC       = "../../../../arduino/hardware/tools/avr/bin/avr-gcc"
+#LD       = "../../../../arduino/hardware/tools/avr/bin/avr-gcc"
+#AS       = "../../../../arduino/hardware/tools/avr/bin/avr-as"
+#AR       = "../../../../arduino/hardware/tools/avr/bin/avr-ar"
+#ELF_SIZE = "../../../../arduino/hardware/tools/avr/bin/avr-size" -C --mcu=$(MCU)
+#OBJCOPY  = "../../../../arduino/hardware/tools/avr/bin/avr-objcopy"
+#STRIP    = "../../../../arduino/hardware/tools/avr/bin/avr-strip"
+
 CFLAGSNO = -Wall -mmcu=$(MCU) -gdwarf-2 -fno-strict-aliasing \
             -I$(CONTIKI)/platform/$(TARGET) \
             -I. -I$(CONTIKI)/core -I$(CONTIKI_CPU) $(USB_INCLUDES) \
             $(CONTIKI_PLAT_DEFS)
 CFLAGS   += $(CFLAGSNO) -O$(OPTI)
 ifndef BOOTLOADER_START
-  BOOTLOADER_START = 0x1F800
+  #BOOTLOADER_START = 0x1F800
+  BOOTLOADER_START = 0x1F000
 endif
 
 LDFLAGS  += -mmcu=$(MCU) -Wl,-Map=contiki-$(TARGET).map \

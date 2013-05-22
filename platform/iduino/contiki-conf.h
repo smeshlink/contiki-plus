@@ -340,4 +340,45 @@ typedef unsigned short uip_stats_t;
 #include PROJECT_CONF_H
 #endif
 
+#ifdef BORDER_ROUTER
+#ifndef UIP_FALLBACK_INTERFACE
+#define UIP_FALLBACK_INTERFACE rpl_interface
+#endif
+
+#ifndef QUEUEBUF_CONF_NUM
+#define QUEUEBUF_CONF_NUM          15
+#endif
+
+#ifndef UIP_CONF_BUFFER_SIZE
+#define UIP_CONF_BUFFER_SIZE    1500
+#endif
+
+#ifndef UIP_CONF_RECEIVE_WINDOW
+#define UIP_CONF_RECEIVE_WINDOW  60
+#endif
+
+#ifndef WEBSERVER_CONF_CFS_CONNS
+#define WEBSERVER_CONF_CFS_CONNS 2
+#endif
+
+#undef UIP_CONF_DS6_NBR_NBU
+#ifdef __AVR_ATmega256RFR2__
+#define UIP_CONF_DS6_NBR_NBU 200
+#else
+#define UIP_CONF_DS6_NBR_NBU 20
+#endif
+
+#undef UIP_CONF_DS6_ROUTE_NBU
+#ifdef __AVR_ATmega256RFR2__
+#define UIP_CONF_DS6_ROUTE_NBU    200
+#else
+#define UIP_CONF_DS6_ROUTE_NBU    20
+#endif
+
+#else
+#ifndef UIP_CONF_BUFFER_SIZE
+#define UIP_CONF_BUFFER_SIZE    256
+#endif
+#endif//border_router
+
 #endif /* __CONTIKI_CONF_H__ */
