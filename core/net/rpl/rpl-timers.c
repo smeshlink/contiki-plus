@@ -91,14 +91,14 @@ new_dio_interval(rpl_instance_t *instance)
   /* Convert from milliseconds to CLOCK_TICKS. */
   ticks = (time * CLOCK_SECOND) / 1000;
 
-	if(ticks == 0)
-	{
-		instance->dio_intcurrent = instance->dio_intmin;
-		time = 1UL << instance->dio_intcurrent;
-		ticks = (time * CLOCK_SECOND) / 1000;
-	}
+if(ticks == 0)
+{
+instance->dio_intcurrent = instance->dio_intmin;
+time = 1UL << instance->dio_intcurrent;
+ticks = (time * CLOCK_SECOND) / 1000;
+}
 
-	instance->dio_next_delay = ticks;
+instance->dio_next_delay = ticks;
 
   /* random number between I/2 and I */
   ticks = ticks / 2 + (ticks / 2 * (uint32_t)random_rand()) / RANDOM_RAND_MAX;

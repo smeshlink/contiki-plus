@@ -1,4 +1,4 @@
-CONTIKI_TARGET_DIRS = . dev apps net loader
+CONTIKI_TARGET_DIRS = . dev apps net loader 
 CONTIKI_CORE=contiki-iduino-main
 CONTIKI_TARGET_MAIN = ${CONTIKI_CORE}.o
 

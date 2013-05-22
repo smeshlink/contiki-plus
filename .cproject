@@ -115,6 +115,14 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
+			<target name="TARGET=iduino coffee-test.u AVRDUDE_PORT=-Pcom13" path="examples/09-coffee-test" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>TARGET=iduino coffee-test.u AVRDUDE_PORT=-Pcom13</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
 			<target name="TARGET=mx2xxcc camera-coap.elf" path="examples/08-camera/camera-coap" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
@@ -146,9 +154,10 @@
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
 			</target>
-			<target name="TARGET=iduino hello-world.u hello-world.eu AVRDUDE_PORT=-Pcom23" path="examples/01-hello-world" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="TARGET=iduino hello-world.u hello-world.eu AVRDUDE_PORT=-Pcom56" path="examples/01-hello-world" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
-				<buildTarget>TARGET=iduino hello-world.u hello-world.eu AVRDUDE_PORT=-Pcom23</buildTarget>
+				<buildArguments/>
+				<buildTarget>TARGET=iduino hello-world.u hello-world.eu AVRDUDE_PORT=-Pcom56</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
@@ -183,6 +192,14 @@
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
 			</target>
+			<target name="TARGET=iduino hello-world.u AVRDUDE_PORT=-Pcom13" path="examples/hello-world" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>TARGET=iduino hello-world.u AVRDUDE_PORT=-Pcom13</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
 			<target name="TARGET=mx2xxcc border-router.elf" path="examples/00-rpl-border-router" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
@@ -191,10 +208,10 @@
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
 			</target>
-			<target name="TARGET=iduino border-router.elf" path="examples/00-rpl-border-router" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="TARGET=iduino border-router.u border-router.eu AVRDUDE_PORT=-Pcom13" path="examples/00-rpl-border-router" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>
-				<buildTarget>TARGET=iduino border-router.elf</buildTarget>
+				<buildTarget>TARGET=iduino border-router.u border-router.eu AVRDUDE_PORT=-Pcom13</buildTarget>
 				<stopOnError>true</stopOnError>
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>

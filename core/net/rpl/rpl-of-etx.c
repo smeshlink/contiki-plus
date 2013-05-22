@@ -147,10 +147,6 @@ best_dag(rpl_dag_t *d1, rpl_dag_t *d2)
   return d1->rank < d2->rank ? d1 : d2;
 }
 
-#if HACK_FAST_MULTIHOP
-extern uip_lladdr_t uip_lladdr;
-#endif
-
 static rpl_parent_t *
 best_parent(rpl_parent_t *p1, rpl_parent_t *p2)
 {
@@ -158,16 +154,6 @@ best_parent(rpl_parent_t *p1, rpl_parent_t *p2)
   rpl_path_metric_t min_diff;
   rpl_path_metric_t p1_metric;
   rpl_path_metric_t p2_metric;
-
-#if HACK_FAST_MULTIHOP
-#warning "trick for fast multihop"
-  // FIXME hack for fast multihop
-  if (p1->addr.u8[15] == uip_lladdr.addr[7] - 1) {
-    return p1;
-  } else if (p2->addr.u8[15] == uip_lladdr.addr[7] - 1) {
-    return p2;
-  }
-#endif
 
   dag = p1->dag; /* Both parents must be in the same DAG. */
 
