@@ -377,7 +377,7 @@ typedef unsigned short uip_stats_t;
 /* ************************************************************************** */
 //#pragma mark RPL Settings
 /* ************************************************************************** */
-
+#define UIP_CONF_BUFFER_SIZE	 1300
 #if UIP_CONF_IPV6_RPL
 
 /* Not completely working yet. Works on Ubuntu after $ifconfig usb0 -arp to drop the neighbor solitications */
@@ -412,7 +412,7 @@ typedef unsigned short uip_stats_t;
 #define RPL_BORDER_ROUTER           1
 #endif
 #define RPL_CONF_STATS              0
-#define UIP_CONF_BUFFER_SIZE	 1300
+
 //#define UIP_CONF_DS6_NBR_NBU       12
 //#define UIP_CONF_DS6_ROUTE_NBU     12
 
