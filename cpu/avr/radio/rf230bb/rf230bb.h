@@ -86,7 +86,11 @@
 #endif
 
 #if RF230BB 
+#if defined(__AVR_ATmega128RFA1__) || defined(__AVR_ATmega256RFR2__)
 #define RF230_SUPPORTED_INTERRUPT_MASK          ( 0xFF )
+#else
+#define RF230_SUPPORTED_INTERRUPT_MASK          ( HAL_TRX_END_MASK | HAL_RX_START_MASK | HAL_BAT_LOW_MASK | HAL_AMI_MASK ) //( 0x0C )  //disable bat low, trx underrun, pll lock/unlock
+#endif
 #define RF230_MIN_CHANNEL                       ( 11 )
 #define RF230_MAX_CHANNEL                       ( 26 )
 #define TX_PWR_3DBM                             ( 0 )
