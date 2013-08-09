@@ -320,6 +320,10 @@ typedef unsigned short uip_stats_t;
 #define UIP_CONF_PINGADDRCONF    0
 #define UIP_CONF_LOGGING         0
 
+#else
+
+#define UIP_CONF_ROUTER          0
+
 #endif /* RPL */
 
 #ifdef WITH_COAP
