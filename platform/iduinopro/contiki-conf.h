@@ -376,7 +376,7 @@ typedef unsigned short uip_stats_t;
 
 #else
 #ifndef UIP_CONF_BUFFER_SIZE
-#define UIP_CONF_BUFFER_SIZE    256
+#define UIP_CONF_BUFFER_SIZE    1500
 #endif
 #endif//border_router
 #endif /* __CONTIKI_CONF_H__ */

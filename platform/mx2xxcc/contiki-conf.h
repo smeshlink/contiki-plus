@@ -340,6 +340,7 @@ typedef unsigned short uip_stats_t;
 #include PROJECT_CONF_H
 #endif
 #ifdef BORDER_ROUTER
+
 #ifndef UIP_FALLBACK_INTERFACE
 #define UIP_FALLBACK_INTERFACE rpl_interface
 #endif
@@ -374,9 +375,11 @@ typedef unsigned short uip_stats_t;
 #define UIP_CONF_DS6_ROUTE_NBU    20
 #endif
 
-#else
+#else //border_router
+
 #ifndef UIP_CONF_BUFFER_SIZE
-#define UIP_CONF_BUFFER_SIZE    256
+#define UIP_CONF_BUFFER_SIZE    1500
 #endif
+
 #endif//border_router
 #endif /* __CONTIKI_CONF_H__ */
