@@ -41,11 +41,13 @@ SHELL_COMMAND(debug_command,
           "debug",
           "debug <state>: toggle debug output (on / off)",
           &shell_debug_process);
+#if UIP_CONF_IPV6_RPL
 PROCESS(shell_rpl_process, "rpl");
 SHELL_COMMAND(rpl_command,
           "rpl",
           "rpl: show RPL neighbors and routes",
           &shell_rpl_process);
+#endif
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(shell_txpower_process, ev, data)
 {
@@ -262,5 +264,7 @@ mx_shell_init(uint8_t port)
   shell_register_command(&txpower_command);
   shell_register_command(&rfchannel_command);
   shell_register_command(&debug_command);
+#if UIP_CONF_IPV6_RPL
   shell_register_command(&rpl_command);
+#endif
 }
