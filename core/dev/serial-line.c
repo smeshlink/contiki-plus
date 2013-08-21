@@ -104,7 +104,12 @@ PROCESS_THREAD(serial_line_process, ev, data)
     } else {
       if(c != END) {
         if(ptr < BUFSIZE-1) {
-          buf[ptr++] = (uint8_t)c;
+          if (c == '\b' || c == 0x7f) {
+            if (ptr > 0)
+              ptr--;
+          } else {
+            buf[ptr++] = (uint8_t)c;
+          }
         } else {
           /* Ignore character (wait for EOL) */
         }
