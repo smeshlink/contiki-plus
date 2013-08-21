@@ -41,13 +41,11 @@ SHELL_COMMAND(debug_command,
           "debug",
           "debug <state>: toggle debug output (on / off)",
           &shell_debug_process);
-#if UIP_CONF_IPV6_RPL
-PROCESS(shell_rpl_process, "rpl");
-SHELL_COMMAND(rpl_command,
-          "rpl",
-          "rpl: show RPL neighbors and routes",
-          &shell_rpl_process);
-#endif
+PROCESS(shell_net_process, "net");
+SHELL_COMMAND(net_command,
+          "net",
+          "net: show addresses, neighbors, and routes (if RPL is enabled)",
+          &shell_net_process);
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(shell_txpower_process, ev, data)
 {
@@ -133,7 +131,6 @@ PROCESS_THREAD(shell_debug_process, ev, data)
   PROCESS_END();
 }
 /*---------------------------------------------------------------------------*/
-#if UIP_CONF_IPV6_RPL
 #include "uip.h"
 
 static uint16_t
@@ -158,42 +155,46 @@ ipaddr_add(char *buff, const uip_ipaddr_t *addr)
   return offset;
 }
 
-#include "rpl.h"
+#include "net/uip-ds6.h"
 extern uip_ds6_nbr_t uip_ds6_nbr_cache[];
-extern uip_ds6_route_t uip_ds6_routing_table[];
 extern uip_ds6_netif_t uip_ds6_if;
+#if UIP_CONF_IPV6_RPL
+#include "rpl.h"
+extern uip_ds6_route_t uip_ds6_routing_table[];
+#endif
 
-PROCESS_THREAD(shell_rpl_process, ev, data)
+PROCESS_THREAD(shell_net_process, ev, data)
 {
   uint8_t i,j;
   PROCESS_BEGIN();
 
-  shell_output_str(&rpl_command, "", "");
+  shell_output_str(&net_command, "", "");
   sprintf(buf, "Addresses [%u max]", UIP_DS6_ADDR_NB);
-  shell_output_str(&rpl_command, buf, "");
+  shell_output_str(&net_command, buf, "");
   for (i = 0;i < UIP_DS6_ADDR_NB; i++) {
     if (uip_ds6_if.addr_list[i].isused) {
       ipaddr_add(buf, &uip_ds6_if.addr_list[i].ipaddr);
-      shell_output_str(&rpl_command, buf, "");
+      shell_output_str(&net_command, buf, "");
     }
   }
 
-  shell_output_str(&rpl_command, "", "");
+  shell_output_str(&net_command, "", "");
   sprintf(buf, "Neighbors [%u max]", UIP_DS6_NBR_NB);
-  shell_output_str(&rpl_command, buf, "");
+  shell_output_str(&net_command, buf, "");
   for(i = 0, j = 1; i < UIP_DS6_NBR_NB; i++) {
     if(uip_ds6_nbr_cache[i].isused) {
       ipaddr_add(buf, &uip_ds6_nbr_cache[i].ipaddr);
-      shell_output_str(&rpl_command, buf, "");
+      shell_output_str(&net_command, buf, "");
       j = 0;
     }
   }
   if (j)
-    shell_output_str(&rpl_command, "  <none>", "");
+    shell_output_str(&net_command, "  <none>", "");
 
-  shell_output_str(&rpl_command, "", "");
+#if UIP_CONF_IPV6_RPL
+  shell_output_str(&net_command, "", "");
   sprintf(buf, "Routes [%u max]", UIP_DS6_ROUTE_NB);
-  shell_output_str(&rpl_command, buf, "");
+  shell_output_str(&net_command, buf, "");
   {
     uip_ds6_route_t *r;
     j = 1;
@@ -208,18 +209,18 @@ PROCESS_THREAD(shell_rpl_process, ev, data)
       } else {
         sprintf(buf + offset, ")");
       }
-      shell_output_str(&rpl_command, buf, "");
+      shell_output_str(&net_command, buf, "");
       j = 0;
     }
   }
   if (j)
-    shell_output_str(&rpl_command, "  <none>", "");
+    shell_output_str(&net_command, "  <none>", "");
+#endif
 
-  shell_output_str(&rpl_command, "", "");
+  shell_output_str(&net_command, "", "");
 
   PROCESS_END();
 }
-#endif
 /*---------------------------------------------------------------------------*/
 static int
 serial_input_byte(unsigned char c)
@@ -261,10 +262,9 @@ mx_shell_init(uint8_t port)
   shell_reboot_init();
   shell_power_init();
   shell_time_init();
+  shell_ping_init();
   shell_register_command(&txpower_command);
   shell_register_command(&rfchannel_command);
   shell_register_command(&debug_command);
-#if UIP_CONF_IPV6_RPL
-  shell_register_command(&rpl_command);
-#endif
+  shell_register_command(&net_command);
 }
