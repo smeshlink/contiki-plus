@@ -91,7 +91,7 @@ light_init()
  *   \return         EOF on error
 */
 static int
-temp_find(int16_t value, uint16_t* array, int count)
+temp_find(int16_t value, const uint16_t* array, int count)
 {
   int i = 0;
   int table_val = 0;
@@ -105,7 +105,7 @@ temp_find(int16_t value, uint16_t* array, int count)
 }
 
 static float
-temp_findf(int16_t value, uint16_t* array, int count)
+temp_findf(int16_t value, const uint16_t* array, int count)
 {
   int i = 0;
   int table_val = 0;
