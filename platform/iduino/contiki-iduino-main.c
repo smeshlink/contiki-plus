@@ -299,13 +299,13 @@ void rtimercycle(void) {rtimerflag=1;}
 typedef struct {const unsigned char B2;const unsigned char B1;const unsigned char B0;} __signature_t;
 #define SIGNATURE __signature_t __signature __attribute__((section (".signature")))
 SIGNATURE = {
-  .B2 = 0x01,//SIGNATURE_2, //ATMEGA128rfa1
-  .B1 = 0xA7,//SIGNATURE_1, //128KB flash
+  .B2 = 0x02,//SIGNATURE_2, //ATMEGA256rfr2
+  .B1 = 0xA8,//SIGNATURE_1, //256KB flash
   .B0 = 0x1E,//SIGNATURE_0, //Atmel
 };
 #endif
 
-#if 1
+#if 0
 /* JTAG, SPI enabled, Internal RC osc, Boot flash size 4K, 6CK+65msec delay, brownout disabled */
 FUSES ={.low = 0xe2, .high = 0x99, .extended = 0xff,};
 #else
@@ -514,6 +514,9 @@ main(void)
 #if ARDUINO
   setup();
 #endif
+#if UIP_CONF_IPV6
+  uip_ds6_nbr_t *nbr;
+#endif /* UIP_CONF_IPV6 */
   initialize();
 
   leds_on(LEDS_RED);
@@ -527,6 +530,14 @@ main(void)
 
 
 
+/* Set DEBUGFLOWSIZE in contiki-conf.h to track path through MAC, RDC, and RADIO */
+#if DEBUGFLOWSIZE
+  if (debugflowsize) {
+    debugflow[debugflowsize]=0;
+    PRINTF("%s",debugflow);
+    debugflowsize=0;
+   }
+#endif
 
 #if PERIODICPRINTS
 #if TESTRTIMER
@@ -546,7 +557,7 @@ main(void)
 if ((clocktime%STAMPS)==0) {
 #if ENERGEST_CONF_ON
 #include "lib/print-stats.h"
-	print_stats();
+  print_stats();
 #elif RADIOSTATS
 extern volatile unsigned long radioontime;
   PRINTF("%u(%u)s\n",clocktime,radioontime);
@@ -556,7 +567,6 @@ extern volatile unsigned long radioontime;
 
 }
 #endif
-
 #if TESTRTIMER
       clocktime+=1;
 #endif
@@ -572,11 +582,9 @@ if ((clocktime%PINGS)==1) {
 #if ROUTES && UIP_CONF_IPV6
 if ((clocktime%ROUTES)==2) {
       
-extern uip_ds6_nbr_t uip_ds6_nbr_cache[];
-//extern uip_ds6_route_t uip_ds6_routing_table[];
 extern uip_ds6_netif_t uip_ds6_if;
 
-  uint8_t i,j;
+  uint8_t i,j=0;
   PRINTF("\nAddresses [%u max]\n",UIP_DS6_ADDR_NB);
   for (i=0;i<UIP_DS6_ADDR_NB;i++) {
     if (uip_ds6_if.addr_list[i].isused) {
@@ -584,31 +592,26 @@ extern uip_ds6_netif_t uip_ds6_if;
       PRINTF("\n");
     }
   }
-  PRINTF("\nNeighbors [%u max]\n",UIP_DS6_NBR_NB);
-  for(i = 0,j=1; i < UIP_DS6_NBR_NB; i++) {
-    if(uip_ds6_nbr_cache[i].isused) {
-      ipaddr_add(&uip_ds6_nbr_cache[i].ipaddr);
-      PRINTF("\n");
-      j=0;
-    }
+  PRINTF("\nNeighbors [%u max]\n",NBR_TABLE_MAX_NEIGHBORS);
+  for(nbr = nbr_table_head(ds6_neighbors);
+      nbr != NULL;
+      nbr = nbr_table_next(ds6_neighbors, nbr)) {
+    ipaddr_add(&nbr->ipaddr);
+    PRINTF("\n");
+    j=0;
   }
   if (j) PRINTF("  <none>");
-  PRINTF("\nRoutes [%u max]\n",UIP_DS6_ROUTE_NB);
   {
     uip_ds6_route_t *r;
     PRINTF("\nRoutes [%u max]\n",UIP_DS6_ROUTE_NB);
     j = 1;
-    for(r = uip_ds6_route_list_head();
+    for(r = uip_ds6_route_head();
         r != NULL;
-        r = list_item_next(r)) {
+        r = uip_ds6_route_next(r)) {
       ipaddr_add(&r->ipaddr);
       PRINTF("/%u (via ", r->length);
-      ipaddr_add(&r->nexthop);
-      if(r->state.lifetime < 600) {
-        PRINTF(") %lus\n", r->state.lifetime);
-      } else {
-        PRINTF(")\n");
-      }
+      ipaddr_add(uip_ds6_route_nexthop(r));
+       PRINTF(") %lus\n", r->state.lifetime);
       j = 0;
     }
   }
@@ -616,7 +619,6 @@ extern uip_ds6_netif_t uip_ds6_if;
   PRINTF("\n---------\n");
 }
 #endif
-
 
 #if STACKMONITOR
 if ((clocktime%STACKMONITOR)==3) {

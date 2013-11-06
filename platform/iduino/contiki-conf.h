@@ -72,7 +72,7 @@ typedef unsigned long off_t;
 
 /* RADIOSTATS is used in rf230bb, clock.c and the webserver cgi to report radio usage */
 /* It has less overhead than ENERGEST */
-#define RADIOSTATS                1
+#define RADIOSTATS                0
 
 /* More extensive stats, via main loop printfs or webserver status pages */
 #define ENERGEST_CONF_ON          0
@@ -204,14 +204,15 @@ typedef unsigned short uip_stats_t;
 /* 25 bytes per UDP connection */
 #define UIP_CONF_UDP_CONNS       10
 /* See uip-ds6.h */
-#define UIP_CONF_DS6_NBR_NBU      15
+#define NBR_TABLE_CONF_MAX_NEIGHBORS      20
 #define UIP_CONF_DS6_DEFRT_NBU    2
 #define UIP_CONF_DS6_PREFIX_NBU   3
-#define UIP_CONF_DS6_ROUTE_NBU    15
+#define UIP_CONF_MAX_ROUTES    20
 #define UIP_CONF_DS6_ADDR_NBU     3
 #define UIP_CONF_DS6_MADDR_NBU    0
 #define UIP_CONF_DS6_AADDR_NBU    0
 
+//#define RPL_CONF_LEAF_ONLY		1
 
 #elif 1  /* Contiki-mac radio cycling */
 //#define NETSTACK_CONF_MAC         nullmac_driver
@@ -225,9 +226,9 @@ typedef unsigned short uip_stats_t;
 /* So without the header this needed for RPL mesh to form */
 #define CONTIKIMAC_CONF_SHORTEST_PACKET_SIZE   43-18  //multicast RPL DIS length
 /* Not tested much yet */
-#define WITH_PHASE_OPTIMIZATION                0
+#define CONTIKIMAC_CONF_WITH_PHASE_OPTIMIZATION                0
 #define CONTIKIMAC_CONF_COMPOWER               1
-#define RIMESTATS_CONF_ON                      1
+#define RIMESTATS_CONF_ENABLED                 1
 #define NETSTACK_CONF_FRAMER      framer_802154
 #define NETSTACK_CONF_RADIO       rf230_driver
 #define CHANNEL_802_15_4          MXCHANNEL
@@ -242,21 +243,22 @@ typedef unsigned short uip_stats_t;
 #define SICSLOWPAN_CONF_FRAG      1
 #define SICSLOWPAN_CONF_MAXAGE    3
 /* 211 bytes per queue buffer. Contikimac burst mode needs 15 for a 1280 byte MTU */
-#define QUEUEBUF_CONF_NUM         10//15
+#define QUEUEBUF_CONF_NUM         15
 /* 54 bytes per queue ref buffer */
 #define QUEUEBUF_CONF_REF_NUM     2
 /* Allocate remaining RAM. Not much left due to queuebuf increase  */
 #define UIP_CONF_MAX_CONNECTIONS  2
 #define UIP_CONF_MAX_LISTENPORTS  4
 #define UIP_CONF_UDP_CONNS        5
-#define UIP_CONF_DS6_NBR_NBU      15
+#define NBR_TABLE_CONF_MAX_NEIGHBORS      15
 #define UIP_CONF_DS6_DEFRT_NBU    2
 #define UIP_CONF_DS6_PREFIX_NBU   3
-#define UIP_CONF_DS6_ROUTE_NBU    15
+#define UIP_CONF_MAX_ROUTES    15
 #define UIP_CONF_DS6_ADDR_NBU     3
 #define UIP_CONF_DS6_MADDR_NBU    0
 #define UIP_CONF_DS6_AADDR_NBU    0
 
+//#define RPL_CONF_LEAF_ONLY		1
 
 #elif 1  /* cx-mac radio cycling */
 /* RF230 does clear-channel assessment in extended mode (autoretries>0) */
@@ -285,10 +287,10 @@ typedef unsigned short uip_stats_t;
 #define UIP_CONF_MAX_CONNECTIONS  2
 #define UIP_CONF_MAX_LISTENPORTS  4
 #define UIP_CONF_UDP_CONNS        5
-#define UIP_CONF_DS6_NBR_NBU      4
+#define NBR_TABLE_CONF_MAX_NEIGHBORS      15
 #define UIP_CONF_DS6_DEFRT_NBU    2
 #define UIP_CONF_DS6_PREFIX_NBU   3
-#define UIP_CONF_DS6_ROUTE_NBU    4
+#define UIP_CONF_MAX_ROUTES       15
 #define UIP_CONF_DS6_ADDR_NBU     3
 #define UIP_CONF_DS6_MADDR_NBU    0
 #define UIP_CONF_DS6_AADDR_NBU    0
@@ -333,14 +335,17 @@ typedef unsigned short uip_stats_t;
 
 #define CCIF
 #define CLIF
+#ifndef CC_CONF_INLINE
+#define CC_CONF_INLINE inline
+#endif
 
 /* include the project config */
 /* PROJECT_CONF_H might be defined in the project Makefile */
 #ifdef PROJECT_CONF_H
 #include PROJECT_CONF_H
 #endif
-
 #ifdef BORDER_ROUTER
+
 #ifndef UIP_FALLBACK_INTERFACE
 #define UIP_FALLBACK_INTERFACE rpl_interface
 #endif
@@ -361,24 +366,25 @@ typedef unsigned short uip_stats_t;
 #define WEBSERVER_CONF_CFS_CONNS 2
 #endif
 
-#undef UIP_CONF_DS6_NBR_NBU
+#undef NBR_TABLE_CONF_MAX_NEIGHBORS
 #ifdef __AVR_ATmega256RFR2__
-#define UIP_CONF_DS6_NBR_NBU 200
+#define NBR_TABLE_CONF_MAX_NEIGHBORS 200
 #else
-#define UIP_CONF_DS6_NBR_NBU 20
+#define NBR_TABLE_CONF_MAX_NEIGHBORS 20
 #endif
 
-#undef UIP_CONF_DS6_ROUTE_NBU
+#undef UIP_CONF_MAX_ROUTES
 #ifdef __AVR_ATmega256RFR2__
-#define UIP_CONF_DS6_ROUTE_NBU    200
+#define UIP_CONF_MAX_ROUTES    200
 #else
-#define UIP_CONF_DS6_ROUTE_NBU    20
+#define UIP_CONF_MAX_ROUTES    20
 #endif
 
-#else
+#else //border_router
+
 #ifndef UIP_CONF_BUFFER_SIZE
 #define UIP_CONF_BUFFER_SIZE    1500
 #endif
-#endif//border_router
 
+#endif//border_router
 #endif /* __CONTIKI_CONF_H__ */

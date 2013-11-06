@@ -2,7 +2,7 @@ CONTIKI_PROJECT=border-router
 all: $(CONTIKI_PROJECT) 
 
 CONTIKI=../..
-
+# Address type: set to 0 for using ds2401, 1 for EUI64_ADDRESS defined in params.c.
 UIP_CONF_EUI64 = 0
 
 WITH_UIP6=1

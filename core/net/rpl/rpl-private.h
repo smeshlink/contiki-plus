@@ -115,12 +115,14 @@
 #define RPL_LIFETIME(instance, lifetime) \
           ((unsigned long)(instance)->lifetime_unit * (lifetime))
 
+
 #ifndef RPL_CONF_MIN_HOPRANKINC
 #define RPL_MIN_HOPRANKINC          256
 #else
 #define RPL_MIN_HOPRANKINC          RPL_CONF_MIN_HOPRANKINC
 #endif
 #define RPL_MAX_RANKINC             (7 * RPL_MIN_HOPRANKINC)
+
 
 #define DAG_RANK(fixpt_rank, instance) \
   ((fixpt_rank) / (instance)->min_hoprankinc)
@@ -270,6 +272,7 @@ extern rpl_instance_t *default_instance;
 void dis_output(uip_ipaddr_t *addr);
 void dio_output(rpl_instance_t *, uip_ipaddr_t *uc_addr);
 void dao_output(rpl_parent_t *, uint8_t lifetime);
+void dao_output_target(rpl_parent_t *, uip_ipaddr_t *, uint8_t lifetime);
 void dao_ack_output(rpl_instance_t *, uip_ipaddr_t *, uint8_t);
 
 /* RPL logic functions. */
@@ -289,8 +292,8 @@ void rpl_free_instance(rpl_instance_t *);
 rpl_parent_t *rpl_add_parent(rpl_dag_t *, rpl_dio_t *dio, uip_ipaddr_t *);
 rpl_parent_t *rpl_find_parent(rpl_dag_t *, uip_ipaddr_t *);
 rpl_parent_t *rpl_find_parent_any_dag(rpl_instance_t *instance, uip_ipaddr_t *addr);
-void rpl_nullify_parent(rpl_dag_t *, rpl_parent_t *);
-void rpl_remove_parent(rpl_dag_t *, rpl_parent_t *);
+void rpl_nullify_parent(rpl_parent_t *);
+void rpl_remove_parent(rpl_parent_t *);
 void rpl_move_parent(rpl_dag_t *dag_src, rpl_dag_t *dag_dst, rpl_parent_t *parent);
 rpl_parent_t *rpl_select_parent(rpl_dag_t *dag);
 rpl_dag_t *rpl_select_dag(rpl_instance_t *instance,rpl_parent_t *parent);

@@ -31,10 +31,10 @@
 #define __PROJECT_CONF_H__
 
 #undef QUEUEBUF_CONF_NUM
-#define QUEUEBUF_CONF_NUM          4
+#define QUEUEBUF_CONF_NUM          15
 
 #undef UIP_CONF_BUFFER_SIZE
-#define UIP_CONF_BUFFER_SIZE    140
+#define UIP_CONF_BUFFER_SIZE    1500
 
 #undef UIP_CONF_ROUTER
 #define UIP_CONF_ROUTER                 0
@@ -49,17 +49,43 @@
 #define CMD_CONF_HANDLERS slip_radio_cmd_handler,cmd_handler_cc2420
 #define SLIP_RADIO_CONF_SENSORS slip_radio_sky_sensors
 #else
-#define CMD_CONF_HANDLERS slip_radio_cmd_handler
+#define CMD_CONF_HANDLERS slip_radio_cmd_handler,cmd_handler_rf230
 #endif
 
 
-/* configuration for the slipradio/network driver */
+/* configuration for the slipradio/network driver
 #undef NETSTACK_CONF_MAC
 #define NETSTACK_CONF_MAC     nullmac_driver
 
 #undef NETSTACK_CONF_RDC
-/* #define NETSTACK_CONF_RDC     nullrdc_noframer_driver */
 #define NETSTACK_CONF_RDC     contikimac_driver
+*/
+#undef UIP_CONF_RECEIVE_WINDOW
+#define UIP_CONF_RECEIVE_WINDOW  60
+
+
+#undef WEBSERVER_CONF_CFS_CONNS
+#define WEBSERVER_CONF_CFS_CONNS 2
+
+
+#undef NBR_TABLE_CONF_MAX_NEIGHBORS
+#ifdef __AVR_ATmega256RFR2__
+#define NBR_TABLE_CONF_MAX_NEIGHBORS 200
+#else
+#define NBR_TABLE_CONF_MAX_NEIGHBORS 20
+#endif
+
+#undef UIP_CONF_MAX_ROUTES
+#ifdef __AVR_ATmega256RFR2__
+#define UIP_CONF_MAX_ROUTES    200
+#else
+#define UIP_CONF_MAX_ROUTES    20
+#endif
+
+#undef RDC_CONF_MCU_SLEEP
+#define RDC_CONF_MCU_SLEEP 0
+
+#undef RPL_CONF_LEAF_ONLY
 
 #undef NETSTACK_CONF_NETWORK
 #define NETSTACK_CONF_NETWORK slipnet_driver
@@ -67,10 +93,5 @@
 #undef NETSTACK_CONF_FRAMER
 #define NETSTACK_CONF_FRAMER no_framer
 
-#undef CC2420_CONF_AUTOACK
-#define CC2420_CONF_AUTOACK              1
-
-#undef UART1_CONF_RX_WITH_DMA
-#define UART1_CONF_RX_WITH_DMA           1
 
 #endif /* __PROJECT_CONF_H__ */

@@ -579,11 +579,10 @@ void menu_process(char c)
 
 #if UIP_CONF_IPV6_RPL
 #include "rpl.h"
-extern uip_ds6_nbr_t uip_ds6_nbr_cache[];
-extern uip_ds6_route_t uip_ds6_routing_table[];
 extern uip_ds6_netif_t uip_ds6_if;
 			case 'N':
 			{	uint8_t i,j;
+			  uip_ds6_nbr_t *nbr;
 				PRINTF_P(PSTR("\n\rAddresses [%u max]\n\r"),UIP_DS6_ADDR_NB);
 				for (i=0;i<UIP_DS6_ADDR_NB;i++) {
 					if (uip_ds6_if.addr_list[i].isused) {	  
@@ -591,48 +590,30 @@ extern uip_ds6_netif_t uip_ds6_if;
 						PRINTF_P(PSTR("\n\r"));
 					}
 				}
-				PRINTF_P(PSTR("\n\rNeighbors [%u max]\n\r"),UIP_DS6_NBR_NB);
-				for(i = 0,j=1; i < UIP_DS6_NBR_NB; i++) {
-					if(uip_ds6_nbr_cache[i].isused) {
-						ipaddr_add(&uip_ds6_nbr_cache[i].ipaddr);
-						PRINTF_P(PSTR("\n\r"));
-						j=0;
-					}
+				PRINTF_P(PSTR("\n\rNeighbors [%u max]\n\r"),NBR_TABLE_MAX_NEIGHBORS);
+
+				for(nbr = nbr_table_head(ds6_neighbors);
+				    nbr != NULL;
+				    nbr = nbr_table_next(ds6_neighbors, nbr)) {
+				  ipaddr_add(&nbr->ipaddr);
+				  PRINTF_P(PSTR("\n\r"));
+				  j=0;
 				}
-				if (j) PRINTF_P(PSTR("  <none>"));
-				PRINTF_P(PSTR("\n\rRoutes [%u max]\n\r"),UIP_DS6_ROUTE_NB);
-				/*for(i = 0,j=1; i < UIP_DS6_ROUTE_NB; i++) {
-					if(uip_ds6_routing_table[i].isused) {
-						ipaddr_add(&uip_ds6_routing_table[i].ipaddr);
-						PRINTF_P(PSTR("/%u (via "), uip_ds6_routing_table[i].length);
-						ipaddr_add(&uip_ds6_routing_table[i].nexthop);
-						if(uip_ds6_routing_table[i].state.lifetime < 600) {
-							PRINTF_P(PSTR(") %lus\n\r"), uip_ds6_routing_table[i].state.lifetime);
-						} else {
-							PRINTF_P(PSTR(")\n\r"));
-						}
-						j=0;
-					}
-				}*/
-
-				{
-                  uip_ds6_route_t *r;
-                  j = 1;
-                  for(r = uip_ds6_route_list_head();
-                      r != NULL;
-                      r = list_item_next(r)) {
-                    ipaddr_add(&r->ipaddr);
-                    PRINTF_P(PSTR("/%u (via "), r->length);
-                    ipaddr_add(&r->nexthop);
-                    if(r->state.lifetime < 600) {
-                      PRINTF_P(PSTR(") %lus\n\r"), r->state.lifetime);
-                    } else {
-                      PRINTF_P(PSTR(")\n\r"));
-                    }
-                    j = 0;
-                  }
-                }
-
+				 if (j) PRINTF("  <none>");
+				  {
+				    uip_ds6_route_t *r;
+				    PRINTF("\nRoutes [%u max]\n",UIP_DS6_ROUTE_NB);
+				    j = 1;
+				    for(r = uip_ds6_route_head();
+				        r != NULL;
+				        r = uip_ds6_route_next(r)) {
+				      ipaddr_add(&r->ipaddr);
+				      PRINTF("/%u (via ", r->length);
+				      ipaddr_add(uip_ds6_route_nexthop(r));
+				       PRINTF(") %lus\n", r->state.lifetime);
+				      j = 0;
+				    }
+				  }
 				if (j) PRINTF_P(PSTR("  <none>"));
 				PRINTF_P(PSTR("\n\r---------\n\r"));
 				break;
@@ -647,6 +628,9 @@ extern uip_ds6_netif_t uip_ds6_if;
                  PRINTF_P(PSTR("Local repair initiated\n\r")); 
                  break;
  
+            case 'Z':     //zap the routing table           
+                PRINTF_P(PSTR("Not implemented.\n\r"));
+                break;
 #endif				
 			
 			case 'm':

@@ -1,39 +1,39 @@
 /*
- * Copyright (c) 2011, Swedish Institute of Computer Science.
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of the Institute nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
+* Copyright (c) 2011, Swedish Institute of Computer Science.
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions
+* are met:
+* 1. Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* 2. Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* 3. Neither the name of the Institute nor the names of its contributors
+* may be used to endorse or promote products derived from this software
+* without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND
+* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED. IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE
+* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+* OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+* SUCH DAMAGE.
+*/
 
 /**
- * \file
- *         Slip-radio driver
- * \author
- *         Niclas Finne <nfi@sics.se>
- *         Joakim Eriksson <joakime@sics.se>
- */
+* \file
+* Slip-radio driver
+* \author
+* Niclas Finne <nfi@sics.se>
+* Joakim Eriksson <joakime@sics.se>
+*/
 #include "contiki.h"
 #include "net/uip.h"
 #include "net/uip-ds6.h"
@@ -41,6 +41,7 @@
 #include <string.h>
 #include "net/netstack.h"
 #include "net/packetbuf.h"
+#include "dev/watchdog.h"
 
 #define DEBUG DEBUG_NONE
 #include "net/uip-debug.h"
@@ -59,7 +60,15 @@ uint8_t packet_ids[16];
 int packet_pos;
 
 static int slip_radio_cmd_handler(const uint8_t *data, int len);
+
+#ifdef CONTIKI_TARGET_SKY
 int cmd_handler_cc2420(const uint8_t *data, int len);
+#elif CONTIKI_TARGET_ECONOTAG
+int cmd_handler_mc1322x(const uint8_t *data, int len);
+#else
+int cmd_handler_rf230(const uint8_t *data, int len);
+#endif /* CONTIKI_TARGET */
+
 /*---------------------------------------------------------------------------*/
 #ifdef CMD_CONF_HANDLERS
 CMD_HANDLERS(CMD_CONF_HANDLERS);
@@ -75,9 +84,9 @@ packet_sent(void *ptr, int status, int transmissions)
   int pos;
   sid = *((uint8_t *)ptr);
   PRINTF("Slip-radio: packet sent! sid: %d, status: %d, tx: %d\n",
-  	 sid, status, transmissions);
+           sid, status, transmissions);
   /* packet callback from lower layers */
-  /*  neighbor_info_packet_sent(status, transmissions); */
+  /* neighbor_info_packet_sent(status, transmissions); */
   pos = 0;
   buf[pos++] = '!';
   buf[pos++] = 'R';
@@ -121,9 +130,12 @@ slip_radio_cmd_handler(const uint8_t *data, int len)
 
       packet_pos++;
       if(packet_pos >= sizeof(packet_ids)) {
-	packet_pos = 0;
+        packet_pos = 0;
       }
-
+      return 1;
+    } else if(data[1] == 'R') {
+      PRINTF("Rebooting\n");
+      watchdog_reboot();
       return 1;
     }
   } else if(uip_buf[0] == '?') {
@@ -174,23 +186,23 @@ init(void)
 int
 putchar(int c)
 {
-#define SLIP_END     0300
+#define SLIP_END 0300
   static char debug_frame = 0;
 
-  if(!debug_frame) {            /* Start of debug output */
+  if(!debug_frame) { /* Start of debug output */
     slip_arch_writeb(SLIP_END);
-    slip_arch_writeb('\r');     /* Type debug line == '\r' */
+    slip_arch_writeb('\r'); /* Type debug line == '\r' */
     debug_frame = 1;
   }
 
   /* Need to also print '\n' because for example COOJA will not show
-     any output before line end */
+any output before line end */
   slip_arch_writeb((char)c);
 
   /*
-   * Line buffered output, a newline marks the end of debug output and
-   * implicitly flushes debug output.
-   */
+* Line buffered output, a newline marks the end of debug output and
+* implicitly flushes debug output.
+*/
   if(c == '\n') {
     slip_arch_writeb(SLIP_END);
     debug_frame = 0;

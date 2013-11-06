@@ -17,7 +17,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "mx-shell.h"
+//#include "mx-shell.h"
 #include "dev/rs232.h"
 
 /*---------------------------------------------------------------------------*/
@@ -34,7 +34,7 @@ PROCESS_THREAD(hello_world_process, ev, data)
 	/* Any process must start with this. */
 	PROCESS_BEGIN();
 
-	mx_shell_init(RS232_PORT_0);
+	//mx_shell_init(RS232_PORT_0);
 
 	/* Set the etimer to generate an event in one second. */
 	etimer_set(&timer, CLOCK_CONF_SECOND);
