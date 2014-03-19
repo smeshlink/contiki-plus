@@ -1,9 +1,41 @@
 ---
 layout: default
-title: Contiki： 开源物联网操作系统
+title: Contiki ： 开源物联网操作系统
 home: true
 ---
 
+		<div id="products-carousel" class="carousel slide">
+			<ol class="carousel-indicators">
+				<li data-target="#products-carousel" data-slide-to="0" class="active"></li>
+				<li data-target="#products-carousel" data-slide-to="1"></li>
+				<li data-target="#products-carousel" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="active item">
+					<img src="http://www.contiki-os.org/img/products/watteco-ipsensor.png" alt="">
+					<div>
+						<p>The Watteco Self-powered Smart Building Sensors</p>
+						<p><a class="btn btn-primary" href="http://www.watteco.com/index.php/solutions.html" target="_blank">查看</a></p>
+					</div>
+				</div>
+				<div class="item">
+					<img src="http://www.contiki-os.org/img/products/redwire-ehwct.png" alt="">
+					<div class="carousel-caption">
+						<p>The Redwire Battery-free Clip-on Power Line Sensor</p>
+						<p><a class="btn btn-primary" href="http://contiki-os.blogspot.com/2013/06/self-powered-contiki-based-power-sensor.html" target="_blank">查看</a></p>
+					</div>
+				</div>
+				<div class="item">
+					<img src="http://www.contiki-os.org/img/products/oxford-badger.jpg" alt="">
+					<div class="carousel-caption">
+						<p>The Oxford badger tracking system</p>
+						<p><a class="btn btn-primary" href="http://www.noolitic.com/neo-datacenter.html" target="_blank">查看</a></p>
+					</div>
+				</div>
+			</div>
+			<a class="carousel-control left" href="#products-carousel" data-slide="prev"><i class="icon icon-prev"></i></a>
+			<a class="carousel-control right" href="#products-carousel" data-slide="next"><i class="icon icon-next"></i></a>
+		</div>
 		<div class="container">
 			<header class="page-header" style="padding-bottom: 2em">
 				<h1>{{ page.title }}</h1>
@@ -24,35 +56,41 @@ home: true
 			</header>
 			<section id="why">
 				<header class="page-header" style="padding-top: 4.3em">
-					<h1>为什么选择Contiki？</h1>
-					<p>Contiki是一个开源的物联网操作系统，致力于将低功耗的处理单元连入互联网。</p>
+					<h1>为什么选择 Contiki ？</h1>
+					<p>Contiki 是一个开源的物联网操作系统，致力于将低功耗的处理单元连入互联网。</p>
 				</header>
 				<div class="row">
 					<div class="span4">
 						<h2>互联网标准</h2>
-						<p></p>
+						<p>Contiki 提供了强大并且低功耗的网络通讯能力，完全支持标准IPv6与IPv4，并且遵循最新的低功耗无线网络标准： 6LoWPAN，RPL，CoAP。使用 Contiki 中的
+						ContikiMAC 和休眠路同，即使是无线路由节点也能够依靠电池工作。</p>
 					</div>
 					<div class="span4">
 						<h2>快速开发</h2>
-						<p></p>
+						<p>Contiki 应用程序是以标准C语言编写，开发快速、简单。使用 Cooja 模拟器可以不用借助硬件设备就能测试 Contiki 网络； Instant Contiki 提供了Linux下的一整套开发环境；Contiki Studio 则为Windows用户提供了一套良好的IDE。</p>
+						<p><a href="{{ site.url }}/gettting-started/">Contiki 开发指南</a></p>
 					</div>
 					<div class="span4">
 						<h2>硬件多样</h2>
-						<p></p>
+						<p>Contiki 支持多种低功耗无线设备，多数设备都能方便地在网上购买。</p>
+						<p><a href="{{ site.url }}/hardware/">Contiki 硬件平台</a></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="span4">
 						<h2>社区支持</h2>
-						<p></p>
+						<p>Contiki 是由<a href="http://dunkels.com/adam/">Adam Dunkels</a>领导，由来自<a href="{{ site.url }}/community/">世界各地的众多开发者</a>共同开发。为 Contiki 作出贡献的包括Atmel、Cisco、ETH、Redwire LLC、SAP、Thingsquare、SmeshLink，以及其他许多公司或机构。</p>
+						<p><a href="{{ site.url }}/community/">Contiki 社区</a></p>
 					</div>
 					<div class="span4">
 						<h2>开放源码</h2>
-						<p></p>
+						<p>Contiki 是开源软件，源码允许自由地在商业应用或非商业应用中使用。</p>
+						<p><a href="{{ site.url }}/license/">Contiki 开源许可证</a></p>
 					</div>
 					<div class="span4">
 						<h2>商业支持</h2>
-						<p></p>
+						<p>在<a href="{{ site.url }}/community/">社区支持</a>之外，Contiki 也提供商业支持。</p>
+						<p><a href="{{ site.url }}/support/">Contiki 支持</a></p>
 					</div>
 				</div>
 			</section>
@@ -61,5 +99,48 @@ home: true
 					<h1>Contiki的特性</h1>
 					<p>有众多的理由选择Contiki</p>
 				</header>
+				<div class="row">
+					<div class="span4">
+						<h2>内存分配</h2>
+						<p>Contiki 是为只有KB级别内存的微型系统设计的，因此在内存使用上极为高效，同时提供了一套内存分配机制：内存块分配<code>memb</code>，托管内存分配函数<code>memm</code>，和标准C内存分配函数<code>malloc</code></p>
+						<p>代码请参考<code>contiki/core/lib/{memb,mmem}.[ch]</code>。</p>
+					</div>
+					<div class="span4">
+						<h2>完整IP网络</h2>
+						<p>Contiki 提供了完整的IP网络栈，包含UDP、TCP、HTTP等标准IP协议，还包含新的低功耗协议，如6LoWPAN、RPL、CoAP等。Cisco开发并贡献的Contiki IPv6协议栈完全通过了IPv6 Ready Logo program认证。</p>
+						<p>代码请参考<code>contiki/core/net/</code>。</p>
+					</div>
+					<div class="span4">
+						<h2>功耗检测</h2>
+						<p>Contiki 的设计目的是在极端低功耗的系统中运行，这些系统甚至可能需要只用一对AA电池能够工作许多年。Contiki 为辅助这些低功耗系统的开发提供了功耗估计和功耗分析机制。</p>
+						<p>代码请参考<code>contiki/sys/energest.[ch]</code>。</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span4">
+						<h2>6LoWPAN，RPL，CoAP</h2>
+						<p>Contiki 支持IETF最新为低功耗IPv6网络制定的标准协议，包括6LoWPAN适配层、RPL多跳路由协议和REST风格的CoAP应用层协议等。</p>
+						<p>代码请参考<code>contiki/core/net/rpl/</code>和<code>contiki/apps/erbium/</code>。</p>
+					</div>
+					<div class="span4">
+						<h2>动态装载</h2>
+						<p>Contiki 支持运行时的模块动态装载和链接。当应用程序需要在部署后改变自身行为时，这项特性非常有用。Contiki 的模块装载器能够对标准ELF文件进行装载、重新分配和链接。用于装载的ELF文件需要能够移除调试符号以减小文件大小。</p>
+						<p>代码请参考<code>contiki/core/loader/</code></p>
+					</div>
+					<div class="span4">
+						<h2>代码示例</h2>
+						<p>Contiki 源码树中有足够多的示例，包括如何进行网络编程、如何操作硬件设备等，展示了 Contiki 系统的方方面面。多数示例有相应的 Cooja 模拟环境。这些示例能够帮助开发者开始快速地开发自己的应用程序。</p>
+						<p>代码请参考<code>contiki/examples/</code></p>
+					</div>
+				</div>
+			</section>
+			<section id="features">
+				<header class="page-header">
+					<h1>理由还不够充分？</h1>
+					<p>亲自体验 Contiki ！</p>
+				</header>
+				<p class="text-center">
+					<a class="btn btn-large btn-success" href="{{ site.url }}/getting-started/">体验 Contiki</a>
+				</p>
 			</section>
 		</div>
