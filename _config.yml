@@ -1,0 +1,9 @@
+name: Contiki
+highlighter: pygments
+relative_permalinks: false
+pygments: true
+permalink: /:categories/:title/
+repository: https://github.com/smeshlink/contiki-plus
+#url: /contiki-plus
+
+version: 2.7

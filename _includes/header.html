@@ -1,0 +1,40 @@
+		<div class="navbar navbar-default" role="navigation">
+			<div class="navbar-inner">
+				<div class="container">
+					<button type="button" class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="{{ site.url }}/" class="brand">Contiki</a>
+					<div class="nav-collapse collapse">
+						<ul class="nav">
+							<li class="{% if page.started %}active{% endif %}">
+								<a href="{{ site.url }}/getting-started/">开始</a>
+							</li>
+							<li class="{% if page.hardware %}active{% endif %}">
+								<a href="{{ site.url }}/hardware/">硬件</a>
+							</li>
+							<li class="{% if page.support %}active{% endif %}">
+								<a href="{{ site.url }}/support/">支持</a>
+							</li>
+							<li class="{% if page.download %}active{% endif %}">
+								<a href="{{ site.url }}/download/">下载</a>
+							</li>
+							<li class="{% if page.community %}active{% endif %}">
+								<a href="{{ site.url }}/community/">社区</a>
+							</li>
+							<li class="{% if page.license %}active{% endif %}">
+								<a href="{{ site.url }}/license/">许可</a>
+							</li>
+							<li class="{% if page.blog %}active{% endif %}">
+								<a href="{{ site.url }}/blog/">博客</a>
+							</li>
+							<li class="{% if page.contact %}active{% endif %}">
+								<a href="{{ site.url }}/contact/">联系</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
