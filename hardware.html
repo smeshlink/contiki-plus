@@ -1,0 +1,172 @@
+---
+layout: default
+title: Contiki 硬件
+hardware: true
+permalink: /hardware/
+---
+
+		<div class="container">
+			<header class="page-header">
+				<h1>{{ page.title }}</h1>
+			</header>
+			<div class="row">
+				<div class="span6">
+					<h2>Contiki 平台</h2>
+					<p>下表展示了目前 Contiki 源码树中支持的硬件平台。</p>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>MCU/SoC</th>
+								<th>Radio/射频</th>
+								<th>平台</th>
+								<th>Cooja 支持</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Atmel AVR</td>
+								<td>Atmel RF230</td>
+								<td><a href="http://www.smeshlink.com/wsn-node/mx231.html">mx231cc</a></td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>RL78</td>
+								<td>ADF7023</td>
+								<td><a href="http://www.analog.com/en/evaluation/eval-adf7023/eb.html">EVAL-ADF7023DB1</a></td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>TI CC2538</td>
+								<td>Integrated</td>
+								<td><a href="http://www.ti.com/tool/cc2538dk">cc2538dk</a></td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>TI MSP430x</td>
+								<td>TI CC2420</td>
+								<td><a href="http://processors.wiki.ti.com/index.php/MSP-EXP430F5438_Experimenter_Board">exp5438</a>,
+								<a href="http://www.zolertia.com/ti">z1</a></td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<td>TI MSP430x</td>
+								<td>TI CC2520</td>
+								<td><a href="http://wismote.org/">wismote</a></td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<td>Atmel AVR</td>
+								<td>Atmel RF230</td>
+								<td>avr-raven, avr-rcb, avr-zigbit, iris</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>Atmel AVR</td>
+								<td>TI CC2420</td>
+								<td>micaz</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<td>Freescale MC1322x</td>
+								<td>Integrated</td>
+								<td><a href="http://mc1322x.devl.org/hardware.html">redbee-dev,
+								redbee-econotag</a></td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>ST STM32w</td>
+								<td>Integrated</td>
+								<td><a href="http://www.st.com/internet/evalboard/product/247094.jsp">mb851,
+								mbxxx</a></td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>TI MSP430</td>
+								<td>TI CC2420</td>
+								<td>sky, jcreate, sentilla-usb</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<td>TI MSP430</td>
+								<td>TI CC1020</td>
+								<td>msb430</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>TI MSP430</td>
+								<td>RFM TR1001</td>
+								<td>esb</td>
+								<td>Yes</td>
+							</tr>
+							<tr>
+								<td>Atmel Atmega128 RFA1</td>
+								<td>Integrated</td>
+								<td>avr-atmega128rfa</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>Microchip pic32mx795f512l</td>
+								<td>Microchip mrf24j40</td>
+								<td><a href=" http://rtn.sssup.it/index.php/hardware/seed-eye">seed-eye</a></td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>TI CC2530</td>
+								<td>Integrated</td>
+								<td>cc2530dk</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>RC2300/RC2301</td>
+								<td>Integrated</td>
+								<td>sensinode</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>6502</td>
+								<td>-</td>
+								<td>apple2enh, atari, c128, c64</td>
+								<td>-</td>
+							</tr>
+							<tr>
+								<td>Native</td>
+								<td>-</td>
+								<td>native, minimal-net, cooja</td>
+								<td>Yes</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="span6">
+					<h2>购买硬件</h2>
+					<p>Contiki 硬件可以在网上许多地方买到。</p>
+					<hr/>
+					<h3>SmeshLink</h3>
+					<p>SmeshLink （美信凌科）提供了基于 Contiki 的物联网开发套件。</p>
+					<p><a target="_blank" href="http://www.smeshlink.com/contiki-product-show.html">Contiki 开发套件</a></p>
+					<hr/>
+					<h3>Redwire Econotags</h3>
+					<p>Redwire 制造和销售 Econotag 平台。</p>
+					<p><a target="_blank" href="http://www.redwirellc.com">Redwire »</a><br/>
+						<a target="_blank" href="http://www.redwirellc.com/store/">Redwire store »</a></p>
+					<hr/>
+					<h3>Zolertia</h3>
+					<p>Zolertia 制造和销售 z1 节点。</p>
+					<p><a target="_blank" href="http://www.zolertia.com">Zolertia »</a><br/>
+						<a target="_blank" href="http://webshop.zolertia.com/index.php/cPath/23">Zolertia store »</a></p>
+					<hr/>
+					<h3>ST Microelectronics</h3>
+					<p>ST Microelectronics 为 STM32w SoC 提供了一套开发套件。</p>
+					<p><a target="_blank" href="http://www.st.com/internet/evalboard/product/247094.jsp">STM32W-SK Evaluation kit »</a></p>
+					<hr/>
+					<h3>Texas Instruments</h3>
+					<p>Texas Instruments 不仅制造了许多可以运行 Contiki 的芯片，而且也销售 Contiki 开发板。</p>
+					<p><a target="_blank" href="http://www.ti.com/tool/cc2530dk">CC2530dk »</a><br/>
+						<a target="_blank" href="http://www.ti.com/tool/msp-exp430f5438">EXP430f5438 »</a><br/>
+						<a target="_blank" href="http://www.ti.com/tool/cc2520emk">CC2520emk »</a></p>
+					<hr/>
+					<h3>Seed eye</h3>
+					<p><a target="_blank" href="http://www.evidence.eu.com/products/seed-eye.html">seed-eye »</a></p>
+				</div>
+			</div>
+		</div>
