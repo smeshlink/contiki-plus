@@ -7,29 +7,13 @@ home: true
 		<div id="products-carousel" class="carousel slide">
 			<ol class="carousel-indicators">
 				<li data-target="#products-carousel" data-slide-to="0" class="active"></li>
-				<li data-target="#products-carousel" data-slide-to="1"></li>
-				<li data-target="#products-carousel" data-slide-to="2"></li>
 			</ol>
 			<div class="carousel-inner">
 				<div class="active item">
-					<img src="http://www.contiki-os.org/img/products/watteco-ipsensor.png" alt="">
-					<div>
-						<p>The Watteco Self-powered Smart Building Sensors</p>
-						<p><a class="btn btn-primary" href="http://www.watteco.com/index.php/solutions.html" target="_blank">查看</a></p>
-					</div>
-				</div>
-				<div class="item">
-					<img src="http://www.contiki-os.org/img/products/redwire-ehwct.png" alt="">
+					<img src="{{ site.url }}/assets/img/products/oxford-badger.jpg" alt="">
 					<div class="carousel-caption">
-						<p>The Redwire Battery-free Clip-on Power Line Sensor</p>
-						<p><a class="btn btn-primary" href="http://contiki-os.blogspot.com/2013/06/self-powered-contiki-based-power-sensor.html" target="_blank">查看</a></p>
-					</div>
-				</div>
-				<div class="item">
-					<img src="http://www.contiki-os.org/img/products/oxford-badger.jpg" alt="">
-					<div class="carousel-caption">
-						<p>The Oxford badger tracking system</p>
-						<p><a class="btn btn-primary" href="http://www.noolitic.com/neo-datacenter.html" target="_blank">查看</a></p>
+						<p>牛津大学獾跟踪系统</p>
+						<p><a class="btn btn-primary" href="#">查看</a></p>
 					</div>
 				</div>
 			</div>
@@ -37,7 +21,7 @@ home: true
 			<a class="carousel-control right" href="#products-carousel" data-slide="next"><i class="icon icon-next"></i></a>
 		</div>
 		<div class="container">
-			<header class="page-header" style="padding-bottom: 2em">
+			<header class="page-header" style="padding-bottom: 2em; margin-top: 10px;">
 				<h1>{{ page.title }}</h1>
 				<div class="row">
 					<div class="span4">
@@ -96,7 +80,7 @@ home: true
 			</section>
 			<section id="features">
 				<header class="page-header">
-					<h1>Contiki的特性</h1>
+					<h1>Contiki特性</h1>
 					<p>有众多的理由选择Contiki</p>
 				</header>
 				<div class="row">
@@ -118,7 +102,7 @@ home: true
 				</div>
 				<div class="row">
 					<div class="span4">
-						<h2>6LoWPAN，RPL，CoAP</h2>
+						<h2>6LoWPAN， RPL， CoAP</h2>
 						<p>Contiki 支持IETF最新为低功耗IPv6网络制定的标准协议，包括6LoWPAN适配层、RPL多跳路由协议和REST风格的CoAP应用层协议等。</p>
 						<p>代码请参考<code>contiki/core/net/rpl/</code>和<code>contiki/apps/erbium/</code>。</p>
 					</div>
@@ -133,8 +117,104 @@ home: true
 						<p>代码请参考<code>contiki/examples/</code></p>
 					</div>
 				</div>
+				<div class="row">
+					<div class="span4">
+						<h2>Cooja网络模拟器</h2>
+						<p>Contiki设备通常需要组成大型无线网络，在这样的网络中开发和调试应用程序将会非常困难。Contiki提供的Cooja网络模拟器可以使这种开发变得极其简单。通过Cooja模拟环境，开发者可以在大规模网络中或者完全模拟的硬件上运行应用程序。</p>
+						<p>代码请参考<code>contiki/tools/cooja/</code></p>
+					</div>
+					<div class="span4">
+						<h2>休眠路由</h2>
+						<p>在无线网络中，节点可能需要作为中继替其他节点传输消息。在Contiki中，中继节点（路由节点）也可以用电池驱动。Contiki采用的ContikiMac射频duty-cycling机制允许路由节点在中继间隙中进行休眠。</p>
+						<p>代码请参考<code>contiki/core/net/mac/</code></p>
+					</div>
+					<div class="span4">
+						<h2>硬件平台</h2>
+						<p>Contiki支持多种微型平台，包括8051、MSP430、AVR以及许多ARM设备，还有其他一些平台。点击<a href="{{ site.url }}/hardware/">这里</a>查看更多。</p>
+						<p>代码请参考<code>contiki/platform/</code>和<code>contiki/cpu/</code></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span4">
+						<h2>Protothreads</h2>
+						<p>Contiki采用了一种称为Protothreads的机制，提供良好的控制流的同时可以节省内存。Protothreads混合了事件驱动模型与多线程模型。在Protothreads中，事件处理过程可以阻塞等待特定事件的发生。</p>
+						<p>代码请参考<code>contiki/core/sys/pt.h</code></p>
+					</div>
+					<div class="span4">
+						<h2>Coffee文件系统</h2>
+						<p>Contiki为具有外部Flash存储的设备提供了一种名为Coffee的轻量级文件系统。应用程序不需要了解Flash扇区的底层操作就可以对外部Flash中的文件进行打开、关闭、读取、写入、追加等操作。Coffee文件系统的效率能够达到原生Flash存储操作的95%。</p>
+						<p>代码请参考<code>contiki/core/cfs/cfs-coffee.[ch]</code></p>
+					</div>
+					<div class="span4">
+						<h2>Contiki控制台</h2>
+						<p>Contiki提供了一个可选的控制台和一套用于Contiki开发与调试的常用命令，并且支持类似Unix的管道功能。开发者也可以添加自定义命令。</p>
+						<p>代码请参考<code>contiki/apps/shell/</code></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span4">
+						<h2>回归测试</h2>
+						<p>为了确保Contiki正确工作，Contiki开发者们采用了一套每日回归测试，每天在Cooja模拟器中对Contiki的重要部分进行测试。回归测试脚本可以作为使用模拟环境的起点，也可以用于了解Contiki机制有哪些不同。</p>
+						<p>代码请参考<code>contiki/regression-tests/</code></p>
+					</div>
+					<div class="span4">
+						<h2>Rime栈</h2>
+						<p>对于带宽有限或者不能运行完整IPv6网络栈的环境，Contiki定制了名为Rime的无线网络栈。Rime栈既支持简单操作，例如向所有邻居或指定邻居节点发送消息，也支持一些复杂机制，例如网络洪泛、多跳数据采集等。Rime可以运行在休眠路由上以降低功耗。</p>
+						<p>代码请参考<code>contiki/core/net/rime/</code></p>
+					</div>
+					<div class="span4">
+						<h2>构建系统</h2>
+						<p>通过Contiki构建系统，应用程序可以很容易地编译至任意目标平台，在不同的平台上使用应用程序非常简单。没有硬件设备？不要紧，用Cooja可以模拟任何支持的硬件设备！</p>
+						<p>代码请参考<code>contiki/Makefile.include</code></p>
+					</div>
+				</div>
 			</section>
-			<section id="features">
+			<section id="more">
+				<header class="page-header">
+					<h1>选择Contiki的更多理由</h1>
+					<p>还需要更多理由吗？请继续阅读！</p>
+				</header>
+				<div class="row">
+					<div class="span3">
+						<h2>硬件</h2>
+						<p>Contiki支持许多硬件平台，并且能够方便地移植到新的硬件平台。</p>
+						<p><a href="{{ site.url }}/hardware/">Contiki硬件</a></p>
+					</div>
+					<div class="span3">
+						<h2>内存使用</h2>
+						<p>Contiki只需要占用很小的内存。一个具有完整IPv6网络、休眠功能和RPL路由的典型系统仅需要不到10K RAM和30K ROM。</p>
+					</div>
+					<div class="span3">
+						<h2>标准化</h2>
+						<p>Contiki采用的是诸如IPv4、IPv6和HTTP等的业内标准。</p>
+					</div>
+					<div class="span3">
+						<h2>开发环境</h2>
+						<p>不需要安装和配置复杂的开发工具链，只需要下载和安装InstantContiki或SmeshLink Contiki Studio。</p>
+						<p><a href="{{ site.url }}/getting-started/">Contiki开发介绍</a></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span3">
+						<h2>开源</h2>
+						<p>Contiki是开源系统，源码可时获取，商业或非商业系统可以不受限制地使用Contiki。</p>
+					</div>
+					<div class="span3">
+						<h2>测试</h2>
+						<p>每日回归测试确保Contiki能够正常工作。</p>
+					</div>
+					<div class="span3">
+						<h2>核心开发者</h2>
+						<p>Contiki开发者们是来自世界各地的专家，许多开发者非常乐于在contiki-developers邮件列表中提供帮助。</p>
+					</div>
+					<div class="span3">
+						<h2>社区支持</h2>
+						<p>Contiki提供了一系列支持。</p>
+						<p><a href="{{ site.url }}/support/">Contiki资源</a></p>
+					</div>
+				</div>
+			</section>
+			<section id="try">
 				<header class="page-header">
 					<h1>理由还不够充分？</h1>
 					<p>亲自体验 Contiki ！</p>
@@ -144,3 +224,50 @@ home: true
 				</p>
 			</section>
 		</div>
+		<script type="text/javascript">
+		$(function() {
+			function shuffle(array) {
+				var i = array.length, tmp, ri;
+				while (i != 0) {
+					ri = Math.floor(Math.random() * i);
+					i--;
+					tmp = array[i];
+					array[i] = array[ri];
+					array[ri] = tmp;
+				}
+				return array;
+			}
+			var systems = [
+				{ "title": "牛津大学獾跟踪系统", "href": "http://www.bbc.co.uk/news/technology-13751740", "img": "img/products/oxford-badger.jpg" },
+				{ "title": "tado°智能恒温与供暖系统", "href": "http://thingsquare.com/customers/", "img": "img/products/tado-box-570.jpg" },
+				{ "title": "Rad-DX辐射检测器", "href": "http://www.dtectsystems.com/rad-DX_page.html", "img": "img/products/rad-dx1.png" },
+				{ "title": "LIFX WiFi电灯", "href": "http://thingsquare.com/customers/", "img": "img/products/lifx-570.png" },
+				{ "title": "Zolertia智慧城市噪音监测系统", "href": "http://youtu.be/uM-1iJ8Tzx8", "img": "img/products/zolertia-zoundtracker-570.jpg" },
+				{ "title": "WigWag: 扫描，控制，设定，分享。", "href": "http://www.wigwag.com/", "img": "img/products/wigwag.jpg" },
+				{ "title": "Redwire电力线传感器", "href": "http://contiki-os.blogspot.com/2013/06/self-powered-contiki-based-power-sensor.html", "img": "img/products/redwire-ehwct.png" },
+				{ "title": "ViBrain智慧城市解决方案", "href": "http://www.vibrainsolutions.com/", "img": "img/products/vibrain.jpg" },
+				{ "title": "NooliBee数据中心能源优化系统", "href": "http://www.noolitic.com/neo-datacenter.html", "img": "img/products/noolitic-datacenter.jpg" },
+				{ "title": "Watteco智能建筑传感器", "href": "http://www.watteco.com/index.php/solutions.html", "img": "img/products/watteco-ipsensor.png" },
+				{ "title": "美信凌科物联网开发套件", "href": "http://www.smeshlink.com/contiki-product-show.html", "img": "img/products/smeshlink-uipv6-pro-kit.jpg" }
+			];
+			shuffle(systems);
+			var carouselhtml = '', indicatorshtml = '';
+			for (var i = 0; i < systems.length; i++) {
+				if (i == 0) {
+					carouselhtml += '<div class="item active">';
+					indicatorshtml += '<li data-target="#products-carousel" data-slide-to="' + i + '" class="active"></li>';
+				} else {
+					carouselhtml += '<div class="item">';
+					indicatorshtml += '<li data-target="#products-carousel" data-slide-to="' + i + '"></li>';
+				}
+				carouselhtml += '<img src="{{ site.url }}/assets/' + systems[i].img
+					+ '" alt="' + systems[i].title + '">';
+				carouselhtml += '<div class="carousel-caption"><p>';
+				carouselhtml += systems[i].title;
+				carouselhtml += '</p><p><a class="btn btn-primary" target="_blank" href="'
+					+ systems[i].href + '">查看</a></p></div></div>';
+			}
+			$('#products-carousel .carousel-inner').html(carouselhtml);
+			$('#products-carousel .carousel-indicators').html(indicatorshtml);
+		});
+		</script>
