@@ -1,0 +1,716 @@
+---
+layout: default
+title: 下载 Contiki
+download: true
+permalink: /download/
+---
+
+		<div class="container">
+			<header class="page-header">
+				<h1>{{ page.title }}</h1>
+			</header>
+			<div class="row">
+				<div class="span4">
+					<h2>下载 Instant Contiki</h2>
+					<p>Instant Contiki 是一个 Contiki 开发环境，包含了 Contiki 开发中需要的所有工具和编译器。</p>
+					<p><a href="http://sourceforge.net/projects/contiki/files/Instant%20Contiki/">下载 Instant Contiki »</a></p>
+				</div>
+				<div class="span4">
+					<h2>源码</h2>
+					<p>Contiki 发行版的完整代码可以在这里下载：</p>
+					<p><a href="http://sourceforge.net/projects/contiki/files/Contiki/">下载 Contiki 发行版 »</a></p>
+				</div>
+				<div class="span4">
+					<h2>最新开发版源码</h2>
+					<p>Contiki 源码托管在GitHub，点击这里查看：</p>
+					<p><a href="https://github.com/contiki-os/contiki">GitHub »</a></p>
+				</div>
+			</div>
+			<section>
+				<header class="page-header">
+					<h1>Contiki 更新日志</h1>
+				</header>
+				<div class="accordion" id="accordion">
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#v27">Contiki 2.7 更新日志 （2013年11月15日）</a>
+						</div>
+						<div id="v27" class="accordion-body collapse in">
+							<div class="accordion-inner">
+							<p>This is a massive update that brings an unprecedented amount of stability improvements and bugfixes to Contiki. Highlights:</p>
+              <p>New features and mechanisms:</p>
+
+              <ul>
+                <li>Regression test framework</li>
+                <li>Travis integration</li>
+                <li>New code style script</li>
+                <li>mDNS</li>
+                <li>Trickle timer library</li>
+                <li>Compiler output less verbose</li>
+              </ul>
+
+              <p>Severe bugfixes in:</p>
+
+              <ul>
+                <li>CSMA</li>
+                <li>802.15.4 framer</li>
+                <li>Nullrdc</li>
+                <li>ContikiMAC</li>
+                <li>6lowpan fragmentation handling</li>
+                <li>IPv6</li>
+                <li>RPL routing</li>
+              </ul>
+
+              <p>IPv6 stack:</p>
+
+              <ul>
+                <li>IPv6 neighbor table refactorization</li>
+                <li>IPv6 routing table refactorization</li>
+                <li>RPL rewrite</li>
+                <li>RPL auto-repair of failed routes</li>
+                <li>IPv6 stack monitor if neighbor fails</li>
+                <li>Callbacks on routing table changes</li>
+                <li>6lowpan: allow the maximum radio frame size to be configured</li>
+              </ul>
+
+              <p>Platforms:</p>
+
+              <ul>
+                <li>New TI CC2538 802.15.4 System-on-a-Chip platform</li>
+                <li>New PIC32 / SeedEye platform</li>
+                <li>STM32w updated</li>
+                <li>CC2430 updated</li>
+                <li>MC1322x updated</li>
+              </ul>
+
+              <p>Cooja:</p>
+
+              <ul>
+                <li>Support for link-layer ACKs</li>
+                <li>Improved stack monitoring and stack overflow triggering</li>
+                <li>Improved radiologger: duplicate packets now collapsed</li>
+                <li>Improved Timeline handling</li>
+                <li>Save radio bitrate in .csc file</li>
+                <li>Support for CC1101, CC1120, and ENC28J60 emulation</li>
+                <li>MSPsim support for MSP430x instruction set, verified against hardware</li>
+              </ul>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#v26">Contiki 2.6 更新日志 （2012年6月17日）</a>
+						</div>
+						<div id="v26" class="accordion-body collapse">
+							<div class="accordion-inner">
+			<p>
+		<b>Antelope</b>. A lightweight SQL-like database
+		manager for Contiki (apps/antelope and
+		examples/antelope).
+	      </p>
+	      <p>
+		<b>Erbium</b>. A new CoAP implementation for Contiki
+		(apps/erbium and examples/erbium).
+	      </p>
+	      <p>
+		<b>JSON library</b>. A lightweight JSON parsing and
+		construction library (apps/json) and a web services
+		HTTP server (apps/httpd-ws).
+	      </p>
+	      <p>
+		<b>ContikiMAC</b>. Improvements to allow busts of
+		packets to be sent rapidly.
+	      </p>
+	      <p>
+		<b>RPL</b>. Added support for extension headers.
+	      </p>
+	      <p>
+		<b>Native border router</b>. The RPL border router
+		can now optionally run as a native process under
+		Linux and communicate with a low-power radio over a
+		serial port.
+	      </p>
+	      <p>
+		<b>Cooja</b>. Many improvements to the user
+		interface. Simulation support for the MSP430x
+		architecture and the exp5438, wismote, and z1
+		platforms.
+	      </p>
+	      <p>
+		<b>stm32w</b>. Added support for ContikiMAC.
+	      </p>
+	      <p>
+		<b>New ports</b>. cc2530, exp5438, wismote.
+	      </p>
+	      <p>
+		<b>Instant Contiki</b>. Updated to Ubuntu
+		12.04. Eclipse installed as default editor.
+	      </p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#v25">Contiki 2.5 更新日志 （2011年9月9日）</a>
+						</div>
+						<div id="v25" class="accordion-body collapse">
+							<div class="accordion-inner">
+		<p>
+		<b>ContikiRPL</b> ContikiRPL is a new implementation of the proposed
+		IETF standard RPL protocol for low-power IPv6 routing. ContikiRPL now
+		is the default IPv6 routing mechanism in Contiki.
+	      </p>
+	      <p>
+		<b>ContikiMAC</b> The new ContikiMAC state-of-the-art low-power
+		listening asynchronous radio duty cycling mechanism is now the default
+		duty cycling mechanism in Contiki.
+	      </p>
+	      <p>
+		<b>Contiki Collect</b> Contiki Collect is an address-free data
+		collection protocol that runs on top of the Contiki Rime stack. For
+		Contiki 2.5, Contiki Collect has been completely reworked to provide a
+		significantly improved performance as well as configurability.
+	      </p>
+	      <p>
+		<b>CollectView</b> CollectView is a Java GUI that is used to set up a
+		Contiki data collection network, either over Contiki collect or over
+		UDP/IPv6/RPL.
+	      </p>
+	      <p>
+		<b>Powertrace</b> Powertrace is an interface to the Contiki power
+		profiling system that allows either real-time inspection or off-line
+		analysis of the power consumption of a sensor network.
+	      </p>
+	      <p>
+		<b>The Contiki simulation environment</b> The MSPSim/Cooja simulation
+		environment has received a significant speed-up.
+	      </p>
+	      <p>
+		<b>CoAP/REST</b> Contiki 2.5 includes an experimental implementation
+		of the IETF CoRE group’s CoAP application layer protocol for RESTful
+		interaction with a low-power IP sensor network.
+	      </p>
+	      <p>
+		<b>New platforms</b> Zolertia Z1, RedWire Econotag
+		mc13224v, ST Microelectronics STM32w, Sentilla JCreate.
+	      </p>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#v24">Contiki 2.4 更新日志 （2010年2月16日）</a>
+						</div>
+						<div id="v24" class="accordion-body collapse">
+							<div class="accordion-inner">
+		<h3>Main changes</h3>
+	      <ul>
+		<li>Significant improvements to power-saving low-power radio MAC protocols.</li>
+		<li>Several bugfixes to uIP and the SICSlowpan code.</li>
+		<li>New sensor API.</li>
+		<li>Significant COOJA/MSPsim speedup.</li>
+		<li>Two new experimental platforms: MicaZ and Sensinode 8051/CC2430.</li>
+	      </ul>
+	      <h3>
+		Low-Power Radio MAC Protocols</h3>
+	      <ul>
+		<li>New CSMA MAC protocol, running on top of the low-power MAC layer  protocols such as X-MAC, that performs retransmissions when it detects  collisions or interference. Enabled by default on Tmote Sky.</li>
+		<li>Significant improvements to X-MAC: the low-power operation now  registers the phase of the neighbors and reduces the strobing period  according to the phase of the receiver; broadcasts are transmitted more  power-efficiently; frame format now compatible with 802.15.4.</li>
+		<li>Streaming support for both LPP and X-MAC.</li>
+		<li>New non-rtimer-based implementation of X-MAC, called CX-MAC, for platforms without rtimer support.</li>
+		<li>New configuration option for easier tuning of low-power MAC channel check rate.</li>
+		<li>Tmote Sky boot-up code now prints channel check rate by default.</li>
+	      </ul>
+	      <h3>
+		uIP and Rime Networking</h3>
+	      <ul>
+		<li>SICSlowpan now with low-power MAC for Tmote Sky.</li>
+		<li>Bugfix that allow 6lowpan fragmentation and reassembly with low-power MAC on the Tmote Sky.</li>
+		<li>Bugfixes in uIP code: start timer if lost SYN; loss of SYNACK bugfix; avoid using floating point operations in IPv6 code.</li>
+		<li>Bugfix in IPv4-over-mesh: work better over low-power MAC.</li>
+		<li>Support for receiving IPv4 multicast.</li>
+		<li>Runicast retransmission time configurable in contiki-conf.h.</li>
+		<li>Improved Tmote Sky IPv6/6lowpan bridge setup.</li>
+	      </ul>
+	      <h3>
+		API Changes</h3>
+	      <ul>
+		<li>Sensors API changed; Tmote Sky platform updated to match the new API.</li>
+	      </ul>
+	      <h3>
+		COOJA</h3>
+	      <ul>
+		<li>10x speed improvement through improved MSPSim integration.</li>
+		<li>Introduced low-overhead debugging interface for MSPSim-based simulation.</li>
+		<li>Simplified application-level simulation, with examples.</li>
+		<li>Coffee filesystem integration.</li>
+		<li>Improvements to Timeline and Visualizer plugins.</li>
+		<li>Better support for MicaZ emulation.</li>
+	      </ul>
+	      <h3>
+		Nightly Builds and Contiki Regression Test Suite</h3>
+	      <ul>
+		<li>Test configuration structure updated: test files are now self-contained.</li>
+		<li>New uIPv6 routing test.</li>
+		<li>Improved shell collect test.</li>
+		<li>New shell netperf test.</li>
+	      </ul>
+	      <h3>
+		Contiki Shell</h3>
+	      <ul>
+		<li>New shell modules: netperf for testing the communication  performance between two neighbors, memdebug, with commands 'peek' and  'poke', for reading and setting memory locations from the shell - useful  for debugging device drivers.</li>
+		<li>Alignment bugfixes.</li>
+	      </ul>
+	      <h3>
+		Drivers</h3>
+	      <ul>
+		<li>CC2420 now allows transmission power to be set on a per-packet basis.</li>
+		<li>CC2420 timesynch bugfix.</li>
+		<li>CC2420: Enabled SFD interrupts.</li>
+		<li>Serial line improvements.</li>
+		<li>Faster SPI driver.</li>
+	      </ul>
+	      <h3>
+		Platforms</h3>
+	      <ul>
+		<li>New platforms: MicaZ (experimental), Sensinode 8051/CC2430. (experimental)</li>
+		<li>Minimal-net now has IPv6 support.</li>
+		<li>Significant improvements to Tmote Sky IPv6 support.</li>
+		<li>  6502: Compatibility with cc65 version 2.13; 80 column screen on Apple2 and C128</li>
+		<li>msb430: New SD driver written from scratch.</li>
+	      </ul>
+	      <h3>
+		Other Changes</h3>
+	      <ul>
+		<li>Modules mmem and dhcpc are now compiled by default.</li>
+		<li>New examples for email, irc, webserver, wget.</li>
+		<li>Improved IPv4 and IPv6 examples for the Tmote Sky.</li>
+		<li>Bugfixes in AVR ELF loader.</li>
+		<li>Power profiling bugfix: energy was sometimes misattributed when peripheral was switched off when it was already off.</li>
+		<li>New simplified rtimer code that only handles one rtimer.</li>
+		<li>Rime examples now run on disjoint channels to avoid semantic interference.</li>
+		<li>New Java-based maintenance tool for Coffee file system images.</li>
+		<li>Improved makefsdata script.</li>
+	      </ul>
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#older">其他</a>
+						</div>
+						<div id="older" class="accordion-body collapse">
+							<div class="accordion-inner">
+	      <h3>
+		Changelog for Contiki 2.3 (27 June 2009)<br />
+	      </h3>
+	      <h3>
+		New features<br />
+	      </h3>
+	      <ul>
+		<li>IPv6 routing layer</li>
+		<li>Cooja TimeLine</li>
+		<li>IPv6/6lowpan for Tmote Sky</li>
+		<li>MSB430 port</li>
+		<li>Many new shell commands</li>
+		<li>Improved LPP power-saving MAC protocol</li>
+		<li> Twitter client</li>
+	      </ul>
+	      <h3>
+		uIP</h3>
+	      <ul>
+		<li>Support for UDP-based IPv6 routing protocols implemented with Rime</li>
+		<li> New IPv6 multi-hop routing module using Rime's route discovery algorithm</li>
+		<li> Made IPv6 routing modules easily replaceable</li>
+		<li> Alignment problems in SICSlowpan fixes to make it work on MSP430</li>
+		<li> IPv4 routing bugfixes</li>
+		<li> Protosocket send bugfix significantly increase tcp throughput</li>
+	      </ul>
+	      <h3>
+		Rime</h3>
+	      <ul>
+		<li> New packet queue module that keeps track of a packet queue</li>
+		<li> collect: now maintains a queue of packets to be forwarded</li>
+		<li> Multihop bugfix: avoid overwriting packet attributes</li>
+	      </ul>
+	      <h3>
+		Duty-cyling power-saving MAC protocols</h3>
+	      <ul>
+		<li>Mac layer structure has init function to make configuration easier</li>
+		<li> Many improvements and optimizations to LPP</li>
+		<li> X-MAC now does not run rtimer when off, to avoid problems with serial communication on MSP430</li>
+	      </ul>
+	      <h3>
+		Coffee</h3>
+	      <ul>
+		<li>Improved the garbage collection efficiency and correctness.</li>
+		<li> Fixed a bug in file merges.</li>
+	      </ul>
+	      <h3>
+		Power profiler</h3>
+	      <ul>
+		<li> Support for flash read and write</li>
+	      </ul>
+	      <h3>
+		Shell</h3>
+	      <ul>
+		<li>New commands: netstat (show TCP connections), sendcmd (send  command to a node), download (download file from a node), neighbors  (show neighbors), unicast (send a unicast packet to a node), tweet (send  Twitter message), sensortweet (send Twitter message with sensor data)</li>
+		<li> New block size option to "read" command</li>
+	      </ul>
+	      <h3>
+		Cooja</h3>
+	      <ul>
+		<li><a href="http://www.youtube.com/watch?v=YJmaHsg-8aM">Cooja TimeLine</a>, new visualizer that shows radio communication and interaction.
+		  <br />
+		</li>
+		<li> New watchpoints on MSPSim-based nodes, visible in the TimeLine  </li>
+		<li> Simulation resolution changed from milliseconds to microseconds</li>
+		<li> Simulation scripts are now integrated with the simulation configurations for easier scripted simulations</li>
+		<li> Scheduling now fully event-based, resulting in faster simulations</li>
+		<li> Various user interface updates: Cooja menu system, log and radio listeners, and source-code debugger</li>
+	      </ul>
+	      <h3>
+		MSP430</h3>
+	      <ul>
+		<li> Default MSP430 CPU speed increased from 2.4 MHz to 3.9 MHz</li>
+		<li> mspgcc memcpy bug workaround added</li>
+	      </ul>
+	      <h3>
+		Tmote Sky / TelosB / Sentilla JCreate port</h3>
+	      <ul>
+		<li> Support for IPv6/6lowpan</li>
+		<li> New bridge tool for seamless integration of IPv6 sensor networks and general-purpose IPv6 networks</li>
+		<li> CC2420: optional timestamping with incoming packets</li>
+		<li><a href="http://www.youtube.com/watch?v=9lsPuSWIl4k"> New RSSI scanner example application</a></li>
+		<li> Webserver now displays an Ajax-style spinner icon when loading sensor data</li>
+	      </ul>
+	      <h3>
+		Atmel Raven port</h3>
+	      <ul>
+		<li> Bugfixes for the USB stick module</li>
+		<li> HTML code moved to flash ROM and made W3C compliant</li>
+		<li> Wildcard to display all files in file-stats cgi script</li>
+	      </ul>
+	      <h3>
+		Instant Contiki</h3>
+	      <ul>
+		<li>Updated to latest Ubuntu packages</li>
+		<li> Sentilla JCreate compatibility</li>
+		<li> jpcap installed</li>
+	      </ul>
+	      <h3>
+		Changelog for Contiki 2.2.3 (24 March 2009)<br />
+	      </h3>
+	      <h3>
+		New features<br />
+	      </h3>
+	      <ul>
+		<li> Checkpointing: stores the current execution state of a node in a  CFS file from which it later can be rolled back (currently only on the  Tmote Sky/TelosB/JCreate platform)</li>
+		<li>     Per-packet power profiling: allows fine-grained breakdown of a node's power consumption on a per-packet basis</li>
+		<li>     Announcements: announcements, such as route announcements  and neighbor discoveries, are made independent of the applications and  protocols, to allow rapid neighbor discovery and improved routing in  face of mobility</li>
+		<li>     Deluge: a network protocol that disseminates a file to all nodes in the network</li>
+	      </ul>
+	      <h3>
+		New platforms</h3>
+	      <ul>
+		<li>     Sentilla JCreate
+		</li>
+		<li>     Meshnetics ZigBit</li>
+	      </ul>
+	      <h3>
+		Shell commands</h3>
+	      <ul>
+		<li>     udpsend: sends a UDP packet to a specified receiver</li>
+		<li>     tcpsend: sets up a TCP connection to a specified receiver</li>
+		<li>     irc: participates in on-line IRC discussions</li>
+		<li>     The 'ping' command from 2.2.2 was renamed to 'rime-ping'</li>
+		<li>     The 'sniff' command has a new option, '-a', that displays packet attributes for sniffed packets</li>
+	      </ul>
+	      <h3>
+		Internal changes</h3>
+	      <ul>
+		<li>     rimebuf module renamed to packetbuf</li>
+		<li>     serial module renamed to serial-line</li>
+		<li>     CC2420 additional link-level CRC made optional;  CC2420 time stamps made optional</li>
+		<li>     RSSI, link quality, and timestamp are now provided as  packet attributes; Packet attributes now specify radio transmission  power.</li>
+		<li>     Raven apps moved from apps/ to platform/avr-raven/apps/</li>
+	      </ul>
+	      <h3>
+		Bugfixes</h3>
+	      <ul>
+		<li>     httpd-cfs bugfix: TCP connections were prematurely timed out</li>
+		<li>     The previous random_rand() function was not random enough - switched to libc rand() instead</li>
+		<li>     Bugfixes to the collect protocol</li>
+	      </ul>
+	      <h3>
+		Coffee changes</h3>
+	      <ul>
+		<li>     Compiled code size decreased by 1kb.</li>
+		<li>     File metadata structures redesigned to improve file I/O semantics and to enable faster opening of files</li>
+	      </ul>
+	      <h3>
+		CFS changes</h3>
+	      <ul>
+		<li>     cfs_seek can now move file offsets backwards and to the end of the file.</li>
+	      </ul>
+	      <h3>
+		Cooja changes</h3>
+	      <ul>
+		<li>     Contiki motes more tightly integrated into the Contiki build system</li>
+		<li>     Added test editor for creating non-GUI tests</li>
+	      </ul>
+	      <h3>
+		MSP430 changes</h3>
+	      <ul>
+		<li> Periodic resync of DCO to ensure stable CPU timing</li>
+		<li>     Set CPU to low power mode only when the UART is not transmitting</li>
+		<li>     Added ability for interrupt-driven UART transmission</li>
+		<li>     Unified the tick timer and real-time timers and both now uses timer A</li>
+	      </ul>
+	      <h3>
+		x86 changes</h3>
+	      <ul>
+		<li>     Multi-threading library now 64-bit compliant     </li>
+	      </ul>
+	      <h3>
+	      </h3>
+	      <h3>
+		Changelog for Contiki 2.2.2 (17 November 2008)<br />
+	      </h3>
+	      <h3>
+		New features<br />
+	      </h3>
+	      <ul>
+		<li>uIPv6 - the world's smallest fully compliant IPv6 stack</li>
+		<li>SICSlowpan - IPv6 over 802.15.4</li>
+		<li>Atmel AVR Raven port</li>
+		<li>802.15.4 MAC layer for the Atmel AVR Raven</li>
+		<li>Two new shell commands for HTTP interaction: wget and httpd</li>
+		<li>COOJA simulator significant speedup</li>
+		<li>Improved integration between COOJA and MSPsim</li>
+		<li>Automated testing mechanism in COOJA</li>
+		<li>Binary packages for Tmote Sky/TelosB and Atmel AVR Raven</li>
+	      </ul>
+	      <h3>
+		Bugfixes<br />
+	      </h3>
+	      <ul>
+		<li>Major bugfix in the protosocket code that could cause packet  corruption during retransmissions, and affected all  TCP/protosockets-based apps</li>
+		<li>Bugfix in Coffee EOF handling</li>
+	      </ul>
+	      <h3>
+		Changelog for Contiki 2.2.1 (6 September 2008)<br />
+	      </h3>
+	      <h3>
+		New features<br />
+	      </h3>
+	      <ul>
+		<li>Better data presentation in the Contiki collect program</li>
+		<li>Reduced power consumption for broadcast traffic with X-MAC</li>
+		<li>Improved network performance for data collection</li>
+	      </ul>
+	      <h3>
+		Bugfixes<br />
+	      </h3>
+	      <ul>
+		<li>Fixed a severe bug in the data collection protocol that could make the network stop responding</li>
+		<li>Added workaround for a problem with the CC2420 radio under high traffic load</li>
+		<li>Bugfix in the Coffee flash file system</li>
+	      </ul>
+	      <h3>
+	      </h3>
+	      <h3>
+		Changelog for Contiki 2.2 (12 July 2008)<br />
+	      </h3>
+	      <h3>
+		New features</h3>
+	      <ul>
+		<li> Significantly improved command line shell with Unix-style  pipelines, concurrent command execution, network-wide command execution,  collect sensor data, see the power profile, network communication using  the Rime stack, and file system interaction. The shell can be used over  a serial line or over Telnet/TCP/IP.</li>
+		<li>Coffee: a flash ROM file system.</li>
+		<li>New program for displaying sensor data and network statistics from a network of wireless Contiki sensors.</li>
+		<li>A simple network time synchronization mechanism.</li>
+		<li>Instant Contiki: a full Contiki development environment in a  single-file download. A VMWare Ubuntu Linux image with all necessary  Contiki development tools installed.</li>
+		<li>The Chameleon architecture for the Rime low-power radio stack.  The Chameleon architecture that separates protocol headers and protocol  logic. Packets are now tagged with packet attributes that follow them  through the stack. [Dunkels et al, SenSys 2007]</li>
+		<li>New experimental low-power MAC prototol: LPP, Low-Power Probing. [Musaloiu-Elefteri et al, IPSN 2008]<br />
+		</li>
+	      </ul>
+	      <h3>
+		Example applications</h3>
+	      <ul>
+		<li> New AJAX-style web server example for the Tmote Sky / TelosB  boards showing the current sensor readings and power profile on a web  page that is continuously updated.<br />
+		</li>
+	      </ul>
+	      <h3>
+		Kernel</h3>
+	      <ul>
+		<li> Improved process initialization handling that reduces event queue size. </li>
+		<li>Moved power profiling module (energest) from lib/ to sys/<br />
+		</li>
+	      </ul>
+	      <h3>
+		Libraries</h3>
+	      <ul>
+		<li> Added function for computing CRC16 over a data array<br />
+		</li>
+	      </ul>
+	      <h3>
+		Rime</h3>
+	      <ul>
+		<li> Bugfixes and improvements to many protocols in the stack: neighbor discovery, trickle, data collection. </li>
+		<li>Changed several module names into more descriptive ones: ibc -&gt; broadcast, uc -&gt; unicast, etc.</li>
+		<li>Added a sniffer module functionality that allows callback functions to be called on all incoming and outgoing packets. </li>
+	      </ul>
+	      <h3>
+		CFS</h3>
+	      <ul>
+		<li>Bugfixes in handling of CFS_APPEND flag.</li>
+	      </ul>
+	      <h3>
+		uIP</h3>
+	      <ul>
+		<li> New configuration option that turns IP forwarding on or off: UIP_CONF_IP_FORWARD</li>
+	      </ul>
+	      <h3>
+		MAC</h3>
+	      <ul>
+		<li>Bugfixes and improvements to X-MAC code: radio is turned off when sending broadcasts, broadcasts do not send probe packets.</li>
+		<li>Added a string name to the struct mac interface to allow printing the name of the current MAC protocol for debugging.</li>
+	      </ul>
+	      <h3>
+		MSP430</h3>
+	      <ul>
+		<li> Bugfixes in watchdog driver.<br />
+		</li>
+	      </ul>
+	      <h3>
+		Tmote Sky / TelosB</h3>
+	      <ul>
+		<li> Updated CC2420 driver, changed name from simple-cc2420 to cc2420.</li>
+		<li>Added experimental CC2420 AES encryption support.<br />
+		</li>
+	      </ul>
+	      <h3>
+		ESB</h3>
+	      <ul>
+		<li>TR1001 driver now uses Rime statistics<br />
+		</li>
+	      </ul>
+	      <h3>
+		Win32</h3>
+	      <ul>
+		<li>wpcap driver now handles IPv6 interfaces too.</li>
+	      </ul>
+	      <h3>
+		6502</h3>
+	      <ul>
+		<li>Leveraged new cc65-2.12.0 apple2enh C-Library feature (using<br />
+		  Language Card bank 1). </li>
+	      </ul>
+	      <br />
+	      <h3>
+		Changelog for Contiki 2.1 (3 December 2007)<br />
+	      </h3>
+	      <h3>
+		New features<br />
+	      </h3>
+	      <ul>
+		<li> Energy profiling that provides measurements of how much energy is spent, and where</li>
+		<li>Power-saving MAC layer for low-power radios based on the X-MAC protocol</li>
+		<li>New platforms: MSB430, C64, enhanced Apple //e, PC-6001 (w/ 32kB RAM) and PC-6001 mkII     </li>
+	      </ul>
+	      <h3>
+		Build system</h3>
+	      <ul>
+		<li> All compiler warnings removed from the core code</li>
+		<li>New parallel reprogramming mechanism for Tmote Sky that allows  simultaneous reprogramming of all Tmote Sky boards connected to the PC</li>
+	      </ul>
+	      <h3>
+		Example applications</h3>
+	      <ul>
+		<li>New energy profiling demo application for the Tmote Sky platform</li>
+		<li>New Tmote Sky sensor and energy profiling data collection example</li>
+		<li>New ESB demo applications</li>
+		<li>Several new Rime examples</li>
+		<li>Multi-threading library demo application</li>
+		<li>CFS-based webserver</li>
+	      </ul>
+	      <h3>
+		Kernel</h3>
+	      <ul>
+		<li>The service paradigm was removed because it was not as useful as was originally intended</li>
+		<li>Machine-neutral multi-threading library implementation</li>
+		<li>The rtimer module was updated; but we have found bugs when using  multiple concurrent rtimers that will be fixed for the 2.2 release.</li>
+	      </ul>
+	      <h3>
+		Rime</h3>
+	      <ul>
+		<li>Rime now maintains (optional) statistics</li>
+		<li>Rime modules uabc and uibc changed name to polite and ipolite. The tree module changed name to collect.</li>
+		<li>New hop-by-hop reliable multi-hop unicast forwarding module: rmh.</li>
+		<li>Unicast multi-hop forwarding modules mh and rmh now invoke the  upper layer protocol when doing forwarding, to allow user-defined  routing protocols. </li>
+		<li>The data collection module, collect, now uses the number of  expected transmissions to the sink as the routing metric instead of hop  count.</li>
+		<li>New API for MAC protocols and radio drivers.</li>
+		<li>Rime address size is now configurable.</li>
+		<li>Routing table entries now refreshed upon every lookup.</li>
+		<li>Bugfixes to the reliable single-hop unicast module, ruc.</li>
+		<li>New reliable single-hop block transfer module, rucb.</li>
+		<li>The reliable network flooding module, trickle, has been rewritten with the nf module.</li>
+	      </ul>
+	      <h3>
+		CFS</h3>
+	      <ul>
+		<li> CFS service paradigm removed - all CFS drivers are now regular C functions. </li>
+		<li>Prototypes updated to better match POSIX</li>
+	      </ul>
+	      <h3>
+		CTK</h3>
+	      <ul>
+		<li>CTK service paradigm removed - all CTK drivers are now regular C functions.</li>
+	      </ul>
+	      <h3>
+		uIP</h3>
+	      <ul>
+		<li>Packet driver service paradigm removed - all packet drivers now  register themselves actively with the TCP/IP stack (the single packet  driver service client)</li>
+	      </ul>
+	      <h3>
+		MSP430</h3>
+	      <ul>
+		<li>Watchdog timer support</li>
+		<li>A/D converter interrupts turned off because of too many interrupts; work is underway to fix.</li>
+	      </ul>
+	      <h3>
+		Z80</h3>
+	      <ul>
+		<li> Z80 architecture-dependent multithreading library and native uIP checksum calculation<br />
+		</li>
+	      </ul>
+	      <h3>
+		Tmote Sky</h3>
+	      <ul>
+		<li>New parallel reprogramming system</li>
+		<li>SHT11 driver</li>
+	      </ul>
+	      <h3>
+		Win32</h3>
+	      <ul>
+		<li>As an alternative to Microsoft Visual Studio 2005 there is now a  build fully integrated with the Contiki build system using Cygwin &amp;  GCC</li>
+	      </ul>
+	      <h3>C64, enhanced Apple //e</h3>
+	      <ul>
+		<li>Generic Ethernet packet driver with dynamically loading,  self-modifying Ethernet card device drivers for the CS8900A and the  LAN91C96</li>
+	      </ul>
+	      <h3>
+	      </h3>
+	      <h3>
+		PC-6001<br />
+	      </h3>
+	      <ul>
+		<li>Multithread, serial communication, and SLIP networking are supported. </li>
+		<li>Various build configurations enable running on very memory restricted environment.</li>
+	      </ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
