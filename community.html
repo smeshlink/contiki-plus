@@ -1,0 +1,173 @@
+---
+layout: default
+title: Contiki 社区
+community: true
+permalink: /community/
+---
+
+		<div class="container">
+			<header class="page-header">
+				<h1>{{ page.title }}</h1>
+			</header>
+			<div class="row">
+				<div class="span3">
+					<h2>邮件列表</h2>
+					<p>Contiki 是由来自世界各地的众多开发者组成的社区共同开发，许多个体对 Contiki 的发展做出了贡献。社区的核心是 <code>contiki-developers</code> 邮件列表。</p>
+					<p><a href="https://lists.sourceforge.net/lists/listinfo/contiki-developers">加入 contiki-developers 邮件列表 »</a></p>
+					<p><a href="http://sourceforge.net/mailarchive/forum.php?forum_name=contiki-developers">存档 »</a></p>
+				</div>
+				<div class="span3">
+					<h2>Contiki 论坛</h2>
+					<p><a href="http://www.contikistudio.com">Contiki 论坛 »</a></p>
+				</div>
+				<div class="span3">
+					<h2>开发进展</h2>
+					<p>Contiki 开发使用了 <a href="http://en.wikipedia.org/wiki/Git_(software)">Git</a> 进行版本控制。Contiki 代码仓库位于 GitHub ：</p>
+					<p><a href="https://github.com/contiki-os/contiki">GitHub »</a></p>
+				</div>
+				<div class="span3">
+					<h2>贡献源码</h2>
+					<p>Contiki 采用 GitHub Pull Request 机制处理个人或组织的代码贡献，详情请点击<a href="https://github.com/contiki-os/contiki/wiki/Pull-Request-Policy">这里</a>查看。</p>
+				</div>
+			</div>
+			<section>
+				<header class="page-header">
+					<h1>Contiki 开发</h1>
+				</header>
+				<div>
+				// TODO
+				</div>
+			</section>
+			<section>
+				<header class="page-header">
+					<h1>Contiki 代码样式</h1>
+				</header>
+				<div class="row">
+					<div class="span3">
+						<h3>代码样式自动格式化</h3>
+						<p>Contiki 源码树中包含一个 GNU Indent 文件，用于自动将C源文件格式化为 Contiki 源码格式，该文件位于 <code>contiki/tools/contiki-indent</code> 。 GNU Indent 规范请参考 <code>contiki/tools/indent.pro</code> 。</p>
+					</div>
+					<div class="span9">
+						<h2>Contiki 代码样式</h2>
+						<p>Contiki 代码样式示例文件位于 <code>contiki/docs/code-style.c</code> 。</p>
+						{% highlight c %}
+/**
+ * \defgroup coding-style Coding style
+ *
+ * This is how a Doxygen module is documented - start with a \defgroup
+ * Doxygen keyword at the beginning of the file to define a module,
+ * and use the \addtogroup Doxygen keyword in all other files that
+ * belong to the same module. Typically, the \defgroup is placed in
+ * the .h file and \addtogroup in the .c file.
+ *
+ * @{
+ */
+
+/**
+ * \file
+ *         A brief description of what this file is.
+ * \author
+ *         Adam Dunkels <adam@dunkels.com>
+ * 
+ *         Every file that is part of a documented module has to have
+ *         a \file block, else it will not show up in the Doxygen
+ *         "Modules" * section.
+ */
+
+/* Single line comments look like this. */
+
+/*
+ * Multi-line comments look like this. Comments should prefferably be
+ * full sentences, filled to look like real paragraphs.
+ */
+
+#include "contiki.h"
+
+/*
+ * Make sure that non-global variables are all maked with the static
+ * keyword. This keeps the size of the symbol table down.
+ */
+static int flag;
+
+/*
+ * All variables and functions that are visible outside of the file
+ * should have the module name prepended to them. This makes it easy
+ * to know where to look for function and variable definitions.
+ *
+ * Put dividers (a single-line comment consisting only of dashes)
+ * between functions. 
+ */
+/*---------------------------------------------------------------------------*/
+/**
+ * \brief      Use Doxygen documentation for functions.
+ * \param c    Briefly describe all parameters.
+ * \return     Briefly describe the return value.
+ * \retval 0   Functions that return a few specified values
+ * \retval 1   can use the \retval keyword instead of \return.
+ *
+ *             Put a longer description of what the function does
+ *             after the preamble of Doxygen keywords.
+ *
+ *             This template should always be used to document
+ *             functions. The text following the introduction is used
+ *             as the function's documentation.
+ *
+ *             Function prototypes have the return type on one line,
+ *             the name and arguments on one line (with no space
+ *             between the name and the first parenthesis), followed
+ *             by a single curly bracket on its own line.
+ */
+void
+code_style_example_function(void)
+{
+  /*
+   * Local variables should always be declared at the start of the
+   * function.
+   */
+  int i;                   /* Use short variable names for loop
+			      counters. */
+
+  /*
+   * There should be no space between keywords and the first
+   * parenthesis. There should be spaces around binary operators, no
+   * spaces between a unary operator and its operand.
+   *
+   * Curly brackets following for(), if(), do, and case() statements
+   * should follow the statement on the same line.
+   */
+  for(i = 0; i < 10; ++i) {
+    /*
+     * Always use full blocks (curly brackets) after if(), for(), and
+     * while() statements, even though the statement is a single line
+     * of code. This makes the code easier to read and modifications
+     * are less error prone.
+     */
+    if(i == c) {
+      return c;           /* No parentesis around return values. */
+    } else {              /* The else keyword is placed inbetween
+			     curly brackers, always on its own line. */
+      c++;
+    }
+  }
+}
+/*---------------------------------------------------------------------------*/
+/*
+ * Static (non-global) functions do not need Doxygen comments. The
+ * name should not be prepended with the module name - doing so would
+ * create confusion. 
+ */
+static void
+an_example_function(void)
+{
+  
+}
+/*---------------------------------------------------------------------------*/
+
+/* The following stuff ends the \defgroup block at the beginning of
+   the file: */
+
+/** @} */{% endhighlight %}
+					</div>
+				</div>
+			</section>
+		</div>
