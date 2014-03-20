@@ -1,0 +1,231 @@
+---
+layout: default
+title: 开始使用 Contiki， Instant Contiki， Cooja 和 Contiki Studio
+started: true
+permalink: /getting-started/
+---
+
+		<div class="container">
+			<header class="page-header">
+				<h1>开始使用 Contiki</h1>
+			</header>
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#instant-contiki" data-toggle="tab">Instant Contiki</a></li>
+				<li><a href="#contiki-studio" data-toggle="tab">Contiki Studio</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="instant-contiki">
+					<ul class="nav nav-pills subnav">
+						<li><a href="#install-instant-contiki">1: 获取 Instant Contiki</a></li>
+						<li><a href="#start-cooja">2: 启动 Cooja</a></li>
+						<li><a href="#simulation">3: 在模拟器中运行 Contiki</a></li>
+						<li><a href="#hardware">4: 在硬件上运行 Contiki</a></li>
+						<li><a href="#next">5: 接下来？</a></li>
+					</ul>
+					<section id="install-instant-contiki">
+						<div class="page-header">
+							<h1>1: 获取 Instant Contiki</h1>
+							<p>Contiki系统比较复杂，但是不要紧张！ Instant Contiki 和 Cooja 让一切变得非常简单。</p>
+						</div>
+						<div class="row">
+							<div class="span3">
+								<h3>关于 Instant Contiki</h3>
+								<p>Instant Contiki 是一个包含完整 Contiki 开发环境的 Ubuntu Linux 虚拟机，只需要一次下载。它可以用 VMWare Player 运行，里面内置了 Contiki 源码，并安装了 Contiki 开发需要的所有开发工具、编译器和模拟器等。</p>
+								<p>许多 Contiki 核心开发者也在享受 Instant Contiki 带来的便捷。</p>
+							</div>
+							<div class="span9">
+								<p>这一部分介绍了下载 Instant Contiki，安装 VMWare Player，启动 Instant Contiki。</p>
+								<h2>下载 Instant Contiki</h2>
+								<p>Instant Contiki 文件非常大，大小超过1G，需要一点时间，不要着急，休息一会。下载完成后，解压其中的内容至你所期望的目录下。</p>
+								<p><a href="http://sourceforge.net/projects/contiki/files/Instant%20Contiki/" target="_blank">下载 Instant Contiki »</a></p>
+								<h2>安装 VMWare Player</h2>
+								<p>VMWare Player 可以免费下载，但可能需要先注册一个帐户。安装时很不幸需要重启计算机才能使虚拟网络生效。</p>
+								<p><a href="http://www.vmware.com/go/downloadplayer/" target="_blank">下载 VMWare Player »</a></p>
+								<h2>启动 Instant Contiki</h2>
+								<h3>启动 Ubuntu</h3>
+								<p>双击运行 InstantContiki2.6.vmx，等待虚拟机启动。</p>
+								<p><img src="http://contiki-os.org/img/start/instant-contiki-boot.png" alt=""/></p>
+								<h3>登录</h3>
+								<p>登录进入 Instant Contiki，密码是 <span class="label label-info">user</span>。</p>
+								<p><img src="http://contiki-os.org/img/start/instant-contiki-login.png" alt=""/></p>
+								<p>恭喜！ Instant Contiki 已经启动好了，下一步将启动 Cooja。</p>
+							</div>
+						</div>
+					</section>
+					<section id="start-cooja">
+						<div class="page-header">
+							<h1>2: 启动 Cooja</h1>
+						</div>
+						<div class="row">
+							<div class="span3">
+								<h3>关于 Cooja</h3>
+								<p>Cooja 是 Contiki 的网络模拟器，能够模拟小型或大型 Contiki 节点网络。Cooja 可以在硬件层或更高层模拟节点：硬件层模拟能够查看精确的系统行为，不过速度相对较慢；高层模拟速度更快，适合模拟大型网络。</p>
+							</div>
+							<div class="span9">
+								<p>接下来将编译和运行 Cooja。</p>
+								<h2>打开终端</h2>
+								<p>首先打开一个终端。</p>
+								<p><img src="http://contiki-os.org/img/start/1-cooja.png" alt=""/></p>
+								<h2>启动 Cooja</h2>
+								<p>在终端中，进入 Cooja 目录：</p>
+								<pre>cd contiki/tools/cooja</pre>
+								<p>运行以下命令，启动 Cooja：</p>
+								<pre>ant run</pre>
+								<h2>等待 Cooja 运行</h2>
+								<p>Cooja 第一次运行的时候需要进行编译，需要一些时间。</p>
+								<p><img src="http://contiki-os.org/img/start/2-cooja.png" alt=""/></p>
+								<p>Cooja 编译完成后，将打开一个蓝色背景的窗口。</p>
+								<p><img src="http://contiki-os.org/img/start/3-cooja.png" alt=""/></p>
+								<p>现在 Cooja 已经在运行了，下一步将试一试运行模拟。</p>
+							</div>
+						</div>
+					</section>
+					<section id="simulation">
+						<div class="page-header">
+							<h1>3: 在模拟器中运行 Contiki</h1>
+						</div>
+						<div class="row">
+							<div class="span3">
+								<h3>关于 Cooja 模拟</h3>
+								<p>Cooja 允许开发者在将应用程序部署至目标平台之前测试代码，在 Contiki 开发过程中非常有用。开发者可以使用模拟来调试应用程序或验证程序行为。</p>
+							</div>
+							<div class="span9">
+								<h2>创建新模拟</h2>
+								<h3>创建新模拟</h3>
+								<p>点击 <span class="label label-default">File</span> 菜单，选择 <span class="label label-default">New simulation...</span>。</p>
+								<p><img src="http://contiki-os.org/img/start/8-cooja-2.png" alt=""/></p>
+								<h3>设置模拟选项</h3>
+								<p>现在打开的是 <span class="label label-default">Create new simulation</span> 对话框，可以为模拟命名。在这个示例中，我们使用默认名称。点击 <span class="label label-default">Create</span> 按钮。</p>
+								<p><img src="http://contiki-os.org/img/start/9-cooja.png" alt=""/></p>
+								<h3>模拟窗口</h3>
+								<p>左上角的 <span class="label label-default">Network</span> 窗口显示的是模拟网络中的所有节点，我们还没有添加任何节点，目前是空的。下侧的 <span class="label label-default">Timeline</span> 窗口显示的是模拟运行过程中所有的通讯事件，可以方便地了解网络中发生了什么。右侧中部的 <span class="label label-default">Mote output</span> 窗口将显示所有节点的串口输出。右上角的 <span class="label label-default">Notes</span> 窗口是记录笔记的区域。 <span class="label label-default">Simulation control</span> 窗口则是模拟控制面板，可以启动、暂停和重载模拟。</p>
+								<p><img src="http://contiki-os.org/img/start/10-cooja.png" alt=""/></p>
+								<h2>向模拟中添加节点</h2>
+								<h3>添加节点</h3>
+								<p>在开始模拟之前，必须添加一个或多个节点。点击 <span class="label label-default">Motes</span> 菜单中的 <span class="label label-default">Add motes...</span>。第一次添加节点时，需要创建一种节点类型。选择 <span class="label label-default">Create new mote type...</span>，并选择一种节点类型。在这个示例中，我们选择 <span class="label label-default">Sky mote...</span>，创建一个模拟的 Tmote Sky 节点类型。</p>
+								<p><img src="http://contiki-os.org/img/start/11-cooja.png" alt=""/></p>
+								<h3>创建新的节点类型</h3>
+								<p>在 <span class="label label-default">Create Mote Type</span> 对话框中可以填写名称并选择节点上运行的 Contiki 程序。在这个示例中，我们使用默认名称，点击右边的 <span class="label label-default">Browse...</span> 选择Contiki程序。</p>
+								<p><img src="http://contiki-os.org/img/start/12-cooja.png" alt=""/></p>
+								<h3>查找Contiki示例程序</h3>
+								<p>定位至 <span class="label label-default">/home/user/contiki/examples/ipv6/simple-udp-rpl</span> 目录，这个目录包含了一些基于 IPv6 的 UDP 通信的简单示例。</p>
+								<p><img src="http://contiki-os.org/img/start/13-cooja.png" alt=""/></p>
+								<h3>指定源程序</h3>
+								<p>选择文件 <span class="label label-default">broadcast-example.c</span>，这个文件包含的是一个随机向邻居广播UDP报文的简单 Contiki 程序。点击 <span class="label label-default">Open</span> 以选定该文件。</p>
+								<p><img src="http://contiki-os.org/img/start/14-cooja.png" alt=""/></p>
+								<h3>编译Contiki应用程序</h3>
+								<p>点击 <span class="label label-default">Compile</span> 按钮，Cooja 将会开始编译应用程序，第一次编译的时间会比较长，可能至少需要一分钟，编译结果将显示在下方的白色区域。</p>
+								<p><img src="http://contiki-os.org/img/start/15-cooja.png" alt=""/></p>
+								<h3>创建节点类型</h3>
+								<p>点击 <span class="label label-default">Create</span> 按钮，创建节点类型。</p>
+								<p><img src="http://contiki-os.org/img/start/16-cooja.png" alt=""/></p>
+								<p>向模拟添加节点</p>
+								<p>Cooja 将会询问是否添加新创建节点类型的节点。将 <span class="label label-default">Number of motes</span> 节点数量字段改为8。</p>
+								<p><img src="http://contiki-os.org/img/start/17-cooja.png" alt=""/></p>
+								<h3>添加节点</h3>
+								<p>点击 <span class="label label-default">Add motes</span> 按钮将节点添至模拟。</p>
+								<p><img src="http://contiki-os.org/img/start/18-cooja.png" alt=""/></p>
+								<h3>启动模拟</h3>
+								<p>现在，我们可以在 <span class="label label-default">Network</span> 窗口中看到刚刚添加的8个节点。点击 <span class="label label-default">Start</span> 按钮，启动模拟。</p>
+								<p><img src="http://contiki-os.org/img/start/19-cooja.png" alt=""/></p>
+								<h3>暂停模拟</h3>
+								<p>在 <span class="label label-default">Mote output</span> 窗口中可以看到模拟节点的打印输出； <span class="label label-default">Network</span> 窗口显示了网络中发生的通讯情况； <span class="label label-default">Timeline</span> 窗口展示的是实时发生的通讯和射频事件，其中的灰色小线段是 ContikiMAC 在周期性唤醒射频模块。点击 <span class="label label-default">Pause</span> 以暂停模拟。</p>
+								<p><img src="http://contiki-os.org/img/start/20-cooja.png" alt=""/></p>
+								<h2>完成！</h2>
+								<p>恭喜！你已经完成了第一个 Cooja 模拟。</p>
+							</div>
+						</div>
+					</section>
+					<section id="hardware">
+						<div class="page-header">
+							<h1>4: 在硬件上运行 Contiki</h1>
+						</div>
+						<div class="row">
+							<div class="span3">
+								<h3>关于在硬件上运行 Contiki</h3>
+								<p>Contiki 的构建系统使得在硬件上运行 Contiki 非常容易。在不同的硬件平台上构建应用程序的命令基本是一样的。 Contiki 构建系统由一系列 Makefile 文件组成。系统 Makefile 位于 <code>contiki/Makefile.include</code>，平台相关的 Makefile 位于 <code>contiki/platform/*/Makefile.platform</code> 和 <code>contiki/cpu/*/Makefile.cpu</code>。</p>
+							</div>
+							<div class="span9">
+								<h2>连接硬件</h2>
+								<p>在这部分示例中，我们假定你有一个<a href="{{ site.url }}/hardware/">Zolertia Z1</a>节点，连接至计算机的USB接口。首先需要通过 VMWare Player 的 Virtual Machine 菜单中的 Removable Devices 子菜单，在 Instant Contiki 中启用Z1节点。</p>
+								<h2>打开终端，进入代码目录</h2>
+								<p>Contiki 构建系统是在终端中运行。打开一个终端窗口，进入 Hello World 示例目录：</p>
+								<pre>cd contiki/examples/hello-world</pre>
+								<h2>编译 Contiki 应用程序</h2>
+								<p>现在可以为我们的硬件平台编译 Hello World 应用程序。 Contiki 系统也将被编译，因此第一次编译时时间会比较长。</p>
+								<pre>make TARGET=z1 hello-world</pre>
+								<p>如果想要记住目标平台，以便之后继续为该平台进行编译，可以指定 <code>savetarget</code> ，让 Contiki 记住这个平台：</p>
+								<pre>make TARGET=z1 savetarget</pre>
+								<h2>上载 Contiki 应用程序</h2>
+								<p>现在可以上载编译好的应用程序了，像这样运行一个特殊的 <code>%.upload</code> 目标：</p>
+								<pre>make hello-world.upload</pre>
+								<p>
+									<span class="label label-warning">注意：</span>
+									如果你看见以下的输出，说明Z1节点没有连接至 Instant Contiki。
+								</p>
+								<pre>
+	make z1-reset z1-upload
+	make[1]: Entering directory `/home/user/contiki/examples/hello-world'
+	make -k -j 20 z1-reset-sequence
+	make[2]: Entering directory `/home/user/contiki/examples/hello-world'
+	Done
+	make[2]: Leaving directory `/home/user/contiki/examples/hello-world'
+	make -j 20 z1-upload-sequence
+	make[2]: Entering directory `/home/user/contiki/examples/hello-world'
+	Done
+	make[2]: Leaving directory `/home/user/contiki/examples/hello-world'
+	make[1]: Leaving directory `/home/user/contiki/examples/hello-world'
+	rm hello-world.ihex</pre>
+								<p>请检查连接状态并重试。</p>
+								<p>需要指出的是，编译和上载可以在一次操作中完成。 <code>make hello-world.upload</code> 在上载程序之前将自动进行编译。</p>
+								<h2>查看 Hello World 输出</h2>
+								<p>程序上载至节点后，可以通过串口查看程序的输出。输入以下命令：</p>
+								<pre>make login</pre>
+								<p>现在不会有任何输出，因为 Hello World 程序已经运行结束。重启节点，将能看到类似如下的输出：</p>
+								<pre>
+	Rime started with address 1.1
+	MAC 01:01:00:00:00:00:00:00 Contiki-2.6 started. Node id is set to 257.
+	CSMA ContikiMAC, channel check rate 8 Hz, radio channel 26
+	Starting 'Hello world process'
+	Hello, world</pre>
+								<h2>完成！</h2>
+								<p>恭喜！完成了以上步骤，你已经成功地在模拟环境和硬件平台上运行了 Contiki 应用程序。接下来，你可以试一试在硬件平台上运行我们之前在模拟中运行的应用程序： <span class="label label-default">contiki/examples/ipv6/simple-udp-rpl/</span> 目录中的 <span class="label label-default">broadcast-example</span> 。上载程序至两个硬件节点，看一看它们之间的低功耗无线 IPv6/UDP 消息交互。</p>
+							</div>
+						</div>
+					</section>
+					<section id="next">
+						<div class="page-header">
+							<h1>5: 接下来？</h1>
+						</div>
+						<div class="row">
+							<div class="span2 offset1">
+								<h2>硬件平台</h2>
+								<p>了解更多可选择的硬件平台，请访问硬件页面：</p>
+								<p><a href="{{ site.url }}/hardware/">硬件 »</a></p>
+							</div>
+							<div class="span2">
+								<h2>查看源码</h2>
+								<p>下载最新的发行版，或者通过Git获取开发中的版本：</p>
+								<p><a href="{{ site.url }}/download/">下载 »</a></p>
+							</div>
+							<div class="span2">
+								<h2>访问社区</h2>
+								<p>参与 Contiki 开发者社区，请访问社区页面：</p>
+								<p><a href="{{ site.url }}/community/">社区 »</a></p>
+							</div>
+							<div class="span2">
+								<h2>查看许可</h2>
+								<p>查看 Contiki 开源许可证，请访问许可页面：</p>
+								<p><a href="{{ site.url }}/license/">许可 »</a></p>
+							</div>
+							<div class="span2">
+								<h2>其他资源</h2>
+								<p>查看其他相关的 Contiki 资源：</p>
+								<p><a href="{{ site.url }}/support/">资源 »</a></p>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="tab-pane" id="contiki-studio">// TODO</div>
+			</div>
+		</div>
