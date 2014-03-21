@@ -69,107 +69,95 @@ permalink: /community/
 /**
  * \defgroup coding-style Coding style
  *
- * This is how a Doxygen module is documented - start with a \defgroup
- * Doxygen keyword at the beginning of the file to define a module,
- * and use the \addtogroup Doxygen keyword in all other files that
- * belong to the same module. Typically, the \defgroup is placed in
- * the .h file and \addtogroup in the .c file.
+ * Doxygen 模块的文档是以 Doxygen 关键词 \defgroup 作为文件开头，
+ * 表示定义一个模块，在其他属于这一个模块的所有文件中，使用
+ * Doxygen 关键词 \addtogroup 。
+ * 通常， \defgroup 放在 .h 文件中， \addtogroup 放在相应的 .c 文件中。
  *
  * @{
  */
 
 /**
  * \file
- *         A brief description of what this file is.
+ *         文件的简要描述
  * \author
  *         Adam Dunkels <adam@dunkels.com>
  * 
- *         Every file that is part of a documented module has to have
- *         a \file block, else it will not show up in the Doxygen
- *         "Modules" * section.
+ *         文档模块每一部分文件都需要有一个 \file 块， 否则这个
+ *         文件将不会出现在 Doxygen "Modules" 区域。
  */
 
-/* Single line comments look like this. */
+/* 这是单行注释。 */
 
 /*
- * Multi-line comments look like this. Comments should prefferably be
- * full sentences, filled to look like real paragraphs.
+ * 这是多行注释。注释最好是完整的语句，看起来像真实段落。
  */
 
 #include "contiki.h"
 
 /*
- * Make sure that non-global variables are all maked with the static
- * keyword. This keeps the size of the symbol table down.
+ * 确保所有的非全局变量都定义有 static 关键字。
+ * 这样有助于减小符号表。
  */
 static int flag;
 
 /*
- * All variables and functions that are visible outside of the file
- * should have the module name prepended to them. This makes it easy
- * to know where to look for function and variable definitions.
+ * 外部文件可见的所有全局变量与全局函数的名称需要以模块名称为开头，
+ * 这样查找函数与变量定义的时候会更加方便。
  *
- * Put dividers (a single-line comment consisting only of dashes)
- * between functions. 
+ * 在函数之间使用如下的分隔符（由下划线组成的单行注释）。
  */
 /*---------------------------------------------------------------------------*/
 /**
  * \brief      Use Doxygen documentation for functions.
- * \param c    Briefly describe all parameters.
- * \return     Briefly describe the return value.
- * \retval 0   Functions that return a few specified values
- * \retval 1   can use the \retval keyword instead of \return.
+ * \param c    简要描述所有的参数。
+ * \return     简要描述返回值。
+ * \retval 0   对于返回特定值的函数，
+ * \retval 1   可以使用 \retval 关键词替代 \return 。
  *
- *             Put a longer description of what the function does
- *             after the preamble of Doxygen keywords.
+ *             把函数功能的完整描述放在 Doxygen 关键词的后面。
  *
- *             This template should always be used to document
- *             functions. The text following the introduction is used
- *             as the function's documentation.
+ *             使用这个模板来书写函数文档。
+ *             在说明之后的文本都是用于函数文档。
  *
- *             Function prototypes have the return type on one line,
- *             the name and arguments on one line (with no space
- *             between the name and the first parenthesis), followed
- *             by a single curly bracket on its own line.
+ *             函数原型的返回值单独放在一行，
+ *             函数名和参数另起一行，
+ *             函数名与首括号间不需要空格，
+ *             左大括号单独另起一行。
  */
 void
 code_style_example_function(void)
 {
   /*
-   * Local variables should always be declared at the start of the
-   * function.
+   * 总是在函数开始定义局部变量。
    */
-  int i;                   /* Use short variable names for loop
-			      counters. */
+  int i;                   /* 对于循环计数变量，使用简短的名字 */
 
   /*
-   * There should be no space between keywords and the first
-   * parenthesis. There should be spaces around binary operators, no
-   * spaces between a unary operator and its operand.
+   * 关键字和第一个括号之间不要有空格，
+   * 二元运算符两边需要有空格，
+   * 一元运算符和运算数之间不用空格。
    *
-   * Curly brackets following for(), if(), do, and case() statements
-   * should follow the statement on the same line.
+   * for(), if(), do, 和 case() 语句的大括号与语句放在同一行
    */
   for(i = 0; i < 10; ++i) {
     /*
-     * Always use full blocks (curly brackets) after if(), for(), and
-     * while() statements, even though the statement is a single line
-     * of code. This makes the code easier to read and modifications
-     * are less error prone.
+     * 不要省略 if(), for(), 和 while() 语句的大括号，
+     * 即使它们内部只有单行语句。
+     * 这样可以增强代码的可读性，减少修改代码时引入错误的可能性。
      */
     if(i == c) {
-      return c;           /* No parentesis around return values. */
-    } else {              /* The else keyword is placed inbetween
-			     curly brackers, always on its own line. */
+      return c;           /* 返回值不需要括号()。 */
+    } else {              /* else 关键字与左右的大括号同放在
+			     单独的一行。 */
       c++;
     }
   }
 }
 /*---------------------------------------------------------------------------*/
 /*
- * Static (non-global) functions do not need Doxygen comments. The
- * name should not be prepended with the module name - doing so would
- * create confusion. 
+ * static （非全局）函数不需要 Doxygen 注释。
+ * 为了避免混淆，函数名称也不要以模块名称开头。
  */
 static void
 an_example_function(void)
@@ -178,8 +166,7 @@ an_example_function(void)
 }
 /*---------------------------------------------------------------------------*/
 
-/* The following stuff ends the \defgroup block at the beginning of
-   the file: */
+/* 最后的符号用于结束文件开头的 \defgroup 块： */
 
 /** @} */{% endhighlight %}
 					</div>
