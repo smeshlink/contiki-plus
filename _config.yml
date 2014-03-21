@@ -4,6 +4,6 @@ relative_permalinks: false
 pygments: true
 permalink: /:categories/:title/
 repository: https://github.com/smeshlink/contiki-plus
-#url: /contiki-plus
+google_analytics_id: UA-44050658-4
 
 version: 2.7
