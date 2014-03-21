@@ -14,6 +14,157 @@ permalink: /getting-started/
 				<li><a href="#contiki-studio" data-toggle="tab">Contiki Studio</a></li>
 			</ul>
 			<div class="tab-content">
+				<div class="tab-pane" id="contiki-studio">
+					<ul class="nav nav-pills subnav">
+						<li><a href="#install-contiki-studio">1: 获取 Contiki Studio</a></li>
+						<li><a href="#start-contiki-studio">2: 启动 Contiki Studio</a></li>
+						<li><a href="#contiki-studio-next">3: 接下来？</a></li>
+					</ul>
+					<section id="install-contiki-studio">
+						<div class="page-header">
+							<h1>1: 获取 Contiki Studio</h1>
+							<p>Contiki系统比较复杂，但是不要紧张！ Contiki Studio 让一切变得非常简单。</p>
+						</div>
+						<div class="row">
+							<div class="span3">
+								<h3>关于 Contiki Studio</h3>
+								<p>Contiki Studio 是 SmeshLink 公司发布的一个 Contiki 的集成开发环境（IDE），只需要获取一个安装文件，就可以一站式安装 Contiki 开发需要的全部工具。它基于 Eclipse ，适合使用 Windows 操作系统的开发者。</p>
+								<p>国内许多开发者都在享受 Contiki Studio 带来的便捷。</p>
+							</div>
+							<div class="span9">
+								<p>这一部分介绍了获取、安装并启动 Contiki Studio。</p>
+								<h2>获取 Contiki Studio</h2>
+								<p>Contiki Studio 的安装文件大小约600M，目前同美信凌科公司的物联网开发套件一起发售，获取请联系 <a href="mailto:support@smeshlink.com">support@smeshlink.com</a> 。</p>
+								<p><a href="http://www.smeshlink.com">访问 SmeshLink »</a></p>
+								<h2>安装 Contiki Studio</h2>
+								<p>Contiki Studio 安装程序将会一站式安装 Contiki 开发所需要的所有环境与工具，包括 Contiki Studio IDE 、 WinAVR 、 J-link ARM 、 Sourcery G++ 、 mspgcc 、 Wireshark、 JRE 、 ActivePerl 等。</p>
+								<h3>启动安装程序</h3>
+								<p>打开 Contiki Studio 安装文件，启动安装程序，点击 <span class="label label-default">Next</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-setup.png" alt=""/></p>
+								<h3>选择安装目录</h3>
+								<p>建议使用默认路径（C:\ContikiStudio），如果修改了安装目录，需要在之后的 Eclipse 配置中修改 Workspace 参数。点击 <span class="label label-default">Next</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-setup-dir.png" alt=""/></p>
+								<h3>选择可支持开发平台</h3>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-setup-com.png" alt=""/></p>
+								<h3>开始安装 Contiki Studio</h3>
+								<p>点击下一步，开始安装，安装过程大约六分钟，请耐心等待。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-setup-go.png" alt=""/></p>
+								<h3>安装 WinAVR</h3>
+								<p>安装程序自动进入 WinAVR 安装程序，选择“Chinese (Simplified)”（简体中文），点击 <span class="label label-default">OK</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-winavr-lang.png" alt=""/></p>
+								<p>接受许可证协议，选择安装目录，全部选择安装组件，点击 <span class="label label-default">安装</span> 。安装完成后，点击 <span class="label label-default">完成</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-winavr-go.png" alt=""/></p>
+								<h3>安装 J-link ARM</h3>
+								<p>安装程序自动进入 J-link ARM 安装程序，点击 <span class="label label-default">Yes</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-jlink-lic.png" alt=""/></p>
+								<p>选择安装目录，点击 <span class="label label-default">Next</span> ，安装完成后，点击 <span class="label label-default">Finish</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-jlink-go.png" alt=""/></p>
+								<h3>安装 Sourcery G++</h3>
+								<p>安装程序自动进入 Sourcery G++ 安装程序，点击 <span class="label label-default">Next</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-gplus.png" alt=""/></p>
+								<p>选择同意协议，点击 <span class="label label-default">Next</span> ，开始安装。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-gplus-go.png" alt=""/></p>
+								<h3>安装 mspgcc</h3>
+								<p>安装程序自动进入 mspgcc 安装程序，点击 <span class="label label-default">Next</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-mspgcc.png" alt=""/></p>
+								<p>点击 <span class="label label-default">I Agree</span> 同意协议，选择安装目录，点击 <span class="label label-default">Next</span> 开始安装，安装完成后，点击 <span class="label label-default">Finish</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-mspgcc-go.png" alt=""/></p>
+								<h3>安装 Wireshark</h3>
+								<p>安装程序自动进入 Wireshark 安装程序，点击 <span class="label label-default">Next</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-wireshark.png" alt=""/></p>
+								<p>选择全部组件，点击 <span class="label label-default">Next</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-wireshark-com.png" alt=""/></p>
+								<p>选择安装目录，点击 <span class="label label-default">Next</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-wireshark-dir.png" alt=""/></p>
+								<p>开始安装，安装完成后，点击 <span class="label label-default">Finish</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-wireshark-go.png" alt=""/></p>
+								<h3>安装 JRE</h3>
+								<p>安装程序自动进入 JRE 安装程序，点击 <span class="label label-default">下一步</span> 开始安装，安装完成后，点击 <span class="label label-default">完成</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-java-go.png" alt=""/></p>
+								<h3>安装 ActivePerl</h3>
+								<p>安装程序自动进入 ActivePerl 安装程序，点击 <span class="label label-default">Next</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-perl.png" alt=""/></p>
+								<p>按默认值选择安装目录、安装组件、安装选项，点击几次 <span class="label label-default">Next</span> ，开始安装，安装完成后，点击 <span class="label label-default">Finish</span> 。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-perl-go.png" alt=""/></p>
+								<h3>完成安装</h3>
+								<p>点击 <span class="label label-default">Finish</span> 完成 Contiki Studio 安装。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-setup-done.png" alt=""/></p>
+								<p>恭喜！ Contiki Studio 集成开发环境已经安装完成，接下来立即开始体验。</p>
+							</div>
+						</div>
+					</section>
+					<section id="start-contiki-studio">
+						<div class="page-header">
+							<h1>2: 启动 Contiki Studio</h1>
+						</div>
+						<div class="row">
+							<div class="span3">
+								<h3>关于 Contiki Studio</h3>
+								<p>Contiki Studio 是基于 Eclipse 的开发环境，为 Contiki 开发者提供了良好的编程体验。</p>
+							</div>
+							<div class="span9">
+								<p>这一部分将初步了解如何使用 Contiki Studio 。</p>
+								<h2>启动 Contiki Studio</h2>
+								<p>Contiki Studio 将会在桌面和开始菜单中建立快捷方式，双击 <span class="label label-default">Eclipse(Smeshlink Contiki Studio)</span> 图标，启动 Contiki Studio 。</p>
+								<p>左侧为工程 Contiki 文件列表。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-workspace.png" alt=""/></p>
+								<p>中间为程序文件代码开发区。</p>
+								<h2>构建应用程序</h2>
+								<p>Contiki 应用程序是以 Makefile 系统构建。接下来以 Hello World 示例程序为例来看一看如何编译和清理 Contiki 应用程序。</p>
+								<h3 id="contiki-studio-compile">编译程序</h3>
+								<h4>创建 Make Target</h4>
+								<p>展开左侧工程 Contiki 文件列表，展开 examples 目录，进入 <span class="label label-default">01-hello-world</span> 目录，在 <span class="label label-default">01-hello-world</span> 目录上点击右键。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-make-target.png" alt=""/></p>
+								<p>选择 <span class="label label-default">Make Targets</span> - <span class="label label-default">Build…</span> ，打开 <span class="label label-default">Make Targets</span> 窗口。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-make-targets.png" alt=""/></p>
+								<p>点击 <span class="label label-default">Add…</span> ，在弹出窗口中的第一项输入：<code>TARGET=mx2xxcc</code>，其他选项保持默认值。点击 <span class="label label-default">OK</span> ，Make Target就创建好了。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-make-target-create.png" alt=""/></p>
+								<h4>编译 Target</h4>
+								<p>回到 <span class="label label-default">Make Targets</span> 窗口，选择一个 <code>Make Target</code> ，点击 <span class="label label-default">Build</span> ，就可以对程序进行编译。</p>
+								<p><img src="{{ site.url }}/assets/img/start/contiki-studio-make-targets.png" alt=""/></p>
+								<p>编译输出信息可以在 <span class="label label-default">Console</span> 窗口查看。成功编译后，系统将会在该文件夹下生成 <code>hello-world.mx2xxcc</code> 文件。如果需要更改目标文件名称，创建 <code>Make Target</code> 时请输入如下值： <code>TARGET=mx2xxcc 输出文件名</code> 。例如： <code>TARGET=mx2xxcc hello-world.elf</code> 将生成 <code>hello-world.elf</code> 文件。第一次编译时间较长，请耐心等待。</p>
+								<h3>清理程序</h3>
+								<p>清理程序是为了清除旧的编译文件，以避免对程序进行的修改未被编译链接到输出文件的情况。</p>
+								<p>清理程序时，操作同<a href="#contiki-studio-compile">编译程序</a>，只是输入的 Target name 为 <code>clean TARGET=mx2xxcc</code> ，其余步骤相同。</p>
+								<p class="alert">
+									<strong>注意！</strong> 修改 Makefile 后，通常需要先清理程序，移除旧的编译文件，再重新编译程序，以确保改动生效。
+								</p>
+							</div>
+						</div>
+					</section>
+					<section id="contiki-studio-next">
+						<div class="page-header">
+							<h1>3: 接下来？</h1>
+						</div>
+						<div class="row">
+							<div class="span2 offset1">
+								<h2>硬件平台</h2>
+								<p>了解更多可选择的硬件平台，请访问硬件页面：</p>
+								<p><a href="{{ site.url }}/hardware/">硬件 »</a></p>
+							</div>
+							<div class="span2">
+								<h2>查看源码</h2>
+								<p>下载最新的发行版，或者通过Git获取开发中的版本：</p>
+								<p><a href="{{ site.url }}/download/">下载 »</a></p>
+							</div>
+							<div class="span2">
+								<h2>访问社区</h2>
+								<p>参与 Contiki 开发者社区，请访问社区页面：</p>
+								<p><a href="{{ site.url }}/community/">社区 »</a></p>
+							</div>
+							<div class="span2">
+								<h2>查看许可</h2>
+								<p>查看 Contiki 开源许可证，请访问许可页面：</p>
+								<p><a href="{{ site.url }}/license/">许可 »</a></p>
+							</div>
+							<div class="span2">
+								<h2>其他资源</h2>
+								<p>查看其他相关的 Contiki 资源：</p>
+								<p><a href="{{ site.url }}/support/">资源 »</a></p>
+							</div>
+						</div>
+					</section>
+				</div>
 				<div class="tab-pane active" id="instant-contiki">
 					<ul class="nav nav-pills subnav">
 						<li><a href="#install-instant-contiki">1: 获取 Instant Contiki</a></li>
@@ -226,6 +377,5 @@ permalink: /getting-started/
 						</div>
 					</section>
 				</div>
-				<div class="tab-pane" id="contiki-studio">// TODO</div>
 			</div>
 		</div>
