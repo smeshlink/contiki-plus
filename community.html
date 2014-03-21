@@ -34,15 +34,28 @@ permalink: /community/
 			</div>
 			<section>
 				<header class="page-header">
-					<h1>Contiki 开发</h1>
+					<h1>Contiki 发展</h1>
 				</header>
-				<div>
-				// TODO
+				<div class="row">
+					<div class="span4">
+						<h2>Contiki 历史</h2>
+						<p>Contiki 起源于 <a href="http://dunkels.com/adam/">Adam Dunkels</a> 的奇思妙想：将一些莫名其妙的东西连入互联网。2001年，<a href="http://en.wikipedia.org/wiki/LwIP">lwIP</a>的胞弟，开源项目<a href="http://en.wikipedia.org/wiki/UIP_(micro_IP)">uIP</a>协议栈发布了，很快在嵌入式领域流行开来。但uIP并不仅仅被用在众多底层嵌入式系统中，它能够接入互联网，因此可以做到一些<a href="http://slashdot.org/story/02/01/29/2115210/tcpip-enabled-lego-brick">意想不到的事情</a>。2003年， <a href="http://news.slashdot.org/story/03/03/10/1211249/the-contiki-desktop-os-for-c64-nes-8-bit-atari">Contiki</a> <a href="http://tech.slashdot.org/story/03/07/03/130206/contiki-on-ethernut">问世</a>了。</p>
+						<p>2004年，Contiki <a href="http://sourceforge.net/mailarchive/message.php?msg_id=6338440">引入</a>了 <a href="http://en.wikipedia.org/wiki/Protothreads">protothreads</a> 的概念，这个概念组成了 Contiki 进程的基础。在2007年， Contiki 加入了 Cooja 和 Rime 栈的早期版本，并实现了功耗分析。2008年初引入 Instant Contiki 和 Coffee 文件系统，同年晚些时候， Cisco 为 Contiki <a href="http://investor.cisco.com/releasedetail.cfm?releaseid=340400">贡献</a>了经过完整认证的IPv6栈。</p>
+						<p>在2009与2010年， Contiki 增加了对许多新的硬件平台的支持，并开发了一套新的低功耗机制。2011年则引入了两个重要机制：实现IPv6路由的 ContikiRPL ，和实现休眠路由的 ContikiMAC 。</p>
+						<p>2012年， <a href="http://thingsquare.com/">Thingsquare</a> 成立，将 Contiki 带入了云计算。</p>
+					</div>
+					<div class="span8">
+						<h2>Contiki 开发者</h2>
+						<p>Contiki 是由一大波开发者共同开发，在这里罗列出来以铭记他们和他们的贡献（以某种半随机顺序）。由于贡献者太多，这里非常可能不小心遗漏了谁，如果你发现自己属于这种情况，请<a href="{{ site.url }}/contact/">联系我们</a>！</p>
+						<p>Adam Dunkels 开发了 Contiki 的基础与大部分核心功能，如内核、多数库、uIP栈和Rime栈等。 Giovanni Pellerano 进行了pic32的移植。 Oliver Schmidt 将 Contiki 移植到了 Microsoft Windows 和 Apple II ，并参与了 protothreads 的开发。 Niclas Finne 负责Z1和Wismot的移植，还开发了一部分 MSPsim 模拟器。 Joakim Eriksson 编写了 MSPsim 和 ContikiRPL 。 Fredrik Österlind 编写了网络模拟器 Cooja 和回归测试框架。 Nicolas Tsiftes 开发了 Coffee 文件系统、 ContikiRPL 和 Antelope 数据库。 Julien Abeillé 和 Mathilde Durvy 共同编写了 IPv6 栈和 6lowpan 适配层。 Mariano Alvira 移植了 econotag 。 David Kopf 在 Raven 移植上做了许多工作。 Matthias Kovatsch 为 Contiki 编写了 CoAP 客户端与服务端库 Erbium 。 Simon Duquennoy 在流传输方面对 ContikiMAC 进行了优化。 Simon Barner 最先进行 AVR 移植， Simon Berg 做了 AT91SAM7s 的移植， Colin O'Flynn 实现了 AVR Raven 的移植和具有 IPv6 网络桥接功能的 USB stick 。 Eric Gnoske ， Michael Vidales ，和 Blake Leverett 也进行了 AVR Raven 的移植， Ivan Delamer 则参与了AVR移植。 Anthony Asterisk 移植了 8051 。 Zach Shelby 进行了 Sensinode 移植的初始工作， George Oikonomou 则开发了 CC2530 的移植。Salvatore Pitrulli 移植了 STM32w 。
+						Dogan Yazar 为 Contiki 开发了一个 REST 风格的 HTTP/CoAP 层。 Enric M. Calvo 和 Antonio Lignan 实现了 Z1 的移植。 Björn Grönvall 实现了最初的 Tmote Sky 移植。 Kasun 移植了 MiacZ 。 Matthias Bergvall 编写了 CTK-over-Telnet GUI界面。 Groepaz 实现了 NES 和  PCEngine 的初步移植。 Takahide Matsutsuka 移植了 PC-6001 。 Lawrence Chitty 移植了 Sharp Wizard 。 Fabio Fumi 将 Contiki 移植到了 Casio PocketViewer 。 Matthias Domin 移植了 Atari Jaguar 。 Christian Groessler 移植了 Atari 8位机。 Anders Carlsson 移植了 VIC-20 。 James Dessart 把 Contiki 移植到了 CoCo Color 计算机。 Chris Morse 完成 Apple II 移植的初始工作。 Mikael Backlund 设计了 Contiki 早期版本的图标。</p>
+					</div>
 				</div>
 			</section>
 			<section>
 				<header class="page-header">
 					<h1>Contiki 代码样式</h1>
+					<p>贡献到 Contiki 的代码都必须遵循 Contiki 代码样式</p>
 				</header>
 				<div class="row">
 					<div class="span3">
