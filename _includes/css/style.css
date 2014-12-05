@@ -1,6 +1,8 @@
 body {
 	background-image: url("../img/blizzard.png");
 }
+h1 { font-size: 36px; }
+h2 { font-size: 30px; }
 #ft {
 	text-align: center;
 	border-top: 1px solid #E5E5E5;
