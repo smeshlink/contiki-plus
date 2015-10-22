@@ -12,14 +12,14 @@ permalink: /download/
 			<div class="row">
 				<div class="span4">
 					<h2>下载 Instant Contiki</h2>
-					<p>Instant Contiki 是一个 Contiki 开发环境，包含了 Contiki 开发中需要的所有工具和编译器。</p>
+					<p>Instant Contiki 是一个 Contiki 开发环境虚拟机，包含了 Contiki 开发中需要的所有工具和编译器。</p>
 					<p><a href="http://sourceforge.net/projects/contiki/files/Instant%20Contiki/">Sourceforge »</a></p>
 					<p><a href="http://pan.baidu.com/s/1hqoRY7M#dir/path=%2FInstant%20Contiki">百度云共享 »</a></p>
 				</div>
 				<div class="span4">
 					<h2>源码</h2>
 					<p>Contiki 发行版的完整代码可以在这里下载：</p>
-					<p><a href="http://sourceforge.net/projects/contiki/files/Contiki/">Sourceforge »</a></p>
+					<p><a href="https://github.com/contiki-os/contiki/releases">Sourceforge »</a></p>
 					<p><a href="http://pan.baidu.com/s/1hqoRY7M#dir/path=%2FContiki">百度云共享 »</a></p>
 				</div>
 				<div class="span4">
@@ -31,9 +31,37 @@ permalink: /download/
 			</div>
 			<section>
 				<header class="page-header">
-					<h1>Contiki 更新日志</h1>
+					<h1>Contiki 发行日志</h1>
 				</header>
 				<div class="accordion" id="accordion">
+          <div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#v30">Contiki 3.0 更新日志 （2015年8月25日）</a>
+						</div>
+						<div id="v30" class="accordion-body collapse in">
+							<div class="accordion-inner">
+              <ul>
+                <li>IP64: NAT64, DNS64</li>
+                <li>HTTP socket</li>
+                <li>CoAP updates</li>
+                <li>MQTT</li>
+                <li>TCP and UDP socket</li>
+                <li>IPv6 mesh multicast</li>
+                <li>IPv6 stack improvements, cleanup</li>
+                <li>RPL mesh routing improvements</li>
+                <li>Link-layer security</li>
+                <li>new radio API</li>
+                <li>enc28j60 ethernet driver</li>
+                <li>Cooja improvements</li>
+                <li>MSPsim improvements</li>
+                <li>New regression tests</li>
+                <li>New platforms: sensortag/cc26xx, zolertia</li>
+                <li>Restructuring of code into a more modular format</li>
+                <li>Cleanup of old unused platforms</li>
+              </ul>
+							</div>
+						</div>
+					</div>
 					<div class="accordion-group">
 						<div class="accordion-heading">
 							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#v27">Contiki 2.7 更新日志 （2013年11月15日）</a>
